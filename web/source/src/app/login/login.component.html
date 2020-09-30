@@ -3,18 +3,15 @@
 
             <h1>Login</h1>
 
-            <input type="email" placeholder="Enter email" formControlName = "loginEmail">
-            <span class="error" *ngIf = "f.loginEmail?.errors?.required">
-                Email is required
-            </span>
-            <span class="error" *ngIf = "f.loginEmail?.errors?.email">
-                Email has wrong format
-            </span>
+            <section class="inputField">
+                <input type="email" placeholder="Enter email" formControlName = "loginEmail">
+                <app-form-error *ngIf = "f.loginEmail.dirty" class="error" [errors] = "f.loginEmail?.errors"></app-form-error>
+            </section>
 
-            <input type="password" placeholder="Enter password" formControlName = "loginPassword">
-            <span class="error" *ngIf = "f.loginPassword.errors?.required">
-                Password is required
-            </span>
+            <section class="inputField">
+                <input type="password" placeholder="Enter password" formControlName = "loginPassword">
+                <app-form-error *ngIf = "f.loginPassword.dirty" class="error" [errors] = "f.loginPassword?.errors"></app-form-error>
+            </section>
 
             <input type="submit" value="Login">
 

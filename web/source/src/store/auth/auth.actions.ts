@@ -1,7 +1,7 @@
 export class UserAuth {
     name: string | null;
-    // name: string;
     token: string | null;
+    role: string | null;
 }
 
 export class Login {

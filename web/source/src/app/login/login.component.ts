@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
   constructor(private store: Store, private formBuilder: FormBuilder, private router: Router) { }
 
   loginForm = new FormGroup({
-    loginEmail: new FormControl('', [Validators.email, Validators.required]),
+    loginEmail: new FormControl('', [Validators.email, Validators.required, Validators.minLength(3)]),
     loginPassword: new FormControl('', [Validators.required])
   });
 
@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit {
 
   submitLoginForm(){
     console.log(`submitLoginForm function works`);
+    this.validateFormFields(this.loginForm);
     if (!this.loginForm.invalid){
         this.store.dispatch(new Login(
           this.f.loginEmail.value,
@@ -35,6 +36,15 @@ export class LoginComponent implements OnInit {
           }
         });
     }
+  }
+
+  validateFormFields(formGroup: FormGroup){
+    Object.keys(formGroup.controls).forEach(field => {
+      const control = formGroup.get(field);
+      if (control instanceof FormControl){
+          control.markAsDirty({ onlySelf: true});
+      }
+    });
   }
 
 }

@@ -1,29 +1,26 @@
 <section class="wrap">
     <form class="registerForm" [formGroup] = "registerForm" (ngSubmit) = "registerUser()">
             <h1>Registration</h1>
-            <input type="text" placeholder="Enter name" formControlName = "regName">
-            <span class="error" *ngIf = "f.regName?.errors?.required">
-                Name is required
-            </span>
 
-            <input type="email" placeholder="Enter email" formControlName = "regEmail">
-            <span class="error" *ngIf = "f.regEmail?.errors?.required">
-                Email is required
-            </span>
+            <section class="inputField">
+                <input type="text" placeholder="Enter name" formControlName = "regName">
+                <app-form-error *ngIf = "f.regName.dirty " class="error" [errors] = "f.regName?.errors"></app-form-error>
+            </section>
 
-            <span class="error" *ngIf = "f.regEmail?.errors?.email">
-                Email has wrong format
-            </span>
+            <section class="inputField">
+                <input type="email" placeholder="Enter email" formControlName = "regEmail">
+                <app-form-error *ngIf = "f.regEmail.dirty " class="error" [errors] = "f.regEmail?.errors"></app-form-error>
+            </section>
+    
+            <section class="inputField">
+                <input type="password" placeholder="Enter password" formControlName = "regPassword">
+                <app-form-error *ngIf = "f.regPassword.dirty " class="error" [errors] = "f.regPassword?.errors"></app-form-error>
+            </section>
 
-            <input type="password" placeholder="Enter password" formControlName = "regPassword">
-            <span class="error" *ngIf = "f.regPassword?.errors?.required">
-                Password is required
-            </span>
-
-            <input type="password" placeholder="Enter password again" formControlName = "regPasswordRepeat">
-            <span class="error" *ngIf = "f.regPasswordRepeat?.errors?.required">
-                Password is required
-            </span>
+            <section class="inputField">
+                <input type="password" placeholder="Enter password again" formControlName = "regPasswordRepeat">
+                <app-form-error *ngIf = "f.regPasswordRepeat.dirty " class="error" [errors] = "f.regPasswordRepeat?.errors"></app-form-error>
+            </section>
 
             <input type="submit" value="Submit">
     </form>

@@ -18,6 +18,11 @@
     padding: 40px;
 }
 
+.loginForm .inputField {
+    width:100%;
+    margin:20px;
+}
+
 .loginForm h1 {
     color:white;
 }
@@ -27,7 +32,6 @@
     width: 100%;
     padding: 12px;
     box-sizing: border-box;
-    margin:20px;
     transition: all 0.3s ease-in-out;
     border: 1px solid transparent; 
     border-radius: 2px;
@@ -42,6 +46,8 @@
     cursor: pointer;
     outline: none;
     border: none;
+    margin:20px;
+    margin-bottom:none;
     background-color: white;
     transition: all .1s ease-in-out;
 }
@@ -54,7 +60,6 @@
 
 .loginForm p{
     color:white;
-    margin:20px;
 }
 
 .loginForm p a {

@@ -30,6 +30,7 @@ export class RegistrationComponent implements OnInit {
 
   registerUser(){
     console.log(`registerUser function works`);
+    this.validateFormFields(this.registerForm);
     if (!this.registerForm.invalid){
       this.userService.register(
         this.f.regName.value,
@@ -38,4 +39,14 @@ export class RegistrationComponent implements OnInit {
       ).subscribe(() => this.router.navigate(['/login']));
     }
   }
+
+  validateFormFields(formGroup: FormGroup){
+    Object.keys(formGroup.controls).forEach(field => {
+      const control = formGroup.get(field);
+      if (control instanceof FormControl){
+          control.markAsDirty({ onlySelf: true});
+      }
+    });
+  }
+
 }

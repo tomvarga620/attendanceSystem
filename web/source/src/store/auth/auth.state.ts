@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Action, Selector, State, StateContext } from '@ngxs/store';
+import { Action, Select, Selector, State, StateContext } from '@ngxs/store';
 import { tap } from 'rxjs/operators';
 import { UserService } from '../../services/user.service';
 import { Login, Logout, UserAuth } from './auth.actions';
@@ -9,7 +9,8 @@ import { Login, Logout, UserAuth } from './auth.actions';
     name: 'userAuth',
     defaults: {
         token: null,
-        name: null
+        name: null,
+        role: null
     }
 })
 @Injectable()
@@ -25,6 +26,11 @@ export class AuthState {
         return state.token;
     }
 
+    @Selector()
+    static isAdmin(current: UserAuth): boolean {
+        return !!current.role;
+    }
+
     constructor(private userService: UserService){}
 
     @Action(Login)
@@ -33,7 +39,8 @@ export class AuthState {
              tap( result => {
                  ctx.setState({
                     name: result.name,
-                    token: result.token
+                    token: result.token,
+                    role: result.role
                  });
              })
         );
@@ -46,7 +53,8 @@ export class AuthState {
             tap( () => {
                 ctx.setState({
                     token: null,
-                    name: null
+                    name: null,
+                    role: null
                 });
             })
         );

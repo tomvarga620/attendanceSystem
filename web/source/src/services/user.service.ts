@@ -8,6 +8,7 @@ const API_URL = `http://localhost:8080/`;
 export class LoginResult{
   name: string;
   token: string;
+  role: string;
 }
 
 @Injectable({
@@ -47,7 +48,7 @@ export class UserService {
     console.log(JSON.stringify(error));
     if (error instanceof HttpErrorResponse){
         console.log(error.status);
-        return EMPTY
+        return EMPTY;
     } else {
       throwError(error);
     }
