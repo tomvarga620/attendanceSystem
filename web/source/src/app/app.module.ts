@@ -9,11 +9,9 @@ import { MaterialModule } from 'src/material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
-import { NgxsModule } from '@ngxs/store';
-import { environment } from 'src/environments/environment';
 import { AuthState } from 'src/store/auth/auth.state';
-import { NgxsStoragePluginModule } from '@ngxs/storage-plugin/src/storage.module';
 import { HttpClientModule } from '@angular/common/http';
+import { AppNgxsModule } from './app-ngxs/app-ngxs.module';
 
 const states = [AuthState];
 
@@ -31,12 +29,7 @@ const states = [AuthState];
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    NgxsModule.forRoot([], {
-      developmentMode: !environment.production
-    }),
-/*     NgxsStoragePluginModule.forRoot({
-      key: 'userAuth.token'
-    }), */
+    AppNgxsModule,
     AppRoutingModule
   ],
   providers: [],
