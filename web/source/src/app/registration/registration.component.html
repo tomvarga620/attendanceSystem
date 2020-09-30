@@ -1,0 +1,30 @@
+<section class="wrap">
+    <form class="registerForm" [formGroup] = "registerForm" (ngSubmit) = "registerUser()">
+            <h1>Registration</h1>
+            <input type="text" placeholder="Enter name" formControlName = "regName">
+            <span class="error" *ngIf = "f.regName?.errors?.required">
+                Name is required
+            </span>
+
+            <input type="email" placeholder="Enter email" formControlName = "regEmail">
+            <span class="error" *ngIf = "f.regEmail?.errors?.required">
+                Email is required
+            </span>
+
+            <span class="error" *ngIf = "f.regEmail?.errors?.email">
+                Email has wrong format
+            </span>
+
+            <input type="password" placeholder="Enter password" formControlName = "regPassword">
+            <span class="error" *ngIf = "f.regPassword?.errors?.required">
+                Password is required
+            </span>
+
+            <input type="password" placeholder="Enter password again" formControlName = "regPasswordRepeat">
+            <span class="error" *ngIf = "f.regPasswordRepeat?.errors?.required">
+                Password is required
+            </span>
+
+            <input type="submit" value="Submit">
+    </form>
+</section>

@@ -1,0 +1,9 @@
+<mat-sidenav-container>
+    <mat-sidenav #sideNav mode="side">
+        <mat-icon (click) = "sideNav.close()">close</mat-icon>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <app-topbar [inputSideNav]="sideNav"></app-topbar>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>

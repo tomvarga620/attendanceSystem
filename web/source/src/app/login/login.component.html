@@ -1,0 +1,23 @@
+<section class="wrap">
+    <form class="loginForm" [formGroup] = "loginForm" (ngSubmit) = "submitLoginForm()">
+
+            <h1>Login</h1>
+
+            <input type="email" placeholder="Enter email" formControlName = "loginEmail">
+            <span class="error" *ngIf = "f.loginEmail?.errors?.required">
+                Email is required
+            </span>
+            <span class="error" *ngIf = "f.loginEmail?.errors?.email">
+                Email has wrong format
+            </span>
+
+            <input type="password" placeholder="Enter password" formControlName = "loginPassword">
+            <span class="error" *ngIf = "f.loginPassword.errors?.required">
+                Password is required
+            </span>
+
+            <input type="submit" value="Login">
+
+            <p>Don't have account? <a routerLink="/registration" routerLinkActive = "true">Sign up here.</a></p>
+    </form>
+</section>
