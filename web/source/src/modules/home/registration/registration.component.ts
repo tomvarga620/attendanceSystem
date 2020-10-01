@@ -36,7 +36,7 @@ export class RegistrationComponent implements OnInit {
         this.f.regName.value,
         this.f.regEmail.value,
         this.f.regPassword.value
-      ).subscribe(() => this.router.navigate(['/login']));
+      ).subscribe( () => this.router.navigate(['/']));
     }
   }
 

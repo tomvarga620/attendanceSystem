@@ -29,9 +29,9 @@ export class UserService {
   }
 
   register( _name: string, _email: string, _password: string ): Observable<void> {
-    return this.httpClient.post<void>(`${API_URL}register`, {
-      name: _name,
+    return this.httpClient.post<void>(`${API_URL}registration`, {
       email: _email,
+      name: _name,
       password: _password
     }).pipe(
       catchError(err =>
