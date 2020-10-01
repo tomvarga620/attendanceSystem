@@ -11,7 +11,7 @@ import { AuthState } from 'src/store/auth/auth.state';
 import { HttpClientModule } from '@angular/common/http';
 import { AppNgxsModule } from './app-ngxs/app-ngxs.module';
 import { MaterialModule } from 'src/modules/material/material.module';
-import { FormsvalidationModule } from 'src/modules/formsvalidation/formsvalidation.module';
+import { FormsValidationModule } from 'src/modules/formsvalidation/formsvalidation.module';
 
 const states = [AuthState];
 
@@ -23,7 +23,7 @@ const states = [AuthState];
   ],
   imports: [
     FormsModule,
-    FormsvalidationModule,
+    FormsValidationModule,
     MaterialModule,
     BrowserModule,
     ReactiveFormsModule,

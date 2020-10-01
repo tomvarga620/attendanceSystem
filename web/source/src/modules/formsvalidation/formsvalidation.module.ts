@@ -11,4 +11,4 @@ import { FormErrorComponent } from './form-error/form-error.component';
     CommonModule
   ]
 })
-export class FormsvalidationModule { }
+export class FormsValidationModule { }
