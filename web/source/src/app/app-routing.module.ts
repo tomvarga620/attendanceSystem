@@ -9,7 +9,7 @@ const routes: Routes = [
   {path: '', loadChildren: () => import('../modules/home/home.module').then(module => module.HomeModule), canActivate: [AuthUserGuard]}
   // ,{path: '**', }
   , {path: 'login', component: LoginComponent},
-   {path: 'registration', component: RegistrationComponent, canActivate: [ /*AuthUserGuard, AuthAdminGuard*/]}
+   {path: 'registration', component: RegistrationComponent, canActivate: [ AuthUserGuard, AuthAdminGuard]}
 ];
 
 @NgModule({

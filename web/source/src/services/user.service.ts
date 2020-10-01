@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { EMPTY, Observable, of, throwError } from 'rxjs';
 import { catchError, mapTo, tap } from 'rxjs/operators';
 
-const API_URL = `http://localhost:8080/`;
+const API_URL = `http://localhost:3000/`;
 
 export class LoginResult{
   name: string;
@@ -18,9 +18,9 @@ export class UserService {
 
   constructor(private httpClient: HttpClient) { }
 
-  login( _email: string, _password: string): Observable<LoginResult> {
+  login( _name: string, _password: string): Observable<LoginResult> {
     return this.httpClient.post<LoginResult>(`${API_URL}login`, {
-        email: _email,
+        name: _name,
         password: _password
     }).pipe(
       catchError(err =>
@@ -40,7 +40,7 @@ export class UserService {
   }
 
   logout( _token: string ): Observable<void> {
-    return this.httpClient.get(`${API_URL}logout/${_token}`)
+    return this.httpClient.get(`${API_URL}logout/?token=${_token}`)
     .pipe(mapTo(null));
   }
 

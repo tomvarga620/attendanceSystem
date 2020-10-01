@@ -9,7 +9,7 @@ const states = [AuthState];
   imports: [
     NgxsModule.forRoot(states),
     NgxsStoragePluginModule.forRoot({
-      key: ['userAuth.token', 'userAuth.role']
+      key: ['userAuth.name', 'userAuth.token', 'userAuth.role']
     })
   ]
 })

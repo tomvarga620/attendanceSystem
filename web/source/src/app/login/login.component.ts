@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
   constructor(private store: Store, private formBuilder: FormBuilder, private router: Router) { }
 
   loginForm = new FormGroup({
-    loginEmail: new FormControl('', [Validators.email, Validators.required, Validators.minLength(3)]),
+    loginName: new FormControl('', [Validators.required, Validators.minLength(3)]),
     loginPassword: new FormControl('', [Validators.required])
   });
 
@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
     this.validateFormFields(this.loginForm);
     if (!this.loginForm.invalid){
         this.store.dispatch(new Login(
-          this.f.loginEmail.value,
+          this.f.loginName.value,
           this.f.loginPassword.value
         )).subscribe( () => {
           if (this.store.selectSnapshot(AuthState.token)){

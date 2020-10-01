@@ -15,27 +15,29 @@ import { Observable } from 'rxjs';
 export class TopbarComponent implements OnInit {
   @Input() inputSideNav: MatSidenav;
 
-  isLogged$: boolean;
-  isAdmin$: boolean;
+  isLogged: boolean;
+  isAdmin: boolean;
 
   // da sa aj takto
-  // @Select(UserAuth) isAdmin$: Observable<boolean>;
+  @Select(AuthState.isAdmin) isAdmin$: Observable<boolean>;
 
   constructor(private store: Store, private router: Router) {}
 
   ngOnInit() {
     this.store.select(state => !!state.userAuth.token).subscribe( (value) => {
-      this.isLogged$ = value;
+      this.isLogged = value;
     });
 
-    this.store.select(state => !!state.userAuth.role).subscribe( (value) => {
-      this.isAdmin$ = value;
+    this.isAdmin$.subscribe( (value) => {
+        this.isAdmin = value;
     });
+
   }
 
   logoutUser(){
     this.store.dispatch(new Logout()).subscribe( () => {
-      this.router.navigate(['/']);
+      this.isLogged = false;
+      this.router.navigate(['/login']);
     });
   }
 }

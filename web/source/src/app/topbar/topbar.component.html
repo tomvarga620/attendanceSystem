@@ -6,9 +6,9 @@
             </mat-icon>
         </li>
         <section class="rightMenuItemsHolder">
-            <a routerLink = '/login' routerLinkActive = 'active' *ngIf = "!isLogged$"><li>Login</li></a>
-            <a routerLink = '/registration' routerLinkActive = 'active' *ngIf = "isAdmin$"><li>Register</li></a>
-            <a (click) = "logoutUser()" *ngIf = "isLogged$"><li>Logout</li></a>
+            <a routerLink = '/login' routerLinkActive = 'active' *ngIf = "!isLogged"><li>Login</li></a>
+            <a routerLink = '/registration' routerLinkActive = 'active' *ngIf = "isAdmin"><li>Register</li></a>
+            <a (click) = "logoutUser()" *ngIf = "isLogged"><li>Logout</li></a>
         </section>
     </ul>
 </nav>

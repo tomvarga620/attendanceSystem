@@ -28,7 +28,7 @@ export class AuthState {
 
     @Selector()
     static isAdmin(current: UserAuth): boolean {
-        return !!current.role;
+        return current.role === `admin` ? true : false;
     }
 
     constructor(private userService: UserService){}

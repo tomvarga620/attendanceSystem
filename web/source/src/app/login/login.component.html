@@ -4,8 +4,8 @@
             <h1>Login</h1>
 
             <section class="inputField">
-                <input type="email" placeholder="Enter email" formControlName = "loginEmail">
-                <app-form-error *ngIf = "f.loginEmail.dirty" class="error" [errors] = "f.loginEmail?.errors"></app-form-error>
+                <input type="text" placeholder="Enter name" formControlName = "loginName">
+                <app-form-error *ngIf = "f.loginName.dirty" class="error" [errors] = "f.loginName?.errors"></app-form-error>
             </section>
 
             <section class="inputField">
