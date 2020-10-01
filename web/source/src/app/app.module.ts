@@ -7,12 +7,11 @@ import { TopbarComponent } from './topbar/topbar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
-import { RegistrationComponent } from './registration/registration.component';
 import { AuthState } from 'src/store/auth/auth.state';
 import { HttpClientModule } from '@angular/common/http';
 import { AppNgxsModule } from './app-ngxs/app-ngxs.module';
 import { MaterialModule } from 'src/modules/material/material.module';
-import { FormErrorComponent } from './form-error/form-error.component';
+import { FormsvalidationModule } from 'src/modules/formsvalidation/formsvalidation.module';
 
 const states = [AuthState];
 
@@ -21,11 +20,10 @@ const states = [AuthState];
     AppComponent,
     TopbarComponent,
     LoginComponent,
-    RegistrationComponent,
-    FormErrorComponent
   ],
   imports: [
     FormsModule,
+    FormsvalidationModule,
     MaterialModule,
     BrowserModule,
     ReactiveFormsModule,
