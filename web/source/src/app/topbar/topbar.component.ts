@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { Select, Store } from '@ngxs/store';
 import { Logout } from 'src/store/auth/auth.actions';
 import { AuthState } from 'src/store/auth/auth.state';
-import { UserAuth } from '../../store/auth/auth.actions';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -18,7 +17,6 @@ export class TopbarComponent implements OnInit {
   isLogged: boolean;
   isAdmin: boolean;
 
-  // da sa aj takto
   @Select(AuthState.isAdmin) isAdmin$: Observable<boolean>;
 
   constructor(private store: Store, private router: Router) {}
@@ -31,12 +29,10 @@ export class TopbarComponent implements OnInit {
     this.isAdmin$.subscribe( (value) => {
         this.isAdmin = value;
     });
-
   }
 
   logoutUser(){
     this.store.dispatch(new Logout()).subscribe( () => {
-      this.isLogged = false;
       this.router.navigate(['/login']);
     });
   }
