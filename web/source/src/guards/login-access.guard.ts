@@ -16,9 +16,10 @@ export class LoginAccessGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
     if (this.store.selectSnapshot(AuthState.isAuthenticated)) {
-      this.router.navigate(['/']);
+      console.log(false);
       return false;
     } else {
+      console.log(true);
       return true;
     }
   }

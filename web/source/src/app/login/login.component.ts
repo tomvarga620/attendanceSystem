@@ -31,9 +31,8 @@ export class LoginComponent implements OnInit {
           this.f.loginName.value,
           this.f.loginPassword.value
         )).subscribe( () => {
-          if (this.store.selectSnapshot(AuthState.token)){
-            this.router.navigate(['/']);
-          }
+          const userRole = this.store.selectSnapshot(AuthState.userRole);
+          this.navigateToRouteByRole(userRole);
         });
     }
   }
@@ -45,6 +44,19 @@ export class LoginComponent implements OnInit {
           control.markAsDirty({ onlySelf: true});
       }
     });
+  }
+
+  navigateToRouteByRole(userRole: string){
+    switch (userRole){
+      case 'ADMIN': {
+        this.router.navigate(['/adminboard']);
+        break;
+     }
+     case 'USER': {
+        this.router.navigate(['/userboard']);
+        break;
+     }
+    }
   }
 
 }

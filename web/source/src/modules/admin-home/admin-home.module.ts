@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { HomeRoutingModule } from './home-routing.module';
 import { TestComponent } from './test/test.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { FormsValidationModule } from '../formsvalidation/formsvalidation.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AdminHomeRoutingModule } from './admin-home-routing.module';
 
 
 @NgModule({
@@ -17,7 +17,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     ReactiveFormsModule,
     CommonModule,
-    HomeRoutingModule
+    AdminHomeRoutingModule
   ]
 })
-export class HomeModule { }
+export class AdminHomeModule { }
