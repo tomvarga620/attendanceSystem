@@ -6,7 +6,6 @@ import { catchError, mapTo, tap } from 'rxjs/operators';
 const API_URL = `http://localhost:3000/`;
 
 export class LoginResult{
-  name: string;
   token: string;
   role: string;
 }
@@ -16,6 +15,8 @@ export class LoginResult{
 })
 export class UserService {
 
+  test: Observable<HttpErrorResponse> = null;
+
   constructor(private httpClient: HttpClient) { }
 
   login( _name: string, _password: string): Observable<LoginResult> {
@@ -23,6 +24,7 @@ export class UserService {
         name: _name,
         password: _password
     }).pipe(
+      tap(() => console.log(`successful login`)),
       catchError(err =>
           this.handleHttpResult(err)
       ));
@@ -34,6 +36,7 @@ export class UserService {
       name: _name,
       password: _password
     }).pipe(
+      tap(() => console.log(`successful registration`)),
       catchError(err =>
           this.handleHttpResult(err)
       ));
@@ -47,7 +50,8 @@ export class UserService {
   handleHttpResult(error) {
     console.log(JSON.stringify(error));
     if (error instanceof HttpErrorResponse){
-        console.log(error.status);
+        this.test = of(error);
+        console.log(`Error Response = ${error.status}`);
         return EMPTY;
     } else {
       throwError(error);

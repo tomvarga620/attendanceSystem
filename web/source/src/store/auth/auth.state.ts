@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Action, Select, Selector, State, StateContext } from '@ngxs/store';
-import { tap } from 'rxjs/operators';
-import { UserService } from '../../services/user.service';
+import { Observable } from 'rxjs';
+import { map, mapTo, tap } from 'rxjs/operators';
+import { LoginResult, UserService } from '../../services/user.service';
 import { Login, Logout, UserAuth } from './auth.actions';
 
 
@@ -39,11 +40,11 @@ export class AuthState {
     constructor(private userService: UserService){}
 
     @Action(Login)
-    login(ctx: StateContext<UserAuth>, action: Login){
-        return this.userService.login(action.email, action.password).pipe(
-             tap( result => {
-                 ctx.setState({
-                    name: result.name,
+    login(ctx: StateContext<UserAuth>, action: Login) {
+        return this.userService.login(action.name, action.password).pipe(
+             tap((result: { token: string, role: string }) => {
+                 ctx.patchState({
+                    name: action.name,
                     token: result.token,
                     role: result.role
                  });

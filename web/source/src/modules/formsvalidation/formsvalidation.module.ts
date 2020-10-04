@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormErrorComponent } from './form-error/form-error.component';
+import { FormHttpErrorComponent } from './form-http-error/form-http-error.component';
 
 @NgModule({
-  declarations: [FormErrorComponent],
+  declarations: [FormErrorComponent, FormHttpErrorComponent],
   exports: [
-    FormErrorComponent
+    FormErrorComponent, FormHttpErrorComponent
   ],
   imports: [
     CommonModule

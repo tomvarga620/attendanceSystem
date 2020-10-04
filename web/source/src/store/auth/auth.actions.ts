@@ -6,7 +6,7 @@ export class UserAuth {
 
 export class Login {
     static readonly type = `[Login Main] Login`;
-    constructor(public email: string, public password: string) {}
+    constructor(public name: string, public password: string) {}
 }
 
 export class Logout {

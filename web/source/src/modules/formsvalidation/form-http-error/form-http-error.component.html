@@ -1,0 +1,5 @@
+<section class="httpErrorWrap">
+    <ng-container *ngIf= "httpErrorMessage == 400"> Bad Request </ng-container>
+    <ng-container *ngIf= "httpErrorMessage == 401"> Unauthorized </ng-container>
+    <ng-container *ngIf= "httpErrorMessage == 500"> Server error </ng-container>
+</section>

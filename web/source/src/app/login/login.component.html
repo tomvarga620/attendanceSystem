@@ -2,15 +2,15 @@
     <form class="loginForm" [formGroup] = "loginForm" (ngSubmit) = "submitLoginForm()">
 
             <h1>Login</h1>
+            <!-- <app-form-error *ngIf = "f.loginName.dirty" class="error" [errors] = "f.loginName?.errors"></app-form-error> -->
+            <app-form-http-error *ngIf="httpFormStatus" [httpErrorMessage] = "httpFormStatus"></app-form-http-error>
 
             <section class="inputField">
                 <input type="text" placeholder="Enter name" formControlName = "loginName">
-                <app-form-error *ngIf = "f.loginName.dirty" class="error" [errors] = "f.loginName?.errors"></app-form-error>
             </section>
 
             <section class="inputField">
                 <input type="password" placeholder="Enter password" formControlName = "loginPassword">
-                <app-form-error *ngIf = "f.loginPassword.dirty" class="error" [errors] = "f.loginPassword?.errors"></app-form-error>
             </section>
 
             <input type="submit" value="Login">

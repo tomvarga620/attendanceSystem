@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngxs/store';
+import { LoginResult, UserService } from 'src/services/user.service';
 import { Login } from 'src/store/auth/auth.actions';
 import { AuthState } from 'src/store/auth/auth.state';
 
@@ -12,7 +13,13 @@ import { AuthState } from 'src/store/auth/auth.state';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private store: Store, private formBuilder: FormBuilder, private router: Router) { }
+  httpFormStatus: number = 400;
+
+  constructor(
+    private store: Store,
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private userService: UserService) { }
 
   loginForm = new FormGroup({
     loginName: new FormControl('', [Validators.required, Validators.minLength(3)]),
@@ -21,7 +28,9 @@ export class LoginComponent implements OnInit {
 
   get f() { return this.loginForm.controls; }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+
+  }
 
   submitLoginForm(){
     console.log(`submitLoginForm function works`);
@@ -30,7 +39,7 @@ export class LoginComponent implements OnInit {
         this.store.dispatch(new Login(
           this.f.loginName.value,
           this.f.loginPassword.value
-        )).subscribe( () => {
+        )).subscribe(() => {
           const userRole = this.store.selectSnapshot(AuthState.userRole);
           this.navigateToRouteByRole(userRole);
         });
@@ -58,5 +67,4 @@ export class LoginComponent implements OnInit {
      }
     }
   }
-
 }
