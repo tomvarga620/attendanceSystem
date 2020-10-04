@@ -1,7 +1,10 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngxs/store';
+import { EMPTY, throwError } from 'rxjs';
+import { catchError, mapTo } from 'rxjs/operators';
 import { LoginResult, UserService } from 'src/services/user.service';
 import { Login } from 'src/store/auth/auth.actions';
 import { AuthState } from 'src/store/auth/auth.state';
@@ -13,7 +16,7 @@ import { AuthState } from 'src/store/auth/auth.state';
 })
 export class LoginComponent implements OnInit {
 
-  httpFormStatus: number = 400;
+  httpFormStatus: number;
 
   constructor(
     private store: Store,
@@ -39,7 +42,13 @@ export class LoginComponent implements OnInit {
         this.store.dispatch(new Login(
           this.f.loginName.value,
           this.f.loginPassword.value
-        )).subscribe(() => {
+        ))
+        .pipe(catchError((error: HttpErrorResponse) => {
+          console.log(error.status);
+          this.httpFormStatus = error.status;
+          return EMPTY;
+        }))
+        .subscribe(() => {
           const userRole = this.store.selectSnapshot(AuthState.userRole);
           this.navigateToRouteByRole(userRole);
         });
@@ -67,4 +76,5 @@ export class LoginComponent implements OnInit {
      }
     }
   }
+
 }

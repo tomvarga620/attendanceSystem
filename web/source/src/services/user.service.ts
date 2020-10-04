@@ -15,8 +15,6 @@ export class LoginResult{
 })
 export class UserService {
 
-  test: Observable<HttpErrorResponse> = null;
-
   constructor(private httpClient: HttpClient) { }
 
   login( _name: string, _password: string): Observable<LoginResult> {
@@ -24,10 +22,11 @@ export class UserService {
         name: _name,
         password: _password
     }).pipe(
-      tap(() => console.log(`successful login`)),
+/*       tap(() => console.log(`successful login`)),
       catchError(err =>
           this.handleHttpResult(err)
-      ));
+      ) */
+      );
   }
 
   register( _name: string, _email: string, _password: string ): Observable<void> {
@@ -50,7 +49,6 @@ export class UserService {
   handleHttpResult(error) {
     console.log(JSON.stringify(error));
     if (error instanceof HttpErrorResponse){
-        this.test = of(error);
         console.log(`Error Response = ${error.status}`);
         return EMPTY;
     } else {

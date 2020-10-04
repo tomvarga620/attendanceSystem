@@ -3,7 +3,7 @@
 
             <h1>Login</h1>
             <!-- <app-form-error *ngIf = "f.loginName.dirty" class="error" [errors] = "f.loginName?.errors"></app-form-error> -->
-            <app-form-http-error *ngIf="httpFormStatus" [httpErrorMessage] = "httpFormStatus"></app-form-http-error>
+            <app-form-http-error *ngIf="httpFormStatus || httpFormStatus == 0" [httpErrorMessage] = "httpFormStatus"></app-form-http-error>
 
             <section class="inputField">
                 <input type="text" placeholder="Enter name" formControlName = "loginName">

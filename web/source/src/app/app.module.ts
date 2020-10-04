@@ -9,9 +9,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { AuthState } from 'src/store/auth/auth.state';
 import { HttpClientModule } from '@angular/common/http';
-import { AppNgxsModule } from './app-ngxs/app-ngxs.module';
 import { MaterialModule } from 'src/modules/material/material.module';
 import { FormsValidationModule } from 'src/modules/formsvalidation/formsvalidation.module';
+import { AppNgxsModule } from 'src/modules/app-ngxs/app-ngxs.module';
 
 const states = [AuthState];
 
