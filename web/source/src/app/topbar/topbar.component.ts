@@ -32,7 +32,8 @@ export class TopbarComponent implements OnInit {
   }
 
   logoutUser(){
-    this.store.dispatch(new Logout()).subscribe( () => {
+    this.store.dispatch(new Logout())
+    .subscribe( () => {
       this.router.navigate(['/login']);
     });
   }

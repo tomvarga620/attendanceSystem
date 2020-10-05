@@ -4,7 +4,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { EMPTY, throwError } from 'rxjs';
-import { catchError, mapTo } from 'rxjs/operators';
+import { catchError, mapTo, tap } from 'rxjs/operators';
 import { LoginResult, UserService } from 'src/services/user.service';
 import { Login } from 'src/store/auth/auth.actions';
 import { AuthState } from 'src/store/auth/auth.state';
@@ -20,9 +20,9 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private store: Store,
-    private formBuilder: FormBuilder,
     private router: Router,
-    private userService: UserService) { }
+    private userService: UserService
+  ) { }
 
   loginForm = new FormGroup({
     loginName: new FormControl('', [Validators.required, Validators.minLength(3)]),
@@ -36,18 +36,19 @@ export class LoginComponent implements OnInit {
   }
 
   submitLoginForm(){
-    console.log(`submitLoginForm function works`);
-    this.validateFormFields(this.loginForm);
+    this.invalidateFormFields(this.loginForm);
     if (!this.loginForm.invalid){
         this.store.dispatch(new Login(
           this.f.loginName.value,
           this.f.loginPassword.value
         ))
-        .pipe(catchError((error: HttpErrorResponse) => {
-          console.log(error.status);
-          this.httpFormStatus = error.status;
-          return EMPTY;
-        }))
+        .pipe(
+          tap(() => this.userService.handleHttpSucces(`User ${this.f.loginName.value} was logged`)),
+          catchError((error: HttpErrorResponse) => {
+            this.httpFormStatus = error.status;
+            return EMPTY;
+          })
+        )
         .subscribe(() => {
           const userRole = this.store.selectSnapshot(AuthState.userRole);
           this.navigateToRouteByRole(userRole);
@@ -55,7 +56,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  validateFormFields(formGroup: FormGroup){
+  invalidateFormFields(formGroup: FormGroup){
     Object.keys(formGroup.controls).forEach(field => {
       const control = formGroup.get(field);
       if (control instanceof FormControl){

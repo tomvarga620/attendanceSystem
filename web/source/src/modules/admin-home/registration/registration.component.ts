@@ -3,6 +3,9 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 import { Store } from '@ngxs/store';
 import { UserService } from 'src/services/user.service';
 import { Router } from '@angular/router';
+import { tap, catchError } from 'rxjs/operators';
+import { HttpErrorResponse } from '@angular/common/http';
+import { EMPTY } from 'rxjs';
 
 @Component({
   selector: 'app-registration',
@@ -10,6 +13,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./registration.component.css']
 })
 export class RegistrationComponent implements OnInit {
+
+  httpFormStatus: number;
 
   constructor(
     private store: Store,
@@ -36,7 +41,13 @@ export class RegistrationComponent implements OnInit {
         this.f.regName.value,
         this.f.regEmail.value,
         this.f.regPassword.value
-      ).subscribe( () => this.router.navigate(['/']));
+      ).pipe(
+        tap(() => this.userService.handleHttpSucces(`User ${this.f.regName.value} was registered`)),
+        catchError((error: HttpErrorResponse) => {
+          this.httpFormStatus = error.status;
+          return EMPTY;
+        })
+      ).subscribe( () => this.router.navigate(['/adminboard']));
     }
   }
 
