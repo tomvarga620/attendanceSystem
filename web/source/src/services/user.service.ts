@@ -1,7 +1,10 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Store } from '@ngxs/store';
 import { EMPTY, Observable, of, throwError } from 'rxjs';
 import { catchError, mapTo, tap } from 'rxjs/operators';
+import { UserAuth } from 'src/store/auth/auth.actions';
+import { AuthState } from 'src/store/auth/auth.state';
 import { SnackbarService } from './snackbar.service';
 
 const API_URL = `http://localhost:3000/`;
@@ -16,7 +19,14 @@ export class LoginResult{
 })
 export class UserService {
 
-  constructor(private httpClient: HttpClient, private snackbarService: SnackbarService) { }
+  constructor(
+    private httpClient: HttpClient,
+    private snackbarService: SnackbarService,
+    private store: Store) { }
+
+  get apiUrL(){
+    return API_URL;
+  }
 
   login( _name: string, _password: string): Observable<LoginResult> {
     return this.httpClient.post<LoginResult>(`${API_URL}login`, {
