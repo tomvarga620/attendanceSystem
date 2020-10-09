@@ -35,9 +35,8 @@ export class UserService {
     });
   }
 
-  register( _name: string, _email: string, _password: string ): Observable<void> {
+  register( _name: string, _password: string ): Observable<void> {
     return this.httpClient.post<void>(`${API_URL}registration`, {
-      email: _email,
       name: _name,
       password: _password
     });
@@ -46,7 +45,7 @@ export class UserService {
   logout( _token: string ): Observable<void> {
     return this.httpClient.get(`${API_URL}logout/?token=${_token}`)
     .pipe(
-      tap(() => this.handleHttpSucces(`Logout was successful`)),
+      tap(() => this.handleHttpSuccess(`Logout was successful`)),
       catchError(error => {
         this.handleHttpError(error);
         return of(null);
@@ -65,7 +64,7 @@ export class UserService {
     }
   }
 
-  handleHttpSucces(message: string){
+  handleHttpSuccess(message: string){
     this.snackbarService.successMessage(message);
   }
 

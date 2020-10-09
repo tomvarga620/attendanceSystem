@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
           this.f.loginPassword.value
         ))
         .pipe(
-          tap(() => this.userService.handleHttpSucces(`User ${this.f.loginName.value} was logged`)),
+          tap(() => this.userService.handleHttpSuccess(`User ${this.f.loginName.value} was logged`)),
           catchError((error: HttpErrorResponse) => {
             this.httpFormStatus = error.status;
             return EMPTY;

@@ -7,11 +7,6 @@
                 <input type="text" placeholder="Enter name" formControlName = "regName">
                 <app-form-error *ngIf = "f.regName.dirty " class="error" [errors] = "f.regName?.errors"></app-form-error>
             </section>
-
-            <section class="inputField">
-                <input type="email" placeholder="Enter email" formControlName = "regEmail">
-                <app-form-error *ngIf = "f.regEmail.dirty " class="error" [errors] = "f.regEmail?.errors"></app-form-error>
-            </section>
     
             <section class="inputField">
                 <input type="password" placeholder="Enter password" formControlName = "regPassword">

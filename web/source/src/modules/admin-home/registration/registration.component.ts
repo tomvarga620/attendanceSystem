@@ -24,7 +24,6 @@ export class RegistrationComponent implements OnInit {
 
   registerForm = new FormGroup({
     regName: new FormControl('', [Validators.required]),
-    regEmail: new FormControl('', [Validators.email, Validators.required]),
     regPassword: new FormControl('', [Validators.required]),
     regPasswordRepeat: new FormControl('', Validators.required)
   });
@@ -39,10 +38,9 @@ export class RegistrationComponent implements OnInit {
     if (!this.registerForm.invalid){
       this.userService.register(
         this.f.regName.value,
-        this.f.regEmail.value,
         this.f.regPassword.value
       ).pipe(
-        tap(() => this.userService.handleHttpSucces(`User ${this.f.regName.value} was registered`)),
+        tap(() => this.userService.handleHttpSuccess(`User ${this.f.regName.value} was registered`)),
         catchError((error: HttpErrorResponse) => {
           this.httpFormStatus = error.status;
           return EMPTY;
