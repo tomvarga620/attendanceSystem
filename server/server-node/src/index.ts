@@ -42,7 +42,6 @@ app.use(express.json())
 app.use(cors(options))
 
 let users: User[] = [];
-// const admin: User = {name: `tomik`, password: 'admin', role: `ADMIN`}
 const admin: User = {name: `tomik`, password: '$2b$10$spqbiwkoTD3OUis.zB0oauJOCBAzU5VHX73nnWMPzZnE0uEZCykXu', role: `ADMIN`}
 users.push(admin)
 
