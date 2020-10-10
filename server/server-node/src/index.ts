@@ -2,6 +2,7 @@ import express, { NextFunction } from 'express'
 import jsonwebtoken from 'jsonwebtoken'
 import { env } from 'process'
 import cors from 'cors';
+import bcrypt from 'bcrypt';
 
 declare var process : {
     env: {
@@ -41,31 +42,43 @@ app.use(express.json())
 app.use(cors(options))
 
 let users: User[] = [];
-const admin: User = {name: `tomik`, password: `admin`, role: `ADMIN`}
+// const admin: User = {name: `tomik`, password: 'admin', role: `ADMIN`}
+const admin: User = {name: `tomik`, password: '$2b$10$spqbiwkoTD3OUis.zB0oauJOCBAzU5VHX73nnWMPzZnE0uEZCykXu', role: `ADMIN`}
 users.push(admin)
 
-app.get('/admin', (req,res) => {
+app.get('/allUsers', async (req,res) => {
     res.send(JSON.stringify(users))
 });
 
 app.post(`/login`, async (req,res) => {
-    let userToSend: any = users.find(user => user.name == req.body.name);
-    users.forEach(user => console.log(user))
-    if(userToSend == null){
-        return res.status(400).send();
-    } else {
-        const accessToken = jwt.sign(userToSend.name, process.env.ACCESS_TOKEN_SECRET );
-        return res.json({ token: accessToken, role: userToSend.role}).send();
+    const user: any = users.find(user => user.name == req.body.name);
+    
+    if(user == null){
+        return res.status(400).send(`User not found`);
+    }
+    try {
+        if(await bcrypt.compare(req.body.password, user.password)){
+            const accessToken = jwt.sign(user.name, process.env.ACCESS_TOKEN_SECRET );
+            res.json({ token: accessToken, role: user.role}).status(200).send(`Success`);
+        } else {
+            res.status(401).send(`Not Allowed`);
+        }
+    } catch {
+        res.status(500).send();
     }
 });
 
-app.post(`/registration`,authentication,(req,res) => {
-    const user = {name: req.body.name, password: req.body.password, role: `USER`}
-    if(users.push(user)){
-        users.forEach(user => console.log(user))
+app.post(`/registration`, authentication, async (req,res) => {
+    try{
+        const salt = await bcrypt.genSalt();
+        const hashedPassword = await bcrypt.hash(req.body.password,salt);
+        const user = {name: req.body.name, password: hashedPassword, role: `USER`};
+        console.log(user.name);
+        console.log(hashedPassword)
+        users.push(user);
         res.status(201).send();
-    }else {
-        res.status(400).send();
+    } catch {
+        res.status(500).send();
     }
 });
 
