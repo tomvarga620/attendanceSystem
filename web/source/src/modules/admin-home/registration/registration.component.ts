@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { tap, catchError } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 import { EMPTY } from 'rxjs';
+import { Roles } from 'src/app/entity/Roles';
 
 @Component({
   selector: 'app-registration',
@@ -15,22 +16,26 @@ import { EMPTY } from 'rxjs';
 export class RegistrationComponent implements OnInit {
 
   httpFormStatus: number;
+  roles: string[] = Roles.roleArray();
 
   constructor(
     private store: Store,
     private formBuilder: FormBuilder,
     private userService: UserService,
-    private router: Router) { }
+    private router: Router) {}
 
   registerForm = new FormGroup({
     regName: new FormControl('', [Validators.required]),
+    regSelect: new FormControl('', [Validators.required]),
     regPassword: new FormControl('', [Validators.required]),
     regPasswordRepeat: new FormControl('', Validators.required)
   });
 
   get f() { return this.registerForm.controls; }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.roles.forEach((role) => console.log(role));
+  }
 
   registerUser(){
     console.log(`registerUser function works`);
@@ -38,7 +43,8 @@ export class RegistrationComponent implements OnInit {
     if (!this.registerForm.invalid){
       this.userService.register(
         this.f.regName.value,
-        this.f.regPassword.value
+        this.f.regPassword.value,
+        (this.f.regSelect.value as string).toUpperCase()
       ).pipe(
         tap(() => this.userService.handleHttpSuccess(`User ${this.f.regName.value} was registered`)),
         catchError((error: HttpErrorResponse) => {

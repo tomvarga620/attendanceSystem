@@ -10,7 +10,7 @@ import { Login, Logout, UserAuth } from './auth.actions';
     name: 'userAuth',
     defaults: {
         token: null,
-        name: null,
+        username: null,
         role: null
     }
 })
@@ -41,10 +41,10 @@ export class AuthState {
 
     @Action(Login)
     login(ctx: StateContext<UserAuth>, action: Login) {
-        return this.userService.login(action.name, action.password).pipe(
+        return this.userService.login(action.username, action.password).pipe(
              tap((result: { token: string, role: string }) => {
                  ctx.patchState({
-                    name: action.name,
+                    username: action.username,
                     token: result.token,
                     role: result.role
                  });
@@ -59,7 +59,7 @@ export class AuthState {
             tap( () => {
                 ctx.setState({
                     token: null,
-                    name: null,
+                    username: null,
                     role: null
                 });
             })

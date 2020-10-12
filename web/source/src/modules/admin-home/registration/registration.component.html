@@ -1,11 +1,18 @@
 <section class="wrap">
     <form class="registerForm" [formGroup] = "registerForm" (ngSubmit) = "registerUser()">
-            <h1>Registration</h1>
+            <h1>Register User</h1>
             <app-form-http-error *ngIf="httpFormStatus || httpFormStatus == 0" [httpErrorMessage] = "httpFormStatus"></app-form-http-error>
 
             <section class="inputField">
                 <input type="text" placeholder="Enter name" formControlName = "regName">
                 <app-form-error *ngIf = "f.regName.dirty " class="error" [errors] = "f.regName?.errors"></app-form-error>
+            </section>
+
+            <section class="inputField">
+                <select formControlName = "regSelect">
+                    <option *ngFor="let role of roles; index as i">{{role.toLowerCase()}}</option>
+                </select>
+                <app-form-error *ngIf = "f.regSelect.dirty " class="error" [errors] = "f.regSelect?.errors"></app-form-error>
             </section>
     
             <section class="inputField">

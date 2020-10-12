@@ -28,17 +28,18 @@ export class UserService {
     return API_URL;
   }
 
-  login( _name: string, _password: string): Observable<LoginResult> {
+  login( _username: string, _password: string): Observable<LoginResult> {
     return this.httpClient.post<LoginResult>(`${API_URL}login`, {
-        name: _name,
+        username: _username,
         password: _password
     });
   }
 
-  register( _name: string, _password: string ): Observable<void> {
+  register(_username: string, _password: string , _role): Observable<void> {
     return this.httpClient.post<void>(`${API_URL}registration`, {
-      name: _name,
-      password: _password
+      username: _username,
+      password: _password,
+      role: _role
     });
   }
 

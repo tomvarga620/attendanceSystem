@@ -15,7 +15,7 @@ env.ACCESS_TOKEN_SECRET = `98336a1588f0622fc46d6d7a4975cbf9251e3879af897b13366d4
 env.REFRESH_TOKEN_SECRET = `190666f80f3dfbe9de82c8c9044e20999072268908a446c6181027295042b4144ef9e8291163db5722fb935dd17b3158989de5f84e9d31eec82948660f0194c8`
 
 interface User {
-    name: string,
+    username: string,
     password: string,
     role: string
 }
@@ -42,7 +42,7 @@ app.use(express.json())
 app.use(cors(options))
 
 let users: User[] = [];
-const admin: User = {name: `tomik`, password: '$2b$10$spqbiwkoTD3OUis.zB0oauJOCBAzU5VHX73nnWMPzZnE0uEZCykXu', role: `ADMIN`}
+const admin: User = {username: `tomik`, password: '$2b$10$spqbiwkoTD3OUis.zB0oauJOCBAzU5VHX73nnWMPzZnE0uEZCykXu', role: `ADMIN`}
 users.push(admin)
 
 app.get('/allUsers', async (req,res) => {
@@ -50,14 +50,14 @@ app.get('/allUsers', async (req,res) => {
 });
 
 app.post(`/login`, async (req,res) => {
-    const user: any = users.find(user => user.name == req.body.name);
+    const user: any = users.find(user => user.username == req.body.username);
     
     if(user == null){
         return res.status(400).send(`User not found`);
     }
     try {
         if(await bcrypt.compare(req.body.password, user.password)){
-            const accessToken = jwt.sign(user.name, process.env.ACCESS_TOKEN_SECRET );
+            const accessToken = jwt.sign(user.username, process.env.ACCESS_TOKEN_SECRET );
             res.json({ token: accessToken, role: user.role}).status(200).send(`Success`);
         } else {
             res.status(401).send(`Not Allowed`);
@@ -71,9 +71,10 @@ app.post(`/registration`, authentication, async (req,res) => {
     try{
         const salt = await bcrypt.genSalt();
         const hashedPassword = await bcrypt.hash(req.body.password,salt);
-        const user = {name: req.body.name, password: hashedPassword, role: `USER`};
-        console.log(user.name);
-        console.log(hashedPassword)
+        const user = {username: req.body.username, password: hashedPassword, role: req.body.role};
+        console.log(user.username);
+        console.log(hashedPassword);
+        users.forEach((user) => console.log(user));
         users.push(user);
         res.status(201).send();
     } catch {
