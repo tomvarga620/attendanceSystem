@@ -6,7 +6,8 @@ import { FormHttpErrorComponent } from './form-http-error/form-http-error.compon
 @NgModule({
   declarations: [FormErrorComponent, FormHttpErrorComponent],
   exports: [
-    FormErrorComponent, FormHttpErrorComponent
+    FormErrorComponent,
+    FormHttpErrorComponent
   ],
   imports: [
     CommonModule

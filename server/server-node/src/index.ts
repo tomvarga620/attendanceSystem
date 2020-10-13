@@ -46,7 +46,8 @@ const admin: User = {username: `tomik`, password: '$2b$10$spqbiwkoTD3OUis.zB0oau
 users.push(admin)
 
 app.get('/allUsers', async (req,res) => {
-    res.send(JSON.stringify(users))
+    const usersWithoutAdmin = await users.filter(user => user.role != 'ADMIN');
+    res.send(JSON.stringify(usersWithoutAdmin))
 });
 
 app.post(`/login`, async (req,res) => {
@@ -74,7 +75,6 @@ app.post(`/registration`, authentication, async (req,res) => {
         const user = {username: req.body.username, password: hashedPassword, role: req.body.role};
         console.log(user.username);
         console.log(hashedPassword);
-        users.forEach((user) => console.log(user));
         users.push(user);
         res.status(201).send();
     } catch {

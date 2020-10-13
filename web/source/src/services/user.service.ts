@@ -3,13 +3,14 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { EMPTY, Observable, of, throwError } from 'rxjs';
 import { catchError, mapTo, tap } from 'rxjs/operators';
+import { User } from 'src/app/entity/User';
 import { UserAuth } from 'src/store/auth/auth.actions';
 import { AuthState } from 'src/store/auth/auth.state';
 import { SnackbarService } from './snackbar.service';
 
-const API_URL = `http://localhost:3000/`;
+const API_URL = `http://localhost:3000`;
 
-export class LoginResult{
+export class LoginResult {
   token: string;
   role: string;
 }
@@ -29,14 +30,14 @@ export class UserService {
   }
 
   login( _username: string, _password: string): Observable<LoginResult> {
-    return this.httpClient.post<LoginResult>(`${API_URL}login`, {
+    return this.httpClient.post<LoginResult>(`${API_URL}/login`, {
         username: _username,
         password: _password
     });
   }
 
   register(_username: string, _password: string , _role): Observable<void> {
-    return this.httpClient.post<void>(`${API_URL}registration`, {
+    return this.httpClient.post<void>(`${API_URL}/registration`, {
       username: _username,
       password: _password,
       role: _role
@@ -44,9 +45,19 @@ export class UserService {
   }
 
   logout( _token: string ): Observable<void> {
-    return this.httpClient.get(`${API_URL}logout/?token=${_token}`)
+    return this.httpClient.get(`${API_URL}/logout/?token=${_token}`)
     .pipe(
       tap(() => this.handleHttpSuccess(`Logout was successful`)),
+      catchError(error => {
+        this.handleHttpError(error);
+        return of(null);
+      })
+    );
+  }
+
+  getUsers(): Observable<User[]> {
+    return this.httpClient.get(`${API_URL}/allUsers`)
+    .pipe(
       catchError(error => {
         this.handleHttpError(error);
         return of(null);
@@ -68,5 +79,4 @@ export class UserService {
   handleHttpSuccess(message: string){
     this.snackbarService.successMessage(message);
   }
-
 }
