@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
         )
         .subscribe(() => {
           const userRole = this.store.selectSnapshot(AuthState.userRole);
-          this.navigateToRouteByRole(userRole);
+          this.router.navigate(['/']);
         });
     }
   }
@@ -64,18 +64,4 @@ export class LoginComponent implements OnInit {
       }
     });
   }
-
-  navigateToRouteByRole(userRole: string){
-    switch (userRole){
-      case 'ADMIN': {
-        this.router.navigate(['/adminboard']);
-        break;
-     }
-     case 'USER': {
-        this.router.navigate(['/userboard']);
-        break;
-     }
-    }
-  }
-
 }

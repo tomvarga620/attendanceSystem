@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { LoginAccessGuard } from './login-access.guard';
+import { RedirectGuard } from './redirect-guard.guard';
 
 describe('LoginAccessGuard', () => {
-  let guard: LoginAccessGuard;
+  let guard: RedirectGuard;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    guard = TestBed.inject(LoginAccessGuard);
+    guard = TestBed.inject(RedirectGuard);
   });
 
   it('should be created', () => {

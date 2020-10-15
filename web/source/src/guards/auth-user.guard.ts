@@ -35,5 +35,4 @@ export class AuthUserGuard implements CanActivate, CanLoad {
       this.router.navigate(['/']);
       return false;
   }
-
 }

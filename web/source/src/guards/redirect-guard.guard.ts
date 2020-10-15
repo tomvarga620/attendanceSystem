@@ -7,20 +7,33 @@ import { AuthState } from '../store/auth/auth.state';
 @Injectable({
   providedIn: 'root'
 })
-export class LoginAccessGuard implements CanActivate {
+export class RedirectGuard implements CanActivate {
 
   constructor(private store: Store, private router: Router){}
 
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-
+    const userRole: string = this.store.selectSnapshot(AuthState.userRole);
     if (this.store.selectSnapshot(AuthState.isAuthenticated)) {
-      console.log(false);
+      this.redirectByRole(userRole);
       return false;
     } else {
-      console.log(true);
       return true;
     }
   }
+
+  redirectByRole(userRole: string){
+    switch (userRole){
+      case 'ADMIN': {
+        this.router.navigate([`/adminboard`]);
+        break;
+      }
+      case 'USER': {
+        this.router.navigate([`/userboard`]);
+        break;
+      }
+    }
+  }
+
 }
