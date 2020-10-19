@@ -2,11 +2,15 @@ GET http://localhost:3000/allUsers
 
 ###
 
+GET http://localhost:3000/getAdmin
+
+###
+
 POST http://localhost:3000/login
 Content-Type: application/json
 
 {
-    "name":"tomik",
+    "username":"tomik",
     "password":"admin"
 }
 

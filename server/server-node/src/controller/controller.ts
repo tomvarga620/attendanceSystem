@@ -1,0 +1,1 @@
+// TODO tu urobiť operacie s databazou
