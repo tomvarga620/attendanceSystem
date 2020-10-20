@@ -6,7 +6,6 @@ import { authentication } from "./adminAuthentication";
 import { addAdmin } from './populateUsers';
 import { getUser, saveUser } from '../controller/controller';
 import { UserTemp } from '../entity/UserTemp';
-import { getConnection } from 'typeorm';
 
 const jwt = jsonwebtoken;
 
