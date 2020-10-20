@@ -1,17 +1,31 @@
-import express from 'express
+import express from 'express'
 import dotenv from 'dotenv';
 import { resolve } from 'path';
 import { options } from './config/options';
 import cors from 'cors';
 import router from './routes/routes';
+import "reflect-metadata";
+import { createConnection } from 'typeorm';
+import { UserTemp } from './entity/UserTemp';
 
 dotenv.config({ path: resolve(__dirname, ".env") });
-const app = express()
 
-app.use(express.urlencoded({extended: true})); 
-app.use(express.json());
-app.use(cors(options));
+createConnection().then(async connection => {
 
-app.use('/',router);
+    const app = express()
 
-app.listen(3000); 
+    app.use(express.urlencoded({extended: true})); 
+    app.use(express.json());
+    app.use(cors(options));
+
+    app.use('/',router);
+
+    app.listen(process.env.PORT); 
+
+/*     await connection.manager.save(connection.manager.create(UserTemp, {
+        username: "test",
+        password: "test",
+        role: "test"
+    }));
+ */
+});

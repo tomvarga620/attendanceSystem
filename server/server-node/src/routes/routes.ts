@@ -1,9 +1,12 @@
 import express from 'express'
 import bcrypt from 'bcrypt';
-import { User } from "../model/User";
+import { User } from "../entity/User";
 import jsonwebtoken from 'jsonwebtoken'
 import { authentication } from "./adminAuthentication";
 import { addAdmin } from './populateUsers';
+import { getUser, saveUser } from '../controller/controller';
+import { UserTemp } from '../entity/UserTemp';
+import { getConnection } from 'typeorm';
 
 const jwt = jsonwebtoken;
 
@@ -29,7 +32,12 @@ router.get('/getAdmin', async (req,res) => {
 
 router.post(`/login`, async (req,res) => {
     const user: any = users.find(user => user.username == req.body.username);
-    
+
+    const userTemp = getUser(req.body.username);
+    userTemp.then((value) => {
+        console.log(value);
+    });
+
     if(user == null){
         return res.status(400).send(`User not found`);
     }
@@ -49,11 +57,11 @@ router.post(`/login`, async (req,res) => {
 router.post(`/registration`, authentication, async (req,res) => {
     try{
         const salt = await bcrypt.genSalt();
-        const hashedPassword = await bcrypt.hash(req.body.password,salt);
-        const user = {username: req.body.username, password: hashedPassword, role: req.body.role};
-        console.log(user.username);
-        console.log(hashedPassword);
-        users.push(user);
+        const user = new UserTemp();
+        user.username = req.body.username;
+        user.password = await bcrypt.hash(req.body.password,salt);
+        user.role = req.body.role;
+        saveUser(user)
         res.status(201).send();
     } catch {
         res.status(500).send();
@@ -64,5 +72,16 @@ router.get(`/logout`,authentication,(req,res) => {
     var token = req.params.token;
     res.status(200).send();
 });
+
+// dočasne
+router.post(`/saveAdmin`, async (req,res) => {
+    const salt = await bcrypt.genSalt();
+    const user = new UserTemp();
+    user.username = `tomik`;
+    user.password = await bcrypt.hash(`admin`,salt);
+    user.role = `admin`;
+    saveUser(user)
+    res.status(200).send();
+})
 
 export =  router;
