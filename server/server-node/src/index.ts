@@ -6,7 +6,6 @@ import cors from 'cors';
 import router from './routes/routes';
 import "reflect-metadata";
 import { createConnection } from 'typeorm';
-import { UserTemp } from './entity/UserTemp';
 
 dotenv.config({ path: resolve(__dirname, ".env") });
 

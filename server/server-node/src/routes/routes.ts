@@ -1,11 +1,6 @@
 import express from 'express'
-import bcrypt from 'bcrypt';
-import jsonwebtoken from 'jsonwebtoken'
 import { authentication } from "./adminAuthentication";
-import { getAdmin, getAllUsers, loginUser, logoutUser, registerUser } from '../controller/user_controller';
-import { UserTemp } from '../entity/UserTemp';
-
-const jwt = jsonwebtoken;
+import { getAdmin, getAllUsers, insertAdmin, loginUser, logoutUser, registerUser } from '../controller/user_controller';
 
 /* let users: User[] = [];
 const admin: User = {
@@ -13,18 +8,19 @@ const admin: User = {
     password: '$2b$10$spqbiwkoTD3OUis.zB0oauJOCBAzU5VHX73nnWMPzZnE0uEZCykXu', 
     role: `ADMIN`
 }
-
 addAdmin(users,admin); */
 
 const router = express.Router();
 
 router.post('/login',loginUser);
 
-router.post(`/registration`, authentication, registerUser);
+router.post('/registration', authentication, registerUser);
 
 router.get('/allUsers',authentication,getAllUsers);
 
-router.get(`/logout`,authentication, logoutUser);
+router.get('/logout',authentication, logoutUser);
+
+router.post('/saveAdmin',insertAdmin);
 
 router.get('/getAdmin', getAdmin);
 
