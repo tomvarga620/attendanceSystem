@@ -30,3 +30,13 @@ Content-Type: application/json
 
 ###
 GET http://localhost:3000/logout
+
+
+###
+
+POST http://localhost:3000/userInfo
+Content-Type: application/json
+
+{
+    "username":"tomik"
+}

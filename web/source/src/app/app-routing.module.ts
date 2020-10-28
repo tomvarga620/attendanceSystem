@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthUserGuard } from 'src/guards/auth-user.guard';
 import { RedirectGuard } from 'src/guards/redirect-guard.guard';
 import { RegistrationComponent } from 'src/modules/admin-home/registration/registration.component';
+import { DefaultHomeComponent } from './default-home/default-home.component';
 import { Roles } from './entity/Roles';
 import { LoginComponent } from './login/login.component';
 
@@ -14,13 +15,17 @@ const routes: Routes = [
   {path: 'userboard', loadChildren: () => import('../modules/base-user-home/base-user-home.module')
   .then(module => module.BaseUserHomeModule), canActivate: [AuthUserGuard], data: {role: Roles.USER}},
 
+  {path: 'superboard', loadChildren: () => import('../modules/supervisor-home/supervisor-home.module')
+  .then(module => module.SupervisorHomeModule), canActivate: [AuthUserGuard], data: {role: Roles.SUPERVISOR}},
+
   {path: 'login', component: LoginComponent, canLoad: [RedirectGuard] , canActivate: [RedirectGuard]},
 
   {path: 'registration', component: RegistrationComponent, canActivate: [AuthUserGuard], data: {role: Roles.ADMIN}},
 
-  {path: '', component: LoginComponent , canActivate: [RedirectGuard]},
+  {path: '', component: DefaultHomeComponent , canActivate: [RedirectGuard]},
 
-  {path: '**', redirectTo: 'login'}
+  {path: '**', redirectTo: ''}
+
 ];
 
 @NgModule({

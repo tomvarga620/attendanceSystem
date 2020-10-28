@@ -12,6 +12,7 @@ import { MaterialModule } from 'src/modules/material/material.module';
 import { FormsValidationModule } from 'src/modules/formsvalidation/formsvalidation.module';
 import { AppNgxsModule } from 'src/modules/app-ngxs/app-ngxs.module';
 import { JwtInterceptor } from './interceptor/jwt-interceptor.interceptor';
+import { DefaultHomeComponent } from './default-home/default-home.component';
 
 const states = [AuthState];
 
@@ -20,6 +21,7 @@ const states = [AuthState];
     AppComponent,
     TopbarComponent,
     LoginComponent,
+    DefaultHomeComponent,
   ],
   imports: [
     FormsModule,

@@ -3,4 +3,5 @@
     <ng-container *ngIf= "httpErrorMessage == 401"> Wrong username or password </ng-container>
     <ng-container *ngIf= "httpErrorMessage == 500"> Server error </ng-container>
     <ng-container *ngIf= "httpErrorMessage == 0"> Server offline </ng-container>
+    <ng-container *ngIf= "httpErrorMessage == 409">User with this username already exist </ng-container>
 </section>

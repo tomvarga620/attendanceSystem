@@ -1,9 +1,17 @@
 <mat-sidenav-container>
     <mat-sidenav #sideNav mode="side">
         <mat-icon (click) = "sideNav.close()">close</mat-icon>
+        <br>
+        <ul>
+            <a routerLink = '/' routerLinkActive = 'active' *ngIf = "isAdmin"><li>Users</li></a>
+            <a routerLink = '/registration' routerLinkActive = 'active' *ngIf = "isAdmin"><li>Register</li></a>
+        </ul>
     </mat-sidenav>
     <mat-sidenav-content>
-        <app-topbar [inputSideNav]="sideNav"></app-topbar>
+        <app-topbar 
+        [inputSideNav]="sideNav">
+        </app-topbar>
+
         <router-outlet></router-outlet>
     </mat-sidenav-content>
 </mat-sidenav-container>

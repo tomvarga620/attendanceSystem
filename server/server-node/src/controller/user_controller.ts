@@ -13,10 +13,12 @@ const getEntityRepository = (entity:any): Repository<any> => {
 
 export const loginUser = async (req: Request, res: Response, next: NextFunction) => {
 
-    const user = await getEntityRepository(User)
-    .createQueryBuilder("user")
-    .leftJoinAndSelect("user.role", "role")
-    .getOne();
+    const user = await getEntityRepository(User).findOne({
+        where: [
+            { username: req.body.username }
+        ], 
+        relations: ["role"]
+    })
 
     if(user == null){
         return res.status(400).send(`User not found`);
@@ -24,11 +26,12 @@ export const loginUser = async (req: Request, res: Response, next: NextFunction)
     try {
         if(await bcrypt.compare(req.body.password, user.password)){
             const accessToken = jwt.sign(user.username,process.env.ACCESS_TOKEN_SECRET ?? '' );
-            res.json({ token: accessToken, role: user.role.roleName}).status(200).send(`Success`);
+            return res.json({ token: accessToken, role: user.role.roleName}).status(200).send(`Success`);
         } else {
-            res.status(401).send(`Not Allowed`);
+            return res.status(401).send(`Not Allowed`);
         }
-    } catch {
+    } catch(e) {
+        // console.log(e);
         res.status(500).send();
     }
 }
@@ -48,7 +51,7 @@ export const registerUser = async (req: Request, res: Response, next: NextFuncti
             await getConnection().manager.save(role);
             const userToSave = new User();
             userToSave.username = req.body.username;
-            userToSave.password = await bcrypt.hash(req.body.password, 11);
+            userToSave.password = await bcrypt.hash(req.body.password, 8);
             userToSave.role = role;
             await getConnection().manager.save(userToSave).then(() => res.status(201).send());
         } catch(err){
@@ -59,12 +62,22 @@ export const registerUser = async (req: Request, res: Response, next: NextFuncti
     }
 }
 
+export const getUserInfo = async (req: Request, res: Response, next: NextFunction) => {
+    await getEntityRepository(User).find({
+        where: [
+            { username: req.body.username }
+        ], 
+        relations: ["role"]
+    }).then(userInfo => res.send(JSON.stringify(userInfo)))
+    .catch(err => res.send({ err }).status(500));
+}
+
 export const getAllUsers = async (req: Request, res: Response, next: NextFunction) => {
-    return await getEntityRepository(User)
-    .createQueryBuilder("user")
-    .getMany().then((users) => {
-        res.send(JSON.stringify(users));
-    }).catch(err => res.send({ err }))
+    await getEntityRepository(User).find({
+        relations: ["role"]
+    }).then((users) => {
+        res.send(JSON.stringify(users)).status(200);
+    }).catch(err => res.send({err}).status(500));
 }
 
 //TODO tu ptm normalne pozriet či sedi token v zázname abo čo
@@ -78,11 +91,13 @@ export const logoutUser = async (req: Request, res: Response, next: NextFunction
 }
 
 export const getAdmin = async (req: Request, res: Response, next: NextFunction) => {
-    const role = `admin`;
-    await getEntityRepository(User)
-    .createQueryBuilder("user")
-    .where("user.role = :role", {role})
-    .getOne().then((admin) => {
+    const role = `ADMIN`;
+    await getEntityRepository(User).findOne({
+        relations: ["role"],
+        where :[
+            {username : "tomik"}
+        ]
+    }).then((admin) => {
         if(admin){
             res.send(JSON.stringify(admin));
         }else {

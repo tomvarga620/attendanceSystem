@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
 import { Select, Store } from '@ngxs/store';
@@ -15,7 +15,6 @@ export class TopbarComponent implements OnInit {
   @Input() inputSideNav: MatSidenav;
 
   isLogged: boolean;
-  isAdmin: boolean;
 
   @Select(AuthState.isAdmin) isAdmin$: Observable<boolean>;
 
@@ -24,10 +23,6 @@ export class TopbarComponent implements OnInit {
   ngOnInit() {
     this.store.select(state => !!state.userAuth.token).subscribe( (value) => {
       this.isLogged = value;
-    });
-
-    this.isAdmin$.subscribe( (value) => {
-        this.isAdmin = value;
     });
   }
 

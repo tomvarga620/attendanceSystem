@@ -33,6 +33,9 @@ export class RedirectGuard implements CanActivate {
         this.router.navigate([`/userboard`]);
         break;
       }
+      case 'SUPERVISOR': {
+        this.router.navigate([`/superboard`]);
+      }
     }
   }
 

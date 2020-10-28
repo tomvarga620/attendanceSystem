@@ -29,7 +29,7 @@ export class RegistrationComponent implements OnInit {
     regSelect: new FormControl('', [Validators.required]),
     regPassword: new FormControl('', [Validators.required]),
     regPasswordRepeat: new FormControl('', Validators.required)
-  });
+  }, this.validatePasswordMatch);
 
   get f() { return this.registerForm.controls; }
 
@@ -51,7 +51,7 @@ export class RegistrationComponent implements OnInit {
           this.httpFormStatus = error.status;
           return EMPTY;
         })
-      ).subscribe( () => this.router.navigate(['/adminboard']));
+      ).subscribe(() => this.router.navigate(['/adminboard']));
     }
   }
 
@@ -64,4 +64,13 @@ export class RegistrationComponent implements OnInit {
     });
   }
 
+  validatePasswordMatch(fieldControl: FormControl){
+    if (fieldControl.get('regPassword').value === fieldControl.get('regPasswordRepeat').value){
+        fieldControl.get('regPasswordRepeat').setErrors(null);
+        return null;
+    }else {
+      fieldControl.get('regPasswordRepeat').setErrors({ passwordsMatchFail: `Passwords does not match`});
+      return ({ passwordsMatchFail: `Passwords does not match`});
+    }
+  }
 }
