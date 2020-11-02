@@ -25,7 +25,10 @@ export const loginUser = async (req: Request, res: Response, next: NextFunction)
     }
     try {
         if(await bcrypt.compare(req.body.password, user.password)){
-            const accessToken = jwt.sign(user.username,process.env.ACCESS_TOKEN_SECRET ?? '' );
+            const username = user.username
+            const accessToken = jwt.sign({username},process.env.ACCESS_TOKEN_SECRET ?? '' , { 
+                expiresIn: "5s"
+             });
             return res.json({ token: accessToken, role: user.role.roleName}).status(200).send(`Success`);
         } else {
             return res.status(401).send(`Not Allowed`);

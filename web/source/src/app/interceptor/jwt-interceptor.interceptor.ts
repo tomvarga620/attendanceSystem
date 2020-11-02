@@ -3,16 +3,21 @@ import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpInterceptor
+  HttpInterceptor,
+  HttpResponse,
+  HttpEventType,
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of, Subject, throwError } from 'rxjs';
 import { Store } from '@ngxs/store';
 import { UserService } from 'src/services/user.service';
+import { catchError, mapTo, take, throttleTime } from 'rxjs/operators';
+import { Logout } from 'src/store/auth/auth.actions';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
 
-  constructor(private store: Store, private service: UserService) {}
+  constructor(private store: Store, private service: UserService, private router: Router) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const token = this.store.selectSnapshot(state => state.userAuth.token);
@@ -27,6 +32,16 @@ export class JwtInterceptor implements HttpInterceptor {
       });
     }
 
-    return next.handle(request);
-  }
+    return next.handle(request).pipe(catchError(err => {
+        if (err.status > 400) {
+          this.store.dispatch(new Logout()).subscribe(() => {
+            this.router.navigate(['login']);
+          });
+        }
+        return throwError(err);
+      }
+    )
+  );
+}
+
 }
