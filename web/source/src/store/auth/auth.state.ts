@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Action, Select, Selector, State, StateContext } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { map, mapTo, tap } from 'rxjs/operators';
+import { User } from 'src/app/entity/User';
 import { LoginResult, UserService } from '../../services/user.service';
 import { Login, Logout, UserAuth } from './auth.actions';
 
@@ -37,7 +39,7 @@ export class AuthState {
         return current.role;
     }
 
-    constructor(private userService: UserService){}
+    constructor(private userService: UserService, private router: Router){}
 
     @Action(Login)
     login(ctx: StateContext<UserAuth>, action: Login) {
@@ -53,16 +55,18 @@ export class AuthState {
     }
 
     @Action(Logout)
-    logout(ctx: StateContext<UserAuth>){
+    logout(ctx: StateContext<UserAuth>) {
         const token = ctx.getState().token;
-        return this.userService.logout(token).pipe(
-            tap( () => {
-                ctx.setState({
-                    token: null,
-                    username: null,
-                    role: null
-                });
-            })
-        );
+        if (token){
+            return this.userService.logout(token).pipe(
+                tap( () => {
+                    ctx.setState({
+                        token: null,
+                        username: null,
+                        role: null
+                    });
+                })
+            );
+        }
     }
 }

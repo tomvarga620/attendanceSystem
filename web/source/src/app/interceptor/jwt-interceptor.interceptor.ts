@@ -7,10 +7,10 @@ import {
   HttpResponse,
   HttpEventType,
 } from '@angular/common/http';
-import { Observable, of, Subject, throwError } from 'rxjs';
+import { EMPTY, Observable, of, Subject, throwError } from 'rxjs';
 import { Store } from '@ngxs/store';
 import { UserService } from 'src/services/user.service';
-import { catchError, mapTo, take, throttleTime } from 'rxjs/operators';
+import { catchError, map, mapTo, switchMap, take, tap, throttleTime } from 'rxjs/operators';
 import { Logout } from 'src/store/auth/auth.actions';
 import { Router } from '@angular/router';
 
@@ -32,11 +32,11 @@ export class JwtInterceptor implements HttpInterceptor {
       });
     }
 
-    return next.handle(request).pipe(catchError(err => {
-        if (err.status > 400) {
-          this.store.dispatch(new Logout()).subscribe(() => {
-            this.router.navigate(['login']);
-          });
+    return next.handle(request).pipe(
+      catchError(err => {
+        if (err.status === 403){
+            this.store.dispatch(new Logout());
+            return throwError(`invalid token`);
         }
         return throwError(err);
       }
