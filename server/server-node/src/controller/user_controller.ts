@@ -4,15 +4,17 @@ import { User } from "../entity/User";
 import bcrypt from 'bcrypt';
 import jsonwebtoken from 'jsonwebtoken'
 import { Role } from "../entity/Role";
+import { AttendanceRecord } from "../entity/AttendanceRecord";
+import { send } from "process";
 
 const jwt = jsonwebtoken;
+const moment = require('moment');
 
 const getEntityRepository = (entity:any): Repository<any> => {
     return getConnection().getRepository(entity);
 }
 
 export const loginUser = async (req: Request, res: Response, next: NextFunction) => {
-
     const user = await getEntityRepository(User).findOne({
         where: [
             { username: req.body.username }
@@ -83,9 +85,9 @@ export const getAllUsers = async (req: Request, res: Response, next: NextFunctio
     }).catch(err => res.send({err}).status(500));
 }
 
-//TODO tu ptm normalne pozriet či sedi token v zázname abo čo
 export const logoutUser = async (req: Request, res: Response, next: NextFunction) => {
     const token = req.query.token;
+    console.log(token);
     if(token){
         res.status(200).send();
     } else {
@@ -125,4 +127,33 @@ export const insertAdmin = async (req: Request, res: Response, next: NextFunctio
         console.log(error);
         res.status(500).send();
     }
+}
+
+export const insertAttendanceRecord = async (req: Request, res: Response, next: NextFunction) => {
+    var mysqlTimestamp = moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
+    console.log(mysqlTimestamp);
+
+    const user =  await getEntityRepository(User).findOne({
+        relations: ["role"],
+        where :[
+            {username : req.body.username}
+        ]
+    });
+
+    console.log(user);
+
+    try {
+        const attendanceTest = new AttendanceRecord();
+        attendanceTest.arrivalTime = mysqlTimestamp;
+        await getConnection().manager.save(attendanceTest);
+
+        user.attendanceRecords = [ attendanceTest ];
+        await getConnection().manager.save(user);
+    } catch(e) {
+        console.log(e);
+        res.status(500).send();
+    }
+
+    res.status(200).send();
+
 }

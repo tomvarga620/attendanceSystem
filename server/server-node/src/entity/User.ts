@@ -1,4 +1,5 @@
-import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { AttendanceRecord } from "./AttendanceRecord";
 import { Role } from "./Role";
 
 @Entity()
@@ -13,10 +14,10 @@ export class User {
     @Column()
     password!: string;
 
-/*     @Column()
-    role!: string; */
-
     @OneToOne((type) => Role)
     @JoinColumn()
     role!: Role;
+
+    @OneToMany(() => AttendanceRecord, record => record.user)
+    attendanceRecords!: AttendanceRecord[]
 }

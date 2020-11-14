@@ -1,6 +1,6 @@
 import express from 'express'
 import { authentication } from "./adminAuthentication";
-import { getAdmin, getAllUsers, getUserInfo, insertAdmin, loginUser, logoutUser, registerUser } from '../controller/user_controller';
+import { getAdmin, getAllUsers, getUserInfo, insertAdmin, insertAttendanceRecord, loginUser, logoutUser, registerUser } from '../controller/user_controller';
 
 /* let users: User[] = [];
 const admin: User = {
@@ -20,10 +20,12 @@ router.post('/userInfo',getUserInfo);
 
 router.get('/allUsers',getAllUsers);
 
-router.get('/logout',authentication, logoutUser);
+router.get('/logout', logoutUser);
 
 router.post('/saveAdmin',insertAdmin);
 
 router.get('/getAdmin', getAdmin);
+
+router.post('/saveAttendance',insertAttendanceRecord);
 
 export = router;

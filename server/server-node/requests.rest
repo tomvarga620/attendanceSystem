@@ -40,3 +40,12 @@ Content-Type: application/json
 {
     "username":"tomik"
 }
+
+###
+
+POST http://localhost:3000/saveAttendance
+Content-Type: application/json
+
+{
+    "username":"tomik"
+}
