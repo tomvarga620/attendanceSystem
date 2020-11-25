@@ -21,7 +21,20 @@ const logConfiguration = {
     ]
 };
 
-const logger = winston.createLogger(logConfiguration);
+export const logger = winston.createLogger({
+    transports: [
+        new (winston.transports.File)({
+            filename: 'error.log',
+            level: 'error'
+        }),
+        new (winston.transports.File)({
+            filename: 'combined.log',
+            level: 'info'
+        })
+    ]
+});
+
+// const logger = winston.createLogger(logConfiguration);
 
 export const logRequest = (request: Request, response: Response, next: NextFunction) => {
     logger.info(`${request.url}, ${response.status}`);
@@ -30,7 +43,7 @@ export const logRequest = (request: Request, response: Response, next: NextFunct
 
 export const logError = (err: any,req: Request, res: Response, next: NextFunction) => { 
     logger.error(err)
-    next()
+    next();
 }
 
-module.exports = logger;
+// module.exports = logger;
