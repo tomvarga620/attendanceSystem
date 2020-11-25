@@ -5,7 +5,6 @@ import bcrypt from 'bcrypt';
 import jsonwebtoken from 'jsonwebtoken'
 import { Role } from "../entity/Role";
 import { AttendanceRecord } from "../entity/AttendanceRecord";
-import { send } from "process";
 
 const jwt = jsonwebtoken;
 const moment = require('moment');
@@ -105,7 +104,7 @@ export const getAdmin = async (req: Request, res: Response, next: NextFunction) 
     }).then((admin) => {
         if(admin){
             res.send(JSON.stringify(admin));
-        }else {
+        } else {
             res.status(404).send(`Admin not found`);
         }
     }).catch(err => res.send({ err }))

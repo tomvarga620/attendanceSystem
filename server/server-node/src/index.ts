@@ -6,6 +6,7 @@ import cors from 'cors';
 import router from './routes/routes';
 import "reflect-metadata";
 import { createConnection } from 'typeorm';
+import * as logger from './middleware/customLogger'
 
 dotenv.config({ path: resolve(__dirname, ".env") });
 
@@ -21,10 +22,6 @@ createConnection().then(async connection => {
 
     app.listen(process.env.PORT); 
 
-/*     await connection.manager.save(connection.manager.create(UserTemp, {
-        username: "test",
-        password: "test",
-        role: "test"
-    }));
- */
+    app.use(() => logger.logRequest);
+    app.use(() => logger.logError);
 });

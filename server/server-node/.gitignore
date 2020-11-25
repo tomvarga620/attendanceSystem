@@ -5,3 +5,6 @@
 # System Files
 .DS_Store
 Thumbs.db
+
+combined.log
+error.log

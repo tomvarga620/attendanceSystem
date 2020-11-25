@@ -1,6 +1,7 @@
 import express from 'express'
 import { authentication } from "./adminAuthentication";
 import { getAdmin, getAllUsers, getUserInfo, insertAdmin, insertAttendanceRecord, loginUser, logoutUser, registerUser } from '../controller/user_controller';
+import { logError, logRequest } from '../middleware/customLogger';
 
 /* let users: User[] = [];
 const admin: User = {
