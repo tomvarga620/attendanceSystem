@@ -18,8 +18,9 @@ createConnection().then(async connection => {
     app.use(express.json());
     app.use(cors(options));
 
-    app.all('*',(req,res,next) => {
-        logger.info(`${req.url}, ${res.status}`);
+    app.use((err: any,req: any,res:any,next:any) => {
+        logger.info(`${req.url}, ${res.statusCode}`);
+        logger.error(`${req.url}, ${res.statusCode}`);
         next();
     });
 
