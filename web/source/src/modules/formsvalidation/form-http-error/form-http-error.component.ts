@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Input } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 
@@ -8,11 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FormHttpErrorComponent implements OnInit {
   // @Input() httpErrorMessage: number;
-  @Input() httpErrorMessage: string;
+  @Input() httpError: HttpErrorResponse;
 
-  constructor() { }
+  constructor() {
 
-  ngOnInit(): void {
   }
+
+  ngOnInit(): void {}
 
 }

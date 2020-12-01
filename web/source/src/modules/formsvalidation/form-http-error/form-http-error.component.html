@@ -1,5 +1,6 @@
 <section class="httpErrorWrap">
-    <ng-container *ngIf = "httpErrorMessage">{{ httpErrorMessage }}</ng-container>
+    <ng-container *ngIf = "httpError && httpError?.status != 0 ">{{ httpError.error }}</ng-container>
+    <ng-container *ngIf = "httpError?.status === 0">Server is offline</ng-container>
 <!--     <ng-container *ngIf= "httpErrorMessage == 0"> Server offline </ng-container>
     <ng-container *ngIf= "httpErrorMessage == 400"> User not found </ng-container>
     <ng-container *ngIf= "httpErrorMessage == 401"> Wrong username or password </ng-container>

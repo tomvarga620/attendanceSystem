@@ -17,7 +17,7 @@ import { AuthState } from 'src/store/auth/auth.state';
 export class LoginComponent implements OnInit {
 
   // httpFormStatus: number;
-  httpFormStatus: string;
+  httpFormStatusError: HttpErrorResponse;
 
   constructor(
     private store: Store,
@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
   ) { }
 
   loginForm = new FormGroup({
-    loginName: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    loginName: new FormControl('', [Validators.required]),
     loginPassword: new FormControl('', [Validators.required])
   });
 
@@ -47,7 +47,8 @@ export class LoginComponent implements OnInit {
           tap(() => this.userService.handleHttpSuccess(`User ${this.f.loginName.value} was logged`)),
           catchError((error: HttpErrorResponse) => {
             // this.httpFormStatus = error.status;
-            this.httpFormStatus = error.error;
+            this.httpFormStatusError = error;
+            console.log(this.httpFormStatusError.status);
             return EMPTY;
           })
         )

@@ -19,7 +19,7 @@ export const loginUser = async (req: Request, res: Response, next: NextFunction)
             { username: req.body.username }
         ], 
         relations: ["role"]
-    })
+    });
 
     if(user == null){
         return res.status(400).send(`User not found`);
