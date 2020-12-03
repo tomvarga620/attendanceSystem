@@ -65,11 +65,12 @@ export class UserService {
 
   handleHttpError(error) {
     console.log(JSON.stringify(error));
-    if (error instanceof HttpErrorResponse){
+    if (error instanceof HttpErrorResponse && error.status !== 0 ){
         console.log(`Error Response = ${error.status}`);
         this.snackbarService.errorMessage(error.message);
         return EMPTY;
     } else {
+      this.snackbarService.errorMessage('Server is offline');
       throwError(error);
     }
   }
