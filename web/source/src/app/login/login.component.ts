@@ -16,7 +16,6 @@ import { AuthState } from 'src/store/auth/auth.state';
 })
 export class LoginComponent implements OnInit {
 
-  // httpFormStatus: number;
   httpFormStatusError: HttpErrorResponse;
 
   constructor(

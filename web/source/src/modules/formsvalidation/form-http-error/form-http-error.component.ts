@@ -8,7 +8,6 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./form-http-error.component.css']
 })
 export class FormHttpErrorComponent implements OnInit {
-  // @Input() httpErrorMessage: number;
   @Input() httpError: HttpErrorResponse;
 
   constructor() {

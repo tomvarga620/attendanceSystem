@@ -2,10 +2,8 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { EMPTY, Observable, of, throwError } from 'rxjs';
-import { catchError, mapTo, tap } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { User } from 'src/app/entity/User';
-import { UserAuth } from 'src/store/auth/auth.actions';
-import { AuthState } from 'src/store/auth/auth.state';
 import { SnackbarService } from './snackbar.service';
 
 const API_URL = `http://localhost:3000`;

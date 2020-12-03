@@ -15,7 +15,7 @@ import { Roles } from 'src/app/entity/Roles';
 })
 export class RegistrationComponent implements OnInit {
 
-  httpFormStatus: number;
+  httpFormStatusError: HttpErrorResponse;
   roles: string[] = Roles.roleArray();
 
   constructor(
@@ -48,7 +48,7 @@ export class RegistrationComponent implements OnInit {
       ).pipe(
         tap(() => this.userService.handleHttpSuccess(`User ${this.f.regName.value} was registered`)),
         catchError((error: HttpErrorResponse) => {
-          this.httpFormStatus = error.status;
+          this.httpFormStatusError = error;
           return EMPTY;
         })
       ).subscribe(() => this.router.navigate(['/adminboard']));

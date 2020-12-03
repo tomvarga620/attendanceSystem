@@ -32,11 +32,11 @@ export const loginUser = async (req: Request, res: Response, next: NextFunction)
              });
             return res.json({ token: accessToken, role: user.role.roleName}).status(200).send(`Success`);
         } else {
-            return res.status(401).send(`Not Allowed`);
+            return res.status(401).send(`Not allowed`);
         }
     } catch(e) {
         // console.log(e);
-        res.status(500).send();
+        res.status(500).send("Server error");
     }
 }
 
@@ -59,10 +59,10 @@ export const registerUser = async (req: Request, res: Response, next: NextFuncti
             userToSave.role = role;
             await getConnection().manager.save(userToSave).then(() => res.status(201).send());
         } catch(err){
-            res.status(500).send();
+            res.status(500).send("Server error");
         }
     } else {
-        res.status(409).send();
+        res.status(409).send("Username already exist");
     }
 }
 
@@ -88,7 +88,7 @@ export const logoutUser = async (req: Request, res: Response, next: NextFunction
     const token = req.query.token;
     console.log(token);
     if(token){
-        res.status(200).send();
+        res.status(200).send("Logout was successful");
     } else {
         res.status(400).send();
     }
@@ -121,10 +121,10 @@ export const insertAdmin = async (req: Request, res: Response, next: NextFunctio
         user.password = await bcrypt.hash('admin',8);
         user.role = role;
         await getConnection().manager.save(user);
-        res.status(201).send();
+        res.status(201).send("Admin created");
     } catch(error) {
         console.log(error);
-        res.status(500).send();
+        res.status(500).send("Server error");
     }
 }
 
@@ -150,9 +150,9 @@ export const insertAttendanceRecord = async (req: Request, res: Response, next: 
         await getConnection().manager.save(user);
     } catch(e) {
         console.log(e);
-        res.status(500).send();
+        res.status(500).send("Server error");
     }
 
-    res.status(200).send();
+    res.status(200).send("Record was saved");
 
 }
