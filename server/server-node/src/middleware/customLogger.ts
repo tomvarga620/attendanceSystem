@@ -9,8 +9,8 @@ export const requestLogger = expressWinston.logger({
           json: true,
       }),
       new winston.transports.Console({
-        json: true,
-        colorize: true
+          json: true,
+          colorize: true
       })
     ]
 });

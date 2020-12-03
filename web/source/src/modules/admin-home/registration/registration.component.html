@@ -1,7 +1,7 @@
 <section class="wrap">
     <form class="registerForm" [formGroup] = "registerForm" (ngSubmit) = "registerUser()">
             <h1>Register User</h1>
-            <app-form-http-error *ngIf="httpFormStatus || httpFormStatus == 0" [httpErrorMessage] = "httpFormStatus"></app-form-http-error>
+            <app-form-http-error *ngIf = "httpFormStatusError?.error" [httpError] = "httpFormStatusError"></app-form-http-error>
 
             <section class="inputField">
                 <input type="text" placeholder="Enter name" formControlName = "regName">
