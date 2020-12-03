@@ -1,0 +1,17 @@
+<section class="wrap">
+    <form class="loginForm" [formGroup] = "loginForm" (ngSubmit) = "submitLoginForm()">
+
+    <h1>Login</h1>
+    <app-form-http-error *ngIf = "httpFormStatusError?.error" [httpError] = "httpFormStatusError"></app-form-http-error>
+
+            <section class="inputField">
+                <input type="text" placeholder="Enter username" formControlName = "loginName">
+            </section>
+
+            <section class="inputField">
+                <input type="password" placeholder="Enter password" formControlName = "loginPassword">
+            </section>
+
+            <input type="submit" value="Login">
+    </form>
+</section>

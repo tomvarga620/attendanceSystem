@@ -1,0 +1,51 @@
+GET http://localhost:3000/allUsers
+
+###
+
+POST http://localhost:3000/saveAdmin
+Content-Type: application/json
+
+###
+
+GET http://localhost:3000/getAdmin
+
+###
+
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+    "username":"tomik",
+    "password":""
+}
+
+###
+POST http://localhost:3000/registration
+Content-Type: application/json
+
+{
+    "name":"test",
+    "password":"test"
+}
+
+###
+GET http://localhost:3000/logout
+
+
+###
+
+POST http://localhost:3000/userInfo
+Content-Type: application/json
+
+{
+    "username":"tomik"
+}
+
+###
+
+POST http://localhost:3000/saveAttendance
+Content-Type: application/json
+
+{
+    "username":"tomik"
+}

@@ -1,0 +1,4 @@
+<section class="httpErrorWrap">
+    <ng-container *ngIf = "httpError && httpError?.status != 0 ">{{ httpError.error }}</ng-container>
+    <ng-container *ngIf = "httpError?.status === 0">Server is offline</ng-container>
+</section>

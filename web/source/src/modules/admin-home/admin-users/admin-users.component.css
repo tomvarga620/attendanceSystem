@@ -1,0 +1,16 @@
+.usersWrapper {
+    width:100%;
+    height:auto;
+    display:flex;
+    justify-content: flex-start;
+    align-content: flex-start;
+    flex-wrap: wrap;
+    margin: 0 auto;
+}
+
+.test {
+    height:150px;
+    width:150px;
+    margin:40px;
+    background-color: black;   
+}

@@ -1,0 +1,30 @@
+<section class="wrap">
+    <form class="registerForm" [formGroup] = "registerForm" (ngSubmit) = "registerUser()">
+            <h1>Register User</h1>
+            <app-form-http-error *ngIf = "httpFormStatusError?.error" [httpError] = "httpFormStatusError"></app-form-http-error>
+
+            <section class="inputField">
+                <input type="text" placeholder="Enter name" formControlName = "regName">
+                <app-form-error *ngIf = "f.regName.dirty " class="error" [errors] = "f.regName?.errors"></app-form-error>
+            </section>
+
+            <section class="inputField">
+                <select formControlName = "regSelect">
+                    <option *ngFor="let role of roles; index as i">{{role.toLowerCase()}}</option>
+                </select>
+                <app-form-error *ngIf = "f.regSelect.dirty " class="error" [errors] = "f.regSelect?.errors"></app-form-error>
+            </section>
+    
+            <section class="inputField">
+                <input type="password" placeholder="Enter password" formControlName = "regPassword">
+                <app-form-error *ngIf = "f.regPassword.dirty " class="error" [errors] = "f.regPassword?.errors"></app-form-error>
+            </section>
+
+            <section class="inputField">
+                <input type="password" placeholder="Enter password again" formControlName = "regPasswordRepeat">
+                <app-form-error *ngIf = "f.regPasswordRepeat.dirty " class="error" [errors] = "f.regPasswordRepeat?.errors"></app-form-error>
+            </section>
+
+            <input type="submit" value="Submit">
+    </form>
+</section>
