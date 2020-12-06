@@ -6,6 +6,7 @@
     align-content: flex-start;
     flex-wrap: wrap;
     margin: 0 auto;
+    background-color: #F6F9FB;
 }
 
 .test {
