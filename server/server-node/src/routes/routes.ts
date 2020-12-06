@@ -17,7 +17,7 @@ router.post('/registration', authentication, registerUser);
 
 router.post('/userInfo',getUserInfo);
 
-router.get('/allUsers',getAllUsers);
+router.post('/allUsers',getAllUsers);
 
 router.get('/logout', logoutUser);
 

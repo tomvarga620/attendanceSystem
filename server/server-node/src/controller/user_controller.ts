@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { getConnection, Repository } from "typeorm";
+import { getConnection, Not, Repository } from "typeorm";
 import { User } from "../entity/User";
 import bcrypt from 'bcrypt';
 import jsonwebtoken from 'jsonwebtoken'
@@ -30,7 +30,7 @@ export const loginUser = async (req: Request, res: Response, next: NextFunction)
             const accessToken = jwt.sign({username},process.env.ACCESS_TOKEN_SECRET ?? '' , { 
                 //expiresIn: "5s"
              });
-            return res.json({ token: accessToken, role: user.role.roleName}).status(200).send(`Success`);
+            return res.json({ token: accessToken, role: user.role.roleName, id: user.id }).status(200).send(`Success`);
         } else {
             return res.status(401).send(`Not allowed`);
         }
@@ -72,12 +72,17 @@ export const getUserInfo = async (req: Request, res: Response, next: NextFunctio
             { username: req.body.username }
         ], 
         relations: ["role"]
-    }).then(userInfo => res.send(JSON.stringify(userInfo)))
+    })
+    .then(userInfo => res.send(JSON.stringify(userInfo)))
     .catch(err => res.send({ err }).status(500));
 }
 
 export const getAllUsers = async (req: Request, res: Response, next: NextFunction) => {
+    const id = req.body.id;
     await getEntityRepository(User).find({
+        where: [
+            { id: Not(id) }
+        ],
         relations: ["role"]
     }).then((users) => {
         res.send(JSON.stringify(users)).status(200);
@@ -86,7 +91,6 @@ export const getAllUsers = async (req: Request, res: Response, next: NextFunctio
 
 export const logoutUser = async (req: Request, res: Response, next: NextFunction) => {
     const token = req.query.token;
-    console.log(token);
     if(token){
         res.status(200).send("Logout was successful");
     } else {

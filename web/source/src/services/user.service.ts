@@ -11,6 +11,7 @@ const API_URL = `http://localhost:3000`;
 export class LoginResult {
   token: string;
   role: string;
+  id: number;
 }
 
 @Injectable({
@@ -43,7 +44,7 @@ export class UserService {
   }
 
   logout( _token: string ): Observable<void> {
-    return this.httpClient.get(`${API_URL}/logout/?token=${_token}`)
+    return this.httpClient.get(`${API_URL}/logout/?token=${_token}`, {responseType: 'text'})
     .pipe(
       tap(() => this.handleHttpSuccess(`Logout was successful`)),
       catchError(error => {
@@ -53,8 +54,10 @@ export class UserService {
     );
   }
 
-  getUsers(): Observable<User[]> {
-    return this.httpClient.get(`${API_URL}/allUsers`)
+  getUsers(_id: number): Observable<User[]> {
+    return this.httpClient.post(`${API_URL}/allUsers`, {
+      id: _id
+    })
     .pipe(
       catchError(error => {
         this.handleHttpError(error);

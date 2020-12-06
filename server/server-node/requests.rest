@@ -1,6 +1,5 @@
-GET http://localhost:3000/allUsers
 
-###
+
 
 POST http://localhost:3000/saveAdmin
 Content-Type: application/json
@@ -29,7 +28,7 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:3000/logout
+GET http://localhost:3000/logout/?token=test
 
 
 ###
@@ -48,4 +47,13 @@ Content-Type: application/json
 
 {
     "username":"tomik"
+}
+
+###
+
+POST http://localhost:3000/allUsers
+Content-Type: application/json
+
+{
+    "id":"1"
 }

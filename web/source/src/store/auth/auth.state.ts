@@ -13,7 +13,8 @@ import { Login, Logout, UserAuth } from './auth.actions';
     defaults: {
         token: null,
         username: null,
-        role: null
+        role: null,
+        id: null
     }
 })
 @Injectable()
@@ -39,16 +40,22 @@ export class AuthState {
         return current.role;
     }
 
+    @Selector()
+    static userId(current: UserAuth): number {
+        return current.id;
+    }
+
     constructor(private userService: UserService, private router: Router){}
 
     @Action(Login)
     login(ctx: StateContext<UserAuth>, action: Login) {
         return this.userService.login(action.username, action.password).pipe(
-             tap((result: { token: string, role: string }) => {
+             tap((result: { token: string, role: string, id: number }) => {
                  ctx.patchState({
                     username: action.username,
                     token: result.token,
-                    role: result.role
+                    role: result.role,
+                    id: result.id
                  });
              })
         );
@@ -63,10 +70,13 @@ export class AuthState {
                     ctx.setState({
                         token: null,
                         username: null,
-                        role: null
+                        role: null,
+                        id: null
                     });
                 })
             );
         }
     }
+
+
 }
