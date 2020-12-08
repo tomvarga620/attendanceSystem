@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/entity/User';
@@ -11,18 +11,24 @@ import { AuthState } from 'src/store/auth/auth.state';
   templateUrl: './admin-users.component.html',
   styleUrls: ['./admin-users.component.css']
 })
-export class AdminUsersComponent implements OnInit {
+export class AdminUsersComponent implements OnInit, AfterViewInit {
 
-  users$: Observable<User[]>;
+  // users$: Observable<User[]>;
+  dataSource: User[];
+  displayedColumns: string[] = ['username', 'role'];
+  userId: number;
 
-  constructor(private userService: UserService, private store: Store) { }
+  constructor(private userService: UserService, private store: Store) {
+    this.userId = this.store.selectSnapshot<number>(state => state.userAuth.id);
+  }
 
-  ngOnInit(): void {
-/*     this.userService.getUsers().subscribe((usersValue: User[]) => {
-      this.users = usersValue;
-    }); */
-    const userId = this.store.selectSnapshot<number>(state => state.userAuth.id);
-    this.users$ = this.userService.getUsers(userId);
+  ngOnInit(): void {}
+
+  ngAfterViewInit(): void {
+
+    this.userService.getUsers(this.userId).subscribe(
+      users => this.dataSource = users
+    );
   }
 
 }

@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdminHomeRoutingModule } from './admin-home-routing.module';
 import { UserUiModule } from '../user-ui/user-ui.module';
 import { AdminUsersComponent } from './admin-users/admin-users.component';
+import { MaterialModule } from '../material/material.module';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { AdminUsersComponent } from './admin-users/admin-users.component';
     ReactiveFormsModule,
     UserUiModule,
     CommonModule,
+    MaterialModule,
     AdminHomeRoutingModule
   ]
 })
