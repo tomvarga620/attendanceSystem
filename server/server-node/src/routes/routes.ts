@@ -1,14 +1,14 @@
 import express from 'express'
 import { authentication } from "./adminAuthentication";
-import { loginUser, logoutUser, registerUser } from '../controller/account_controller';
-import { getAdmin, getAllUsers, getUserInfo, insertAdmin } from '../controller/user_controller';
+import { login, logoutUser } from '../controller/account_controller';
+import { createUser, getAdmin, getAllUsers, getUserInfo, insertAdmin } from '../controller/user_controller';
 import { insertAttendanceRecord } from '../controller/attendance_controller';
 
 const router = express.Router();
 
-router.post('/login',loginUser);
+router.post('/login',login);
 
-router.post('/registration', authentication, registerUser);
+router.post('/createUser', authentication, createUser);
 
 router.post('/userInfo',getUserInfo);
 

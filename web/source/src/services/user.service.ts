@@ -36,7 +36,7 @@ export class UserService {
   }
 
   register(_username: string, _password: string , _role): Observable<void> {
-    return this.httpClient.post<void>(`${API_URL}/registration`, {
+    return this.httpClient.post<void>(`${API_URL}/createUser`, {
       username: _username,
       password: _password,
       role: _role

@@ -13,7 +13,7 @@ const getEntityRepository = (entity:any): Repository<any> => {
     return getConnection().getRepository(entity);
 }
 
-export const loginUser = async (req: Request, res: Response, next: NextFunction) => {
+export const login = async (req: Request, res: Response, next: NextFunction) => {
     const user = await getEntityRepository(User).findOne({
         where: [
             { username: req.body.username }
@@ -37,32 +37,6 @@ export const loginUser = async (req: Request, res: Response, next: NextFunction)
     } catch(e) {
         // console.log(e);
         res.status(500).send("Server error");
-    }
-}
-
-export const registerUser = async (req: Request, res: Response, next: NextFunction) => {
-
-    const username = req.body.username;
-
-    const userNameConflict: boolean = await getEntityRepository(User)
-    .createQueryBuilder("user")
-    .where("user.username = :username", { username }).getCount() > 0;
-
-    if(!userNameConflict){
-        try{
-            const role = new Role();
-            role.roleName = req.body.role;
-            await getConnection().manager.save(role);
-            const userToSave = new User();
-            userToSave.username = req.body.username;
-            userToSave.password = await bcrypt.hash(req.body.password, 8);
-            userToSave.role = role;
-            await getConnection().manager.save(userToSave).then(() => res.status(201).send());
-        } catch(err){
-            res.status(500).send("Server error");
-        }
-    } else {
-        res.status(409).send("Username already exist");
     }
 }
 
