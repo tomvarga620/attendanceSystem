@@ -1,13 +1,8 @@
 import express from 'express'
 import { authentication } from "./adminAuthentication";
-import { getAdmin, getAllUsers, getUserInfo, insertAdmin, insertAttendanceRecord, loginUser, logoutUser, registerUser } from '../controller/user_controller';
-/* let users: User[] = [];
-const admin: User = {
-    username: `tomik`, 
-    password: '$2b$10$spqbiwkoTD3OUis.zB0oauJOCBAzU5VHX73nnWMPzZnE0uEZCykXu', 
-    role: `ADMIN`
-}
-addAdmin(users,admin); */
+import { loginUser, logoutUser, registerUser } from '../controller/account_controller';
+import { getAdmin, getAllUsers, getUserInfo, insertAdmin } from '../controller/user_controller';
+import { insertAttendanceRecord } from '../controller/attendance_controller';
 
 const router = express.Router();
 
