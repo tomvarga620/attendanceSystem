@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { getConnection, Not, Repository } from "typeorm";
+import { getConnection, Not, ObjectID, Repository, UpdateResult } from "typeorm";
 import { Role } from "../entity/Role";
 import { User } from "../entity/User";
 import bcrypt from 'bcrypt';
@@ -60,11 +60,40 @@ export const getAllUsers = async (req: Request, res: Response, next: NextFunctio
 }
 
 export const updateUser = async (req: Request, res: Response, next: NextFunction) => { 
+    const user = {
+        id: req.body.id,
+        username: req.body.username,
+    }
 
+    try {
+        const updateResult: UpdateResult = await getEntityRepository(User).update(user.id, user)
+        if(updateResult.affected! == 0){
+            return res.status(404).send("User not found");
+        }else {
+            res.status(200).send("User was successfuly updated");
+        }
+    } catch(error){
+        console.log(error);
+        res.status(500).send("Server error");
+    }
 }
 
 export const deleteUser = async (req: Request, res: Response, next: NextFunction) => { 
 
+    const userId = req.params.id
+
+    if(userId == null){
+        return res.status(400).send("Invalid user id");
+    }
+
+    let userToRemove = await getEntityRepository(User).findOne(userId);
+    if (userToRemove == null){
+        return res.status(404).send("User not found");
+    }
+    
+    await getEntityRepository(User).delete(userToRemove)    
+    .then(() => res.status(200).send("User was successfuly deleted"))
+    .catch(() => res.status(500).send("Server error"));
 }
 
 export const insertAdmin = async (req: Request, res: Response, next: NextFunction) => { 
