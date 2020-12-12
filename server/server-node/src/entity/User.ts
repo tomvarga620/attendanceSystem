@@ -14,7 +14,7 @@ export class User {
     @Column()
     password!: string;
 
-    @OneToOne((type) => Role)
+    @OneToOne((type) => Role,{ cascade: true, onDelete: 'CASCADE' },)
     @JoinColumn()
     role!: Role;
 

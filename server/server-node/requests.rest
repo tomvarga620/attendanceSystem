@@ -60,7 +60,7 @@ Content-Type: application/json
 
 ###
 
-DELETE http://localhost:3000/deleteUser/1
+DELETE http://localhost:3000/deleteUser/3
 
 ###
 
