@@ -1,6 +1,6 @@
 <mat-sidenav-container>
     <mat-sidenav #sideNav mode="side">
-        <mat-icon (click) = "sideNav.close()">close</mat-icon>
+        <mat-icon class="closeIcon" (click) = "sideNav.close()">close</mat-icon>
         <br>
         <ul>
             <a routerLink = '/' routerLinkActive = 'active' *ngIf = "isAdmin"><li>Users</li></a>

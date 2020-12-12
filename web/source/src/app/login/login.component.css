@@ -1,4 +1,4 @@
-.wrap {
+.mainWrap {
     width:100%;
     height:89%;
     display:flex;
@@ -7,55 +7,75 @@
     flex-direction: column;
 }
 
-.loginForm {
-    border-radius:5px;
-    background:black;
+ .formWrap {
+    height: 550px;
     display:flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    width:250px;
-    padding: 40px;
 }
 
-.loginForm .inputField {
-    width:100%;
-    margin:20px;
+.loginForm {
+    margin-top:80px;
+    border-radius:5px;
+    background:#FDFEFF;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width:309px;
+    height: 324px;
+    background: #FDFEFF;
+    box-shadow: -4px -4px 16px #FFFFFF, 4px 4px 16px rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
 }
 
-.loginForm h1 {
-    color:white;
+.mainWrap .formWrap h1 {
+    color:#3365FF;
+    font-size:100px;
+    font-weight: bold;
+    margin:0px;
+    padding:0px;
 }
 
 .loginForm input {
     outline: none;
-    width: 100%;
-    padding: 12px;
+    width: 250px;
+    height: 40px;
+    text-indent: 15px;
     box-sizing: border-box;
     transition: all 0.3s ease-in-out;
     border: 1px solid transparent; 
     border-radius: 2px;
+    background: #F5F5F5;
+    box-shadow: inset -4px -4px 11px #FFFFFF, inset 4px 4px 11px rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
 }
 
 .loginForm input:hover {
     border:1px solid red;
 }
 
+.loginForm input:nth-child(2) {
+    margin-top:40px;
+}
 
 .loginForm input[type="submit"]{
     cursor: pointer;
     outline: none;
     border: none;
-    margin:20px;
+    margin-top:40px;
     margin-bottom:none;
-    background-color: white;
     transition: all .1s ease-in-out;
+    background: #1BB99D;
+    color:white;
+    box-shadow: -4px -4px 16px #FFFFFF, 4px 4px 16px rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
 }
 
 .loginForm input[type="submit"]:hover { 
-    background-color:crimson;
-    color:white;
-    transform: scale(1.05); 
+    font-weight: bold;
+    transform: scale(1.02); 
 }
 
 .loginForm p{
@@ -70,6 +90,25 @@
 
 .loginForm p a:hover {
     border-bottom:1px solid crimson;
+}
+
+.loginForm .loginSignUpLink {
+    margin-top:40px;
+    font-size:15px;
+    color:#8B8B8B;
+}
+
+.loginForm ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #A6A6A6;
+    opacity: 1; /* Firefox */
+}
+  
+.loginForm :-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #A6A6A6;
+}
+  
+.loginForm ::-ms-input-placeholder { /* Microsoft Edge */
+    color: #A6A6A6;
 }
 
 .error {
