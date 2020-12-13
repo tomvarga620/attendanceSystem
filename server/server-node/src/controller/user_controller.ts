@@ -1,46 +1,15 @@
 import { NextFunction, Request, Response } from "express";
-import { getConnection, Not, Repository } from "typeorm";
+import { getConnection, Not, ObjectID, Repository, UpdateResult } from "typeorm";
+import { Role } from "../entity/Role";
 import { User } from "../entity/User";
 import bcrypt from 'bcrypt';
-import jsonwebtoken from 'jsonwebtoken'
-import { Role } from "../entity/Role";
-import { AttendanceRecord } from "../entity/AttendanceRecord";
 
-const jwt = jsonwebtoken;
 const moment = require('moment');
-
 const getEntityRepository = (entity:any): Repository<any> => {
     return getConnection().getRepository(entity);
 }
 
-export const loginUser = async (req: Request, res: Response, next: NextFunction) => {
-    const user = await getEntityRepository(User).findOne({
-        where: [
-            { username: req.body.username }
-        ], 
-        relations: ["role"]
-    });
-
-    if(user == null){
-        return res.status(400).send(`User not found`);
-    }
-    try {
-        if(await bcrypt.compare(req.body.password, user.password)){
-            const username = user.username
-            const accessToken = jwt.sign({username},process.env.ACCESS_TOKEN_SECRET ?? '' , { 
-                //expiresIn: "5s"
-             });
-            return res.json({ token: accessToken, role: user.role.roleName, id: user.id }).status(200).send(`Success`);
-        } else {
-            return res.status(401).send(`Not allowed`);
-        }
-    } catch(e) {
-        // console.log(e);
-        res.status(500).send("Server error");
-    }
-}
-
-export const registerUser = async (req: Request, res: Response, next: NextFunction) => {
+export const createUser = async (req: Request, res: Response, next: NextFunction) => {
 
     const username = req.body.username;
 
@@ -66,6 +35,7 @@ export const registerUser = async (req: Request, res: Response, next: NextFuncti
     }
 }
 
+
 export const getUserInfo = async (req: Request, res: Response, next: NextFunction) => {
     await getEntityRepository(User).find({
         where: [
@@ -89,29 +59,41 @@ export const getAllUsers = async (req: Request, res: Response, next: NextFunctio
     }).catch(err => res.send({err}).status(500));
 }
 
-export const logoutUser = async (req: Request, res: Response, next: NextFunction) => {
-    const token = req.query.token;
-    if(token){
-        res.status(200).send("Logout was successful");
-    } else {
-        res.status(400).send();
+export const updateUser = async (req: Request, res: Response, next: NextFunction) => { 
+    const user = {
+        id: req.body.id,
+        username: req.body.username,
+    }
+
+    try {
+        const updateResult: UpdateResult = await getEntityRepository(User).update(user.id, user)
+        if(updateResult.affected! == 0){
+            return res.status(404).send("User not found");
+        }else {
+            res.status(200).send("User was successfuly updated");
+        }
+    } catch(error){
+        console.log(error);
+        res.status(500).send("Server error");
     }
 }
 
-export const getAdmin = async (req: Request, res: Response, next: NextFunction) => {
-    const role = `ADMIN`;
-    await getEntityRepository(User).findOne({
-        relations: ["role"],
-        where :[
-            {username : "tomik"}
-        ]
-    }).then((admin) => {
-        if(admin){
-            res.send(JSON.stringify(admin));
-        } else {
-            res.status(404).send(`Admin not found`);
-        }
-    }).catch(err => res.send({ err }))
+export const deleteUser = async (req: Request, res: Response, next: NextFunction) => { 
+
+    const userId = req.params.id
+
+    if(userId == null){
+        return res.status(400).send("Invalid user id");
+    }
+
+    let userToRemove = await getEntityRepository(User).findOne(userId);
+    if (userToRemove == null){
+        return res.status(404).send("User not found");
+    }
+    
+    await getEntityRepository(User).delete(userToRemove)    
+    .then(() => res.status(200).send("User was successfuly deleted"))
+    .catch(() => res.status(500).send("Server error"));
 }
 
 export const insertAdmin = async (req: Request, res: Response, next: NextFunction) => { 
@@ -132,31 +114,18 @@ export const insertAdmin = async (req: Request, res: Response, next: NextFunctio
     }
 }
 
-export const insertAttendanceRecord = async (req: Request, res: Response, next: NextFunction) => {
-    var mysqlTimestamp = moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
-    console.log(mysqlTimestamp);
-
-    const user =  await getEntityRepository(User).findOne({
+export const getAdmin = async (req: Request, res: Response, next: NextFunction) => {
+    const role = `ADMIN`;
+    await getEntityRepository(User).findOne({
         relations: ["role"],
         where :[
-            {username : req.body.username}
+            {username : "tomik"}
         ]
-    });
-
-    console.log(user);
-
-    try {
-        const attendanceTest = new AttendanceRecord();
-        attendanceTest.arrivalTime = mysqlTimestamp;
-        await getConnection().manager.save(attendanceTest);
-
-        user.attendanceRecords = [ attendanceTest ];
-        await getConnection().manager.save(user);
-    } catch(e) {
-        console.log(e);
-        res.status(500).send("Server error");
-    }
-
-    res.status(200).send("Record was saved");
-
+    }).then((admin) => {
+        if(admin){
+            res.send(JSON.stringify(admin));
+        } else {
+            res.status(404).send(`Admin not found`);
+        }
+    }).catch(err => res.send({ err }))
 }

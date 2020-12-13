@@ -57,3 +57,19 @@ Content-Type: application/json
 {
     "id":"1"
 }
+
+###
+
+DELETE http://localhost:3000/deleteUser/3
+
+###
+
+POST http://localhost:3000/updateUser
+Content-Type: application/json
+
+{
+   "id":"2",
+   "username":"tominko",
+   "role":"USER"
+}
+
