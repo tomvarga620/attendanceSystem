@@ -18,13 +18,13 @@
 .loginForm {
     margin-top:80px;
     border-radius:5px;
-    background:#FDFEFF;
     display:flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     width:309px;
-    height: 324px;
+    height: auto;
+    min-height: 324px;
     background: #FDFEFF;
     box-shadow: -4px -4px 16px #FFFFFF, 4px 4px 16px rgba(0, 0, 0, 0.3);
     border-radius: 6px;
@@ -50,14 +50,13 @@
     background: #F5F5F5;
     box-shadow: inset -4px -4px 11px #FFFFFF, inset 4px 4px 11px rgba(0, 0, 0, 0.3);
     border-radius: 6px;
+    color:#3365FF;
+    font-weight:bold;
+    margin-top:40px;
 }
 
 .loginForm input:hover {
-    border:1px solid red;
-}
-
-.loginForm input:nth-child(2) {
-    margin-top:40px;
+    transform: scale(1.02); 
 }
 
 .loginForm input[type="submit"]{
@@ -71,10 +70,11 @@
     color:white;
     box-shadow: -4px -4px 16px #FFFFFF, 4px 4px 16px rgba(0, 0, 0, 0.3);
     border-radius: 6px;
+    font-weight: initial !important;
 }
 
 .loginForm input[type="submit"]:hover { 
-    font-weight: bold;
+    font-weight: bold !important;
     transform: scale(1.02); 
 }
 
@@ -93,22 +93,36 @@
 }
 
 .loginForm .loginSignUpLink {
-    margin-top:40px;
+    margin-top:30px;
+    margin-bottom:30px;
     font-size:15px;
-    color:#8B8B8B;
+    color:#A6A6A6;
+}
+
+.loginForm .loginSignUpLink .signUp {
+    color: #474747;
+}
+
+.loginForm .loginSignUpLink .signUp:hover {
+    border-bottom:1px solid #474747;
 }
 
 .loginForm ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
     color: #A6A6A6;
-    opacity: 1; /* Firefox */
+    opacity: 0.7; /* Firefox */
+    font-weight: initial !important;
 }
   
 .loginForm :-ms-input-placeholder { /* Internet Explorer 10-11 */
     color: #A6A6A6;
+    opacity: 0.7; 
+    font-weight: initial !important;
 }
   
 .loginForm ::-ms-input-placeholder { /* Microsoft Edge */
     color: #A6A6A6;
+    opacity: 0.7; 
+    font-weight: initial !important;
 }
 
 .error {

@@ -1,6 +1,15 @@
 .httpErrorWrap {
-    color:red;
-    padding:10px 40px 10px 40px;
-    border-radius: 8px;
-    border:1px solid red;
+    color:#BB2A22;
+    font-weight:bold;
+    background-color: #FF5D53;
+    height: 40px;
+    width: 200px;
+    border-radius: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top:40px;
+    box-shadow: -4px -4px 16px #FFFFFF, 4px 4px 16px rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
+    transition: all 0.3s ease-in-out;
 }
