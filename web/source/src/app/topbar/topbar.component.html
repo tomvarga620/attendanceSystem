@@ -1,9 +1,8 @@
 <nav>
     <ul>
-        <li>
+        <li class="hamburgerMenu" [hidden]="inputSideNav.opened" *ngIf="isLogged">
             <mat-icon aria-hidden="false" aria-label="Example home icon" 
-            (click) = "inputSideNav.open()" 
-            [hidden]="inputSideNav.opened" *ngIf="isLogged">
+            (click) = "inputSideNav.open()">
             menu
             </mat-icon>
         </li>
