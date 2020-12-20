@@ -1,5 +1,5 @@
 nav {
-    background: #FFFFFF;
+   /* background: #FFFFFF;*/
     outline:none;
     color:#3365FF;
 }
@@ -15,13 +15,42 @@ nav ul {
     margin:0;
 }
 
+nav ul li.hamburgerMenu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #FDFEFF;
+    box-shadow: -4px -4px 16px #FFFFFF, 4px 4px 16px rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
+    width: 40px;
+    height: 40px;
+}
+
 .rightMenuItemsHolder {
     margin-left:auto;
+    margin-top:44px;
+    left:-44px;
+    position:relative;
     display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #FDFEFF;
+    box-shadow: -4px -4px 16px #FFFFFF, 4px 4px 16px rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
+    height: 40px;
+    font-weight: 500;
 }
 
 nav ul li {
-margin: 25px;
+    margin-left: 44px;
+    margin-right: 44px;
+    margin-top: 44px;
+}
+
+.rightMenuItemsHolder li {
+    margin-left: 25px !important;
+    margin-right: 25px !important;
+    margin-top:0 !important;
 }
 
 [hidden] {
