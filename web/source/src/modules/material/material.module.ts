@@ -5,6 +5,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatSortModule } from '@angular/material/sort';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [],
@@ -14,14 +18,22 @@ import { MatTableModule } from '@angular/material/table';
     MatButtonModule,
     MatIconModule,
     MatSnackBarModule,
-    MatTableModule
+    MatTableModule,
+    MatDividerModule,
+    MatMenuModule,
+    MatSortModule,
+    MatPaginatorModule
   ],
   exports: [
     MatSidenavModule,
     MatButtonModule,
     MatIconModule,
     MatSnackBarModule,
-    MatTableModule
+    MatTableModule,
+    MatDividerModule,
+    MatMenuModule,
+    MatSortModule,
+    MatPaginatorModule
   ]
 })
 export class MaterialModule { }
