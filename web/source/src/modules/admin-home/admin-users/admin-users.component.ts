@@ -18,6 +18,29 @@ export class AdminUsersComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['username', 'role'];
   userId: number;
 
+  TABLE_HEADERS_DATA = [
+    { key: "_id", displayName: "User Id" },
+    { key: "username", displayName: "Username" },
+    { key: "email", displayName: "Email" },
+    { key: "dob", displayName: "Date of Birth",
+    }
+  ];
+
+  USERS_DATA = [
+    {
+      _id: 1,
+      username: "Abderrahmene",
+      email: "abderrahmene@abc.xyz",
+      dob: Date.now()
+    },
+    {
+      _id: 2,
+      username: "Abderrahmene",
+      email: "abderrahmene@abc.xyz",
+      dob: Date.now()
+    },
+  ]
+
   constructor(private userService: UserService, private store: Store) {
     this.userId = this.store.selectSnapshot<number>(state => state.userAuth.id);
   }
