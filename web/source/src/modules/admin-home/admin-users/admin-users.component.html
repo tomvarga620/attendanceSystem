@@ -2,7 +2,7 @@
     <!--
     <app-user-profile *ngFor="let user of users$ | async; index as i" [user] = "user">
         hahaahahaha
-    </app-user-profile>-->
+    </app-user-profile>
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
         <ng-container matColumnDef="username">
@@ -17,5 +17,9 @@
       
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-      </table>
+      </table>-->
+      <app-generic-table 
+        [tableHeaders]="TABLE_HEADERS_DATA" 
+        [tableData]="USERS_DATA">
+      </app-generic-table>
 </section>
