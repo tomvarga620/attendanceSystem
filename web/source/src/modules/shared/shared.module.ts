@@ -4,9 +4,10 @@ import { GenericTableComponent } from './generic-table/generic-table.component';
 import { FormErrorComponent } from './form-error/form-error.component';
 import { FormHttpErrorComponent } from './form-http-error/form-http-error.component';
 import { MaterialModule } from '../material/material.module';
+import { PageHeadingComponent } from './page-heading/page-heading.component';
 
 @NgModule({
-  declarations: [GenericTableComponent,FormErrorComponent,FormHttpErrorComponent],
+  declarations: [GenericTableComponent,FormErrorComponent,FormHttpErrorComponent, PageHeadingComponent],
   imports: [
     CommonModule,
     MaterialModule
