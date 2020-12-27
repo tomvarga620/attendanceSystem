@@ -2,7 +2,6 @@ table {
     width: 70%;
     border-collapse: collapse;
     border-radius: 10px;
-    background: #ffffff;
     margin: 0 auto;
     box-shadow: -6px -6px 16px #FFFFFF, 6px 6px 16px rgba(0, 0, 0, 0.3);
   }
@@ -23,7 +22,7 @@ table {
   }
 
   .mat-table {
-    background-color: transparent !important;
+    background-color: #FFFFFF !important;
   }
   table tr:last-child td /*To remove the last border*/
    {
