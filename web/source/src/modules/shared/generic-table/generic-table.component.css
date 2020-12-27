@@ -1,10 +1,27 @@
 table {
-    width: 100%;
+    width: 70%;
     border-collapse: collapse;
     border-radius: 10px;
-    background: #FDFEFF;
+    background: #ffffff;
+    margin: 0 auto;
     box-shadow: -6px -6px 16px #FFFFFF, 6px 6px 16px rgba(0, 0, 0, 0.3);
   }
+
+  td,th {
+    height: 70px !important;
+  }
+  
+  th {
+    font-weight: bold;
+    font-size: 18px;
+    color: #526B98;
+  }
+
+  td {
+    font-size: 14px;
+    color: #526B98;
+  }
+
   .mat-table {
     background-color: transparent !important;
   }

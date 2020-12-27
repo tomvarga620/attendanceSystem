@@ -1,23 +1,4 @@
 <section class="usersWrapper">
-    <!--
-    <app-user-profile *ngFor="let user of users$ | async; index as i" [user] = "user">
-        hahaahahaha
-    </app-user-profile>
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-
-        <ng-container matColumnDef="username">
-          <th mat-header-cell *matHeaderCellDef> Username </th>
-          <td mat-cell *matCellDef="let element"> {{element.username}} </td>
-        </ng-container>
-      
-        <ng-container matColumnDef="role">
-          <th mat-header-cell *matHeaderCellDef> Role </th>
-          <td mat-cell *matCellDef="let element"> {{element.role.roleName}} </td>
-        </ng-container>
-      
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-      </table>-->
       <app-generic-table 
         [tableHeaders]="TABLE_HEADERS_DATA" 
         [tableData]="USERS_DATA">

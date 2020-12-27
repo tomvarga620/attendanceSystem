@@ -39,6 +39,29 @@ export class AdminUsersComponent implements OnInit, AfterViewInit {
       email: "abderrahmene@abc.xyz",
       dob: Date.now()
     },
+    {
+      _id: 2,
+      username: "Abderrahmene",
+      email: "abderrahmene@abc.xyz",
+      dob: Date.now()
+    },
+    {
+      _id: 2,
+      username: "Abderrahmene",
+      email: "abderrahmene@abc.xyz",
+      dob: Date.now()
+    },    {
+      _id: 2,
+      username: "Abderrahmene",
+      email: "abderrahmene@abc.xyz",
+      dob: Date.now()
+    },
+    {
+      _id: 2,
+      username: "Abderrahmene",
+      email: "abderrahmene@abc.xyz",
+      dob: Date.now()
+    }
   ]
 
   constructor(private userService: UserService, private store: Store) {
