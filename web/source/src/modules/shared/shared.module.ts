@@ -1,13 +1,27 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GenericTableComponent } from './generic-table/generic-table.component';
-import { GenericDialogComponent } from './generic-dialog/generic-dialog.component';
-
+import { FormErrorComponent } from './form-error/form-error.component';
+import { FormHttpErrorComponent } from './form-http-error/form-http-error.component';
+import { MaterialModule } from '../material/material.module';
+import { PageHeadingComponent } from './page-heading/page-heading.component';
 
 @NgModule({
-  declarations: [GenericTableComponent, GenericDialogComponent],
+  declarations: [
+    GenericTableComponent,
+    FormErrorComponent,
+    FormHttpErrorComponent, 
+    PageHeadingComponent
+  ],
   imports: [
-    CommonModule
+    CommonModule,
+    MaterialModule
+  ],
+  exports: [
+    GenericTableComponent,
+    FormErrorComponent,
+    FormHttpErrorComponent,
+    PageHeadingComponent
   ]
 })
 export class SharedModule { }
