@@ -46,7 +46,7 @@ export class UserService {
   logout( _token: string ): Observable<void> {
     return this.httpClient.get(`${API_URL}/logout/?token=${_token}`, {responseType: 'text'})
     .pipe(
-      tap(() => this.handleHttpSuccess(`Logout was successful`)),
+      tap(() => this.handleHttpSuccess(`Logged out`)),
       catchError(error => {
         this.handleHttpError(error);
         return of(null);
