@@ -1,0 +1,32 @@
+table {
+    width: 70%;
+    border-collapse: separate;
+    border-radius: 10px;
+    margin: 0 auto;
+    overflow:hidden !important;
+    box-shadow: -6px -6px 16px #FFFFFF, 6px 6px 16px rgba(0, 0, 0, 0.3);
+  }
+
+  td,th {
+    height: 70px !important;
+  }
+  
+  th {
+    font-weight: bold;
+    font-size: 18px;
+    color: #526B98;
+  }
+
+  td {
+    font-size: 14px;
+    color: #526B98;
+  }
+
+  .mat-table {
+    background-color: #FFFFFF !important;
+  }
+  table tr:last-child td /*To remove the last border*/
+   {
+    border-bottom: 0 solid;
+  }
+  
