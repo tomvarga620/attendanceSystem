@@ -24,8 +24,7 @@ export class AdminUsersComponent implements OnInit, AfterViewInit {
     { key: "_id", displayName: "User Id" },
     { key: "username", displayName: "Username" },
     { key: "email", displayName: "Email" },
-    { key: "dob", displayName: "Date of Birth",
-    }
+    { key: "dob", displayName: "Date of Birth"}
   ];
 
   USERS_DATA = [
