@@ -7,7 +7,12 @@ import { MaterialModule } from '../material/material.module';
 import { PageHeadingComponent } from './page-heading/page-heading.component';
 
 @NgModule({
-  declarations: [GenericTableComponent,FormErrorComponent,FormHttpErrorComponent, PageHeadingComponent],
+  declarations: [
+    GenericTableComponent,
+    FormErrorComponent,
+    FormHttpErrorComponent, 
+    PageHeadingComponent
+  ],
   imports: [
     CommonModule,
     MaterialModule
@@ -15,7 +20,8 @@ import { PageHeadingComponent } from './page-heading/page-heading.component';
   exports: [
     GenericTableComponent,
     FormErrorComponent,
-    FormHttpErrorComponent
+    FormHttpErrorComponent,
+    PageHeadingComponent
   ]
 })
 export class SharedModule { }

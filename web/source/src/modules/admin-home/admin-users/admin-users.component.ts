@@ -18,6 +18,8 @@ export class AdminUsersComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['username', 'role'];
   userId: number;
 
+  sampleHeading: string = "Dadada";
+
   TABLE_HEADERS_DATA = [
     { key: "_id", displayName: "User Id" },
     { key: "username", displayName: "Username" },
