@@ -2,6 +2,7 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/entity/User';
+import { DialogServiceService } from 'src/services/dialog-service.service';
 import { UserService } from 'src/services/user.service';
 import { UserAuth } from 'src/store/auth/auth.actions';
 import { AuthState } from 'src/store/auth/auth.state';
@@ -65,7 +66,10 @@ export class AdminUsersComponent implements OnInit, AfterViewInit {
     }
   ]
 
-  constructor(private userService: UserService, private store: Store) {
+  constructor(
+    private userService: UserService, 
+    private store: Store,
+    private dialogService: DialogServiceService) {
     this.userId = this.store.selectSnapshot<number>(state => state.userAuth.id);
   }
 
@@ -76,6 +80,24 @@ export class AdminUsersComponent implements OnInit, AfterViewInit {
     this.userService.getUsers(this.userId).subscribe(
       users => this.dataSource = users
     );
+  }
+
+  openDialog(){
+    console.log("test");
+    const options = {
+      cancelButtonText: 'CANCEL',
+      confirmButtonText: 'YES, LEAVE PAGE',
+      messageText: 'By leaving this page you will permanently lose your form changes.',
+      titleText:'Leave page?'
+    };
+    
+    this.dialogService.open(options);
+        
+    this.dialogService.confirmed().subscribe(confirmed => {
+       if (confirmed) {
+            console.log("confirmed");
+          }
+    });
   }
 
 }
