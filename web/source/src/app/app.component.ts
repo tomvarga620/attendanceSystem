@@ -3,7 +3,7 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
 import { Actions, ofActionSuccessful, Select, Store } from '@ngxs/store';
 import { Observable, of } from 'rxjs';
-import { Logout } from 'src/store/auth/auth.actions';
+import { Logout, UserAuth } from 'src/store/auth/auth.actions';
 import { AuthState } from 'src/store/auth/auth.state';
 
 @Component({

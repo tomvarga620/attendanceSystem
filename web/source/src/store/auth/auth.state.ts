@@ -45,6 +45,11 @@ export class AuthState {
         return current.id;
     }
 
+    @Selector()
+    static username(current: UserAuth): string {
+        return current.username;
+    }
+
     constructor(private userService: UserService, private router: Router){}
 
     @Action(Login)
