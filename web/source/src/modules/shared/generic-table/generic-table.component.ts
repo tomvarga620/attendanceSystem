@@ -24,4 +24,8 @@ export class GenericTableComponent implements OnInit {
     console.log(this.colsHeaders);
   }
 
+  getId(id){
+    console.log(`Id = ${id}`);
+  }
+
 }

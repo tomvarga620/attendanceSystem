@@ -20,8 +20,6 @@ const routes: Routes = [
 
   {path: 'login', component: LoginComponent, canLoad: [RedirectGuard] , canActivate: [RedirectGuard]},
 
-  {path: 'registration', component: RegistrationComponent, canActivate: [AuthUserGuard], data: {role: Roles.ADMIN}},
-
   {path: '', component: DefaultHomeComponent , canActivate: [RedirectGuard]},
 
   {path: '**', redirectTo: ''}
