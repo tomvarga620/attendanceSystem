@@ -69,7 +69,7 @@ export const updateUser = async (req: Request, res: Response, next: NextFunction
         const updateResult: UpdateResult = await getEntityRepository(User).update(user.id, user)
         if(updateResult.affected! == 0){
             return res.status(404).send("User not found");
-        }else {
+        } else {
             res.status(200).send("User was successfuly updated");
         }
     } catch(error){

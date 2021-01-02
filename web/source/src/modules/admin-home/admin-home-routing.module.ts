@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AdminUsersComponent } from './admin-users/admin-users.component';
-import { RegistrationComponent } from './registration/registration.component';
+import { RegistrationComponent } from '../supervisor-home/registration/registration.component';
 
 const routes: Routes = [
   {path: '', component: AdminUsersComponent},
-  {path: 'registration', component: RegistrationComponent},
 ];
 
 @NgModule({

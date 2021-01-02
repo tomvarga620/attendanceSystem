@@ -36,6 +36,11 @@ export class AuthState {
     }
 
     @Selector()
+    static isSupervisor(current: UserAuth): boolean {
+        return current.role === `SUPERVISOR`? true : false;
+    }
+
+    @Selector()
     static userRole(current: UserAuth): string {
         return current.role;
     }

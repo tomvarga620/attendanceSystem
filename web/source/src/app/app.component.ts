@@ -14,9 +14,11 @@ import { AuthState } from 'src/store/auth/auth.state';
 export class AppComponent implements OnInit {
 
   isAdmin: boolean;
+  isSupervisor: boolean;
 
   @ViewChild(MatSidenav) sideNav: MatSidenav;
   @Select(AuthState.isAdmin) isAdmin$: Observable<boolean>;
+  @Select(AuthState.isSupervisor) isSupervisor$: Observable<boolean>;
 
   constructor(private router: Router, private store: Store, private actions$: Actions) {
     this.actions$.pipe(ofActionSuccessful(Logout)).subscribe(() => {
@@ -25,9 +27,13 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.isAdmin$.subscribe( (value) => {
+    this.isAdmin$.subscribe((value) => {
         this.isAdmin = value;
     });
+
+    this.isSupervisor$.subscribe((value) => {
+        this.isSupervisor = value;
+    })
   }
 
 }
