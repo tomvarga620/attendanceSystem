@@ -1,1 +1,8 @@
-<p>user-list works!</p>
+<section class="usersWrapper">
+    <app-page-heading [headingTextData] = "sampleHeading"></app-page-heading>
+      <app-generic-table 
+        [tableHeaders]="TABLE_HEADERS_DATA" 
+        [tableData]="USERS_DATA">
+      </app-generic-table>
+      <button style="width: 50px; margin: auto;" (click)="openDialog()">dialog test</button>
+</section>

@@ -26,7 +26,6 @@ export class RegistrationComponent implements OnInit {
 
   registerForm = new FormGroup({
     regName: new FormControl('', [Validators.required]),
-    regSelect: new FormControl('', [Validators.required]),
     regPassword: new FormControl('', [Validators.required]),
     regPasswordRepeat: new FormControl('', Validators.required)
   }, this.validatePasswordMatch);
@@ -44,7 +43,7 @@ export class RegistrationComponent implements OnInit {
       this.userService.register(
         this.f.regName.value,
         this.f.regPassword.value,
-        (this.f.regSelect.value as string).toUpperCase()
+        (Roles.USER).toUpperCase()
       ).pipe(
         tap(() => this.userService.handleHttpSuccess(`User ${this.f.regName.value} was registered`)),
         catchError((error: HttpErrorResponse) => {

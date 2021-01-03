@@ -1,12 +1,12 @@
 
 
 
-POST http://localhost:3000/saveAdmin
+POST http://localhost:3000/saveSupervisor
 Content-Type: application/json
 
 ###
 
-GET http://localhost:3000/getAdmin
+GET http://localhost:3000/getSupervisor
 
 ###
 
