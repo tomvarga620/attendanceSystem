@@ -1,5 +1,4 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { User } from "./User";
 
 @Entity()
 export class Role {
@@ -9,4 +8,7 @@ export class Role {
 
     @Column()
     roleName!: string;
+
+    @Column("timestamp")
+    creationTime!: Date;
 }
