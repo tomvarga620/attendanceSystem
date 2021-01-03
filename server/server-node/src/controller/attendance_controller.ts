@@ -21,7 +21,7 @@ export const insertAttendanceRecord = async (req: Request, res: Response, next: 
 
     try {
         const attendanceTest = new AttendanceRecord();
-        attendanceTest.arrivalTime = mysqlTimestamp;
+        attendanceTest.creationTime = mysqlTimestamp;
         await getConnection().manager.save(attendanceTest);
 
         user.attendanceRecords = [ attendanceTest ];

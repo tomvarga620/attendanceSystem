@@ -7,12 +7,15 @@ export class AttendanceRecord {
     @PrimaryGeneratedColumn()
     id!: number;
 
-    @Column("timestamp")
-    arrivalTime!: Date;
+    @Column()
+    worktime!: number;
 
-    /*@Column("timestamp")
-    departureTime!: Date;*/
+    @Column()
+    task!: number;
 
     @ManyToOne(() => User, user => user.attendanceRecords)
     user!: User;
+
+    @Column("timestamp")
+    creationTime!: Date;
 } 

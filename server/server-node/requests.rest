@@ -55,7 +55,7 @@ POST http://localhost:3000/allUsers
 Content-Type: application/json
 
 {
-    "id":"1"
+    "id":"5"
 }
 
 ###
