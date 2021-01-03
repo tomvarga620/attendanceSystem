@@ -96,10 +96,10 @@ export const deleteUser = async (req: Request, res: Response, next: NextFunction
     .catch(() => res.status(500).send("Server error"));
 }
 
-export const insertAdmin = async (req: Request, res: Response, next: NextFunction) => { 
+export const insertSupervisor = async (req: Request, res: Response, next: NextFunction) => { 
     try {
         const role = new Role();
-        role.roleName = `ADMIN`;
+        role.roleName = `SUPERVISOR`;
         await getConnection().manager.save(role);
 
         const user = new User();
@@ -114,8 +114,8 @@ export const insertAdmin = async (req: Request, res: Response, next: NextFunctio
     }
 }
 
-export const getAdmin = async (req: Request, res: Response, next: NextFunction) => {
-    const role = `ADMIN`;
+export const getSupervisor = async (req: Request, res: Response, next: NextFunction) => {
+    const role = `SUPERVISOR`;
     await getEntityRepository(User).findOne({
         relations: ["role"],
         where :[
@@ -125,7 +125,7 @@ export const getAdmin = async (req: Request, res: Response, next: NextFunction) 
         if(admin){
             res.send(JSON.stringify(admin));
         } else {
-            res.status(404).send(`Admin not found`);
+            res.status(404).send(`SUPERVISOR not found`);
         }
     }).catch(err => res.send({ err }))
 }
