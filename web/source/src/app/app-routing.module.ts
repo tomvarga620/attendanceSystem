@@ -8,13 +8,13 @@ import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
 
-  {path: 'adminboard', loadChildren: () => import('../modules/admin-home/admin-home.module')
+  {path: 'admin', loadChildren: () => import('../modules/admin-home/admin-home.module')
   .then(module => module.AdminHomeModule), canActivate: [AuthUserGuard], data: {role: Roles.ADMIN}},
 
-  {path: 'userboard', loadChildren: () => import('../modules/base-user-home/base-user-home.module')
+  {path: 'user', loadChildren: () => import('../modules/base-user-home/base-user-home.module')
   .then(module => module.BaseUserHomeModule), canActivate: [AuthUserGuard], data: {role: Roles.USER}},
 
-  {path: 'superboard', loadChildren: () => import('../modules/supervisor-home/supervisor-home.module')
+  {path: 'supervisor', loadChildren: () => import('../modules/supervisor-home/supervisor-home.module')
   .then(module => module.SupervisorHomeModule), canActivate: [AuthUserGuard], data: {role: Roles.SUPERVISOR}},
 
   {path: 'login', component: LoginComponent, canLoad: [RedirectGuard] , canActivate: [RedirectGuard]},
