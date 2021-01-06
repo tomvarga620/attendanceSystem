@@ -3,8 +3,6 @@ import { getConnection, Not, Repository } from "typeorm";
 import { User } from "../entity/User";
 import bcrypt from 'bcrypt';
 import jsonwebtoken from 'jsonwebtoken'
-import { Role } from "../entity/Role";
-import { AttendanceRecord } from "../entity/AttendanceRecord";
 
 const jwt = jsonwebtoken;
 const moment = require('moment');

@@ -1,18 +1,18 @@
 import express from 'express'
 import { authentication } from "./adminAuthentication";
 import { login, logoutUser } from '../controller/account_controller';
-import { createUser, deleteUser, getSupervisor, getAllUsers, getUserInfo, insertSupervisor, updateUser } from '../controller/user_controller';
+import { createUser, deleteUser, getAllUsersBySupervisorId, getSupervisor, getUserInfo, insertSupervisor, updateUser } from '../controller/user_controller';
 import { insertAttendanceRecord } from '../controller/attendance_controller';
 
 const router = express.Router();
 
 router.post('/login',login);
 
-router.post('/createUser', authentication, createUser);
+router.post('/createUser', createUser);
 
 router.post('/userInfo',getUserInfo);
 
-router.post('/allUsers',getAllUsers);
+router.post('/allUsers',getAllUsersBySupervisorId);
 
 router.get('/logout', logoutUser);
 
