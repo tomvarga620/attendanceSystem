@@ -71,6 +71,9 @@ export const getAllUsersBySupervisorId = async (req: Request, res: Response, nex
         .where({ supervisorId: _supervisorId })
         .select(["supervisor_to_user_relation.userId"])
         .getMany().then((usersId) => {
+
+            if(usersId.length === 0) return res.status(200).send(JSON.stringify([]));
+
             const arrayOfUsersId = usersId.map(x => x.userId);
             getEntityRepository(User)
             .createQueryBuilder("user")

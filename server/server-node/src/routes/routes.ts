@@ -1,5 +1,4 @@
 import express from 'express'
-import { authentication } from "./adminAuthentication";
 import { login, logoutUser } from '../controller/account_controller';
 import { createUser, deleteUser, getAllUsersBySupervisorId, getSupervisor, getUserInfo, insertSupervisor, updateUser } from '../controller/user_controller';
 import { insertAttendanceRecord } from '../controller/attendance_controller';

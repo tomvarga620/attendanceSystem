@@ -20,20 +20,20 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
     });
 
     if(user == null){
-        return res.status(400).send(`User not found`);
+        return res.status(400).send("User not found");
     }
+
     try {
         if(await bcrypt.compare(req.body.password, user.password)){
             const username = user.username
             const accessToken = jwt.sign({username},process.env.ACCESS_TOKEN_SECRET ?? '' , { 
-                //expiresIn: "5s"
-             });
-            return res.json({ token: accessToken, role: user.role.roleName, id: user.id }).status(200).send(`Success`);
+                expiresIn: "1d"
+            });
+            return res.json({ token: accessToken, role: user.role.roleName, id: user.id }).status(200).send("Success");
         } else {
-            return res.status(401).send(`Not allowed`);
+            return res.status(401).send("Not allowed");
         }
     } catch(e) {
-        // console.log(e);
         res.status(500).send("Server error");
     }
 }
