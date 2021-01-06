@@ -4,6 +4,7 @@ import { Role } from "../entity/Role";
 import { User } from "../entity/User";
 import bcrypt from 'bcrypt';
 import { SupervisorToUserRelation } from "../entity/SupervisorToUserRelation";
+import { Roles } from "../helpers/Roles";
 
 const moment = require('moment');
 const getEntityRepository = (entity:any): Repository<any> => {
@@ -128,12 +129,12 @@ export const deleteUser = async (req: Request, res: Response, next: NextFunction
 export const insertSupervisor = async (req: Request, res: Response, next: NextFunction) => { 
     try {
         const role = new Role();
-        role.roleName = `SUPERVISOR`;
+        role.roleName = Roles.SUPERVISOR;
         role.creationTime = moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
         await getConnection().manager.save(role);
 
         const user = new User();
-        user.username = `tomik`;
+        user.username = 'tomik';
         user.password = await bcrypt.hash('admin',8);
         user.role = role;
         user.creationTime = moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
@@ -146,7 +147,7 @@ export const insertSupervisor = async (req: Request, res: Response, next: NextFu
 }
 
 export const getSupervisor = async (req: Request, res: Response, next: NextFunction) => {
-    const role = `SUPERVISOR`;
+    const role = Roles.SUPERVISOR;
     await getEntityRepository(User).findOne({
         relations: ["role"],
         where :[
