@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { getConnection, Not, Repository, UpdateResult } from "typeorm";
+import { getConnection, In, Not, Repository, UpdateResult } from "typeorm";
 import { Role } from "../entity/Role";
 import { User } from "../entity/User";
 import bcrypt from 'bcrypt';
@@ -76,8 +76,9 @@ export const getAllUsersBySupervisorId = async (req: Request, res: Response, nex
             if(usersId.length === 0) return res.status(200).send(JSON.stringify([]));
 
             const arrayOfUsersId = usersId.map(x => x.userId);
-            getEntityRepository(User)
-            .createQueryBuilder("user")
+            getEntityRepository(User).createQueryBuilder("user")
+            .leftJoinAndSelect("user.role", "role")
+            .select(['user.id', 'user.username', 'role.roleName', 'user.creationTime'])
             .where("user.id IN (:...userIds)", { userIds: arrayOfUsersId })
             .getMany()
                 .then(users => res.status(200).send(JSON.stringify(users)))

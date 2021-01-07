@@ -79,7 +79,7 @@ POST http://localhost:3000/createUser
 Content-Type: application/json
 
 {
-    "username":"test2",
+    "username":"test3",
     "supervisorId":"1",
     "role":"USER",
     "password":"test"
