@@ -14,53 +14,14 @@ export class UserListComponent implements OnInit {
   dataSource: User[];
   displayedColumns: string[] = ['username', 'role'];
   userId: number;
-
-  sampleHeading: string = "Dadada";
+  sampleHeading = "dadadada";
 
   TABLE_HEADERS_DATA = [
-    { key: "_id", displayName: "User Id" },
+    { key: "id", displayName: "User Id" },
     { key: "username", displayName: "Username" },
-    { key: "email", displayName: "Email" },
-    { key: "dob", displayName: "Date of Birth"}
+    { key: "creationTime", displayName: "Created at"},
+    { key: "role", displayName: "Role"}
   ];
-
-  USERS_DATA = [
-    {
-      _id: 1,
-      username: "Abderrahmene",
-      email: "abderrahmene@abc.xyz",
-      dob: Date.now()
-    },
-    {
-      _id: 2,
-      username: "Abderrahmene",
-      email: "abderrahmene@abc.xyz",
-      dob: Date.now()
-    },
-    {
-      _id: 2,
-      username: "Abderrahmene",
-      email: "abderrahmene@abc.xyz",
-      dob: Date.now()
-    },
-    {
-      _id: 2,
-      username: "Abderrahmene",
-      email: "abderrahmene@abc.xyz",
-      dob: Date.now()
-    },    {
-      _id: 2,
-      username: "Abderrahmene",
-      email: "abderrahmene@abc.xyz",
-      dob: Date.now()
-    },
-    {
-      _id: 2,
-      username: "Abderrahmene",
-      email: "abderrahmene@abc.xyz",
-      dob: Date.now()
-    }
-  ]
 
   constructor(
     private userService: UserService, 
@@ -72,8 +33,18 @@ export class UserListComponent implements OnInit {
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
-    this.userService.getUsers(this.userId).subscribe(
-      users => this.dataSource = users
+    this.userService.getUsers(this.userId).subscribe(users => {
+        users = users.map(user => {
+          const newUser = {
+            id: user.id,
+            username: user.username,
+            creationTime: user.creationTime,
+            role: user.role.roleName
+          };
+          return newUser;
+        })
+        this.dataSource = users;
+      }
     )
   }
 

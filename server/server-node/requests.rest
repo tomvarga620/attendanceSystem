@@ -73,3 +73,23 @@ Content-Type: application/json
    "role":"USER"
 }
 
+###
+
+POST http://localhost:3000/createUser
+Content-Type: application/json
+
+{
+    "username":"test3",
+    "supervisorId":"1",
+    "role":"USER",
+    "password":"test"
+}
+
+###
+
+POST http://localhost:3000/allUsers
+Content-Type: application/json
+
+{
+    "supervisorId":1
+}

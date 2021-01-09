@@ -1,8 +1,10 @@
 import { NextFunction, Request, Response } from "express";
-import { getConnection, Not, ObjectID, Repository, UpdateResult } from "typeorm";
+import { getConnection, In, Not, Repository, UpdateResult } from "typeorm";
 import { Role } from "../entity/Role";
 import { User } from "../entity/User";
 import bcrypt from 'bcrypt';
+import { SupervisorToUserRelation } from "../entity/SupervisorToUserRelation";
+import { Roles } from "../helpers/Roles";
 
 const moment = require('moment');
 const getEntityRepository = (entity:any): Repository<any> => {
@@ -12,6 +14,7 @@ const getEntityRepository = (entity:any): Repository<any> => {
 export const createUser = async (req: Request, res: Response, next: NextFunction) => {
 
     const username = req.body.username;
+    const supervisorId = req.body.supervisorId;
 
     const userNameConflict: boolean = await getEntityRepository(User)
     .createQueryBuilder("user")
@@ -21,20 +24,30 @@ export const createUser = async (req: Request, res: Response, next: NextFunction
         try{
             const role = new Role();
             role.roleName = req.body.role;
+            role.creationTime =  moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
             await getConnection().manager.save(role);
+
             const userToSave = new User();
-            userToSave.username = req.body.username;
+            userToSave.username = username;
             userToSave.password = await bcrypt.hash(req.body.password, 8);
             userToSave.role = role;
-            await getConnection().manager.save(userToSave).then(() => res.status(201).send());
+            userToSave.creationTime = moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
+            await getConnection().manager.save(userToSave).then((user) => {
+                const superToUserRelation = new SupervisorToUserRelation();
+                superToUserRelation.supervisorId = supervisorId;
+                superToUserRelation.userId = user.id;
+                getConnection().manager.save(superToUserRelation).then(() => {
+                    res.status(201).send("User created");
+                })
+            })
         } catch(err){
+            console.log(err);
             res.status(500).send("Server error");
         }
     } else {
         res.status(409).send("Username already exist");
     }
 }
-
 
 export const getUserInfo = async (req: Request, res: Response, next: NextFunction) => {
     await getEntityRepository(User).find({
@@ -43,20 +56,38 @@ export const getUserInfo = async (req: Request, res: Response, next: NextFunctio
         ], 
         relations: ["role"]
     })
-    .then(userInfo => res.send(JSON.stringify(userInfo)))
-    .catch(err => res.send({ err }).status(500));
+    .then(userInfo => res.status(200).send(JSON.stringify(userInfo)))
+    .catch(err => res.status(500).send({ err }));
 }
 
-export const getAllUsers = async (req: Request, res: Response, next: NextFunction) => {
-    const id = req.body.id;
-    await getEntityRepository(User).find({
-        where: [
-            { id: Not(id) }
-        ],
-        relations: ["role"]
-    }).then((users) => {
-        res.send(JSON.stringify(users)).status(200);
-    }).catch(err => res.send({err}).status(500));
+export const getAllUsersBySupervisorId = async (req: Request, res: Response, next: NextFunction) => {
+
+    const _supervisorId = req.body.supervisorId;
+    if (_supervisorId === null)  return res.status(400).send("Invalid supervisorId");
+
+    try {
+
+        await getEntityRepository(SupervisorToUserRelation)
+        .createQueryBuilder("supervisor_to_user_relation")
+        .where({ supervisorId: _supervisorId })
+        .select(["supervisor_to_user_relation.userId"])
+        .getMany().then((usersId) => {
+
+            if(usersId.length === 0) return res.status(200).send(JSON.stringify([]));
+
+            const arrayOfUsersId = usersId.map(x => x.userId);
+            getEntityRepository(User).createQueryBuilder("user")
+            .leftJoinAndSelect("user.role", "role")
+            .select(['user.id', 'user.username', 'role.roleName', 'user.creationTime'])
+            .where("user.id IN (:...userIds)", { userIds: arrayOfUsersId })
+            .getMany()
+                .then(users => res.status(200).send(JSON.stringify(users)))
+                .catch(err => res.status(500).send({err}))
+        });
+
+    } catch(err){
+        res.status(500).send("Server error");
+    }
 }
 
 export const updateUser = async (req: Request, res: Response, next: NextFunction) => { 
@@ -82,7 +113,7 @@ export const deleteUser = async (req: Request, res: Response, next: NextFunction
 
     const userId = req.params.id
 
-    if(userId == null){
+    if (userId == null){
         return res.status(400).send("Invalid user id");
     }
 
@@ -99,15 +130,17 @@ export const deleteUser = async (req: Request, res: Response, next: NextFunction
 export const insertSupervisor = async (req: Request, res: Response, next: NextFunction) => { 
     try {
         const role = new Role();
-        role.roleName = `SUPERVISOR`;
+        role.roleName = Roles.SUPERVISOR;
+        role.creationTime = moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
         await getConnection().manager.save(role);
 
         const user = new User();
-        user.username = `tomik`;
+        user.username = 'tomik';
         user.password = await bcrypt.hash('admin',8);
         user.role = role;
+        user.creationTime = moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
         await getConnection().manager.save(user);
-        res.status(201).send("Admin created");
+        res.status(201).send("Supervisor created");
     } catch(error) {
         console.log(error);
         res.status(500).send("Server error");
@@ -115,7 +148,7 @@ export const insertSupervisor = async (req: Request, res: Response, next: NextFu
 }
 
 export const getSupervisor = async (req: Request, res: Response, next: NextFunction) => {
-    const role = `SUPERVISOR`;
+    const role = Roles.SUPERVISOR;
     await getEntityRepository(User).findOne({
         relations: ["role"],
         where :[

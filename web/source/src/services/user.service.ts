@@ -54,9 +54,9 @@ export class UserService {
     );
   }
 
-  getUsers(_id: number): Observable<User[]> {
+  getUsers(_id: number): Observable<any> {
     return this.httpClient.post(`${API_URL}/allUsers`, {
-      id: _id
+      supervisorId: _id
     })
     .pipe(
       catchError(error => {

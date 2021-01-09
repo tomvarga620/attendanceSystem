@@ -11,7 +11,7 @@ export class AttendanceRecord {
     worktime!: number;
 
     @Column()
-    task!: number;
+    task!: string;
 
     @ManyToOne(() => User, user => user.attendanceRecords)
     user!: User;

@@ -7,7 +7,7 @@ export class SupervisorToUserRelation {
     id!: number;
 
     @Column()
-    superVisorId!: number;
+    supervisorId!: number;
 
     @Column()
     userId!: number;
