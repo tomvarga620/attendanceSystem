@@ -35,12 +35,13 @@ export class UserService {
     });
   }
 
-  register(_username: string, _password: string , _role): Observable<void> {
-    return this.httpClient.post<void>(`${API_URL}/createUser`, {
+  register(_username: string, _password: string , _role: string, _id: number): Observable<any> {
+    return this.httpClient.post(`${API_URL}/createUser`, {
+      supervisorId: _id,
       username: _username,
       password: _password,
       role: _role
-    });
+    },{responseType: 'text'});
   }
 
   logout( _token: string ): Observable<void> {
