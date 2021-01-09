@@ -20,7 +20,7 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
     });
 
     if(user == null){
-        return res.status(400).send("User not found");
+        return res.status(400).send(JSON.stringify("User not found"));
     }
 
     try {
@@ -29,9 +29,9 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
             const accessToken = jwt.sign({username},process.env.ACCESS_TOKEN_SECRET ?? '' , { 
                 expiresIn: "1d"
             });
-            return res.json({ token: accessToken, role: user.role.roleName, id: user.id }).status(200).send("Success");
+            return res.json({ token: accessToken, role: user.role.roleName, id: user.id });
         } else {
-            return res.status(401).send("Not allowed");
+            return res.status(401).send("Wrong username or password");
         }
     } catch(e) {
         res.status(500).send("Server error");

@@ -1,3 +1,4 @@
+import { AuthState } from './../../../store/auth/auth.state';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Store } from '@ngxs/store';
@@ -43,10 +44,12 @@ export class RegistrationComponent implements OnInit {
       this.userService.register(
         this.f.regName.value,
         this.f.regPassword.value,
-        (Roles.USER).toUpperCase()
+        (Roles.USER).toUpperCase(),
+        this.store.selectSnapshot(AuthState.userId),
       ).pipe(
         tap(() => this.userService.handleHttpSuccess(`User ${this.f.regName.value} was registered`)),
         catchError((error: HttpErrorResponse) => {
+          console.log(error.message);
           this.httpFormStatusError = error;
           return EMPTY;
         })

@@ -9,22 +9,24 @@ const getEntityRepository = (entity:any): Repository<any> => {
 }
 
 export const insertAttendanceRecord = async (req: Request, res: Response, next: NextFunction) => {
-    var mysqlTimestamp = moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
-    console.log(mysqlTimestamp);
+
+    if(Object.keys(req.body).length === 0) return res.status(400).send();
 
     const user =  await getEntityRepository(User).findOne({
         relations: ["role"],
         where :[
-            {username : req.body.username}
+            {id : req.body.id}
         ]
     });
 
     try {
-        const attendanceTest = new AttendanceRecord();
-        attendanceTest.creationTime = mysqlTimestamp;
-        await getConnection().manager.save(attendanceTest);
+        const attendanceToSave = new AttendanceRecord();
+        attendanceToSave.worktime = req.body.worktime;
+        attendanceToSave.task = req.body.task;
+        attendanceToSave.creationTime = moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
+        await getConnection().manager.save(attendanceToSave);
 
-        user.attendanceRecords = [ attendanceTest ];
+        user.attendanceRecords = [ attendanceToSave ];
         await getConnection().manager.save(user);
     } catch(e) {
         console.log(e);

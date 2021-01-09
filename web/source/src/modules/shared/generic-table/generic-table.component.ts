@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-generic-table',
@@ -20,7 +20,6 @@ export class GenericTableComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.dataSource);
     console.log(this.colsHeaders);
   }
 
