@@ -1,3 +1,4 @@
+import { Roles } from './../../app/entity/Roles';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Action, Select, Selector, State, StateContext } from '@ngxs/store';
@@ -32,12 +33,17 @@ export class AuthState {
 
     @Selector()
     static isAdmin(current: UserAuth): boolean {
-        return current.role === `ADMIN` ? true : false;
+        return current.role === Roles.ADMIN ? true : false;
     }
 
     @Selector()
     static isSupervisor(current: UserAuth): boolean {
-        return current.role === `SUPERVISOR`? true : false;
+        return current.role === Roles.SUPERVISOR ? true : false;
+    }
+
+    @Selector()
+    static isBaseUser(current: UserAuth): boolean {
+        return current.role === Roles.USER ? true : false;
     }
 
     @Selector()

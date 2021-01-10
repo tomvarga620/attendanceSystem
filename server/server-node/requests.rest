@@ -97,7 +97,30 @@ POST http://localhost:3000/saveAttendance
 Content-Type: application/json
 
 {
-    "id":"2",
+    "id":"1",
     "worktime":"8",
-    "task":"dadada"
+    "task":"daddd"
+}
+
+###
+
+GET http://localhost:3000/getAttendanceRecords/1
+
+
+###
+
+GET http://localhost:3000/getAttendanceRecordById/8
+
+###
+
+DELETE  http://localhost:3000/deleteAttendanceRecord/6
+
+###
+POST http://localhost:3000/updateAttendanceRecord
+Content-Type: application/json
+
+{
+   "id":8,
+   "worktime":2,
+   "task":"test"
 }
