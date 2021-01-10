@@ -2,6 +2,7 @@ import { AttendanceRecord } from './../entity/AttendanceRecord';
 import { NextFunction, Request, Response } from "express";
 import { getConnection, Repository, UpdateResult } from "typeorm";
 import { User } from "../entity/User";
+import { type } from 'os';
 
 const moment = require('moment');
 const getEntityRepository = (entity:any): Repository<any> => {
@@ -18,6 +19,8 @@ export const insertAttendanceRecord = async (req: Request, res: Response, next: 
             {id : req.body.id}
         ]
     });
+
+    if (user === null || typeof user === "undefined") return res.status(404).send("User not found")
 
     try {
         const attendanceToSave = new AttendanceRecord();
@@ -52,7 +55,7 @@ export const getAllAttendanceRecordsByUserId = async (req: Request, res: Respons
     }
 }
 
-export const getAllAttendanceRecordsById = async (req: Request, res: Response, next: NextFunction) => {
+export const getAttendanceRecordById = async (req: Request, res: Response, next: NextFunction) => {
 
     const attendanceRecordId = req.params.id
     if(attendanceRecordId === null) return res.status(400).send();

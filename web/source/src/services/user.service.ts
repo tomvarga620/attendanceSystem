@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { EMPTY, Observable, of, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
-import { User } from 'src/app/entity/User';
 import { SnackbarService } from './snackbar.service';
 
 const API_URL = `http://localhost:3000`;
@@ -22,9 +21,9 @@ export class UserService {
   constructor(
     private httpClient: HttpClient,
     private snackbarService: SnackbarService,
-    private store: Store) { }
+    private store: Store) {}
 
-  get apiUrL(){
+  get apiUrl(){
     return API_URL;
   }
 
@@ -78,9 +77,7 @@ export class UserService {
     )
   }
 
-  updateUser(){
-    
-  }
+  updateUser(){}
 
   handleHttpError(error) {
     console.log(JSON.stringify(error));

@@ -104,7 +104,7 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:3000/getAttendanceRecords/1
+GET http://localhost:3000/getAllAttendanceRecords/2
 
 
 ###
@@ -113,7 +113,7 @@ GET http://localhost:3000/getAttendanceRecordById/8
 
 ###
 
-DELETE  http://localhost:3000/deleteAttendanceRecord/6
+DELETE http://localhost:3000/deleteAttendanceRecord/6
 
 ###
 POST http://localhost:3000/updateAttendanceRecord

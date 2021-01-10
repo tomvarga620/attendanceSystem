@@ -1,4 +1,4 @@
-import { getAllAttendanceRecordsByUserId, getAllAttendanceRecordsById, deleteAttendanceRecord, updateAttendanceRecord } from './../controller/attendance_controller';
+import { getAllAttendanceRecordsByUserId, getAttendanceRecordById, deleteAttendanceRecord, updateAttendanceRecord } from './../controller/attendance_controller';
 import express from 'express'
 import { login, logoutUser } from '../controller/account_controller';
 import { createUser, deleteUser, getAllUsersBySupervisorId, getSupervisor, getUserInfo, insertSupervisor, updateUser } from '../controller/user_controller';
@@ -27,9 +27,9 @@ router.delete('/deleteUser/:id',deleteUser)
 
 router.post('/updateUser',updateUser)
 
-router.get('/getAttendanceRecords/:id',getAllAttendanceRecordsByUserId)
+router.get('/getAllAttendanceRecords/:id',getAllAttendanceRecordsByUserId)
 
-router.get('/getAttendanceRecordById/:id',getAllAttendanceRecordsById)
+router.get('/getAttendanceRecordById/:id',getAttendanceRecordById)
 
 router.delete('/deleteAttendanceRecord/:id',deleteAttendanceRecord)
 
