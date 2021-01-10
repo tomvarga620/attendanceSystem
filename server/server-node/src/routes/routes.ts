@@ -1,3 +1,4 @@
+import { getAllAttendanceRecordsByUserId, getAllAttendanceRecordsById, deleteAttendanceRecord, updateAttendanceRecord } from './../controller/attendance_controller';
 import express from 'express'
 import { login, logoutUser } from '../controller/account_controller';
 import { createUser, deleteUser, getAllUsersBySupervisorId, getSupervisor, getUserInfo, insertSupervisor, updateUser } from '../controller/user_controller';
@@ -25,5 +26,13 @@ router.post('/saveAttendance' ,insertAttendanceRecord);
 router.delete('/deleteUser/:id',deleteUser)
 
 router.post('/updateUser',updateUser)
+
+router.get('/getAttendanceRecords/:id',getAllAttendanceRecordsByUserId)
+
+router.get('/getAttendanceRecordById/:id',getAllAttendanceRecordsById)
+
+router.delete('/deleteAttendanceRecord/:id',deleteAttendanceRecord)
+
+router.post('/updateAttendanceRecord',updateAttendanceRecord);
 
 export = router;
