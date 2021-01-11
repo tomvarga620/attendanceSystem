@@ -7,6 +7,10 @@
                 <input type="text" placeholder="Enter task" formControlName = "task">
                 <app-form-error *ngIf = "f.task.dirty " class="error" [errors] = "f.task?.errors"></app-form-error>
             </section>
+
+            <section class="inputField">
+                <input matInput placeholder="Enter date of attendance" formControlName = "period" type="date">
+            </section>
     
             <section class="inputField">
                 <input type="number" placeholder="Enter worktime" formControlName = "worktime">

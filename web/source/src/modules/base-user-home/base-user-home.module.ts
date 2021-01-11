@@ -1,3 +1,4 @@
+import { MaterialModule } from 'src/modules/material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -13,6 +14,7 @@ import { SharedModule } from '../shared/shared.module';
     SharedModule,
     CommonModule,
     FormsModule,
+    MaterialModule,
     ReactiveFormsModule,
     BaseUserHomeRoutingModule
   ]

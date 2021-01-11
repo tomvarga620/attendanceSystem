@@ -26,6 +26,7 @@ export class RegisterAttendanceComponent implements OnInit {
   
   registerAttendance = new FormGroup({
     task: new FormControl('', [Validators.required]),
+    period: new FormControl('',[Validators.required]),
     worktime: new FormControl('', [Validators.required])
   });
 
@@ -38,8 +39,9 @@ export class RegisterAttendanceComponent implements OnInit {
     if (!this.registerAttendance.invalid){
       this.attendanceService.saveAttendance(
         this.store.selectSnapshot(AuthState.userId),
-        this.f.worktime.value,
-        this.f.task.value
+        this.f.task.value,
+        this.f.period.value,
+        this.f.worktime.value
       ).pipe(
         tap(() => this.attendanceService.handleHttpSuccess(`Attendance record has been sent`)),
         catchError((error: HttpErrorResponse) => {

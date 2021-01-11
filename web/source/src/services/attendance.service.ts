@@ -23,11 +23,12 @@ export class AttendanceService {
     return API_URL;
   }
 
-  saveAttendance(_id: number, _worktime: number, _task: string): Observable<any>{
+  saveAttendance(_id: number, _task: string, _period: string,_worktime: number): Observable<any>{
     return this.httpClient.post(`${API_URL}/saveAttendance`, {
       id: _id,
-      worktime: _worktime,
-      task: _task
+      task: _task,
+      period: _period,
+      worktime: _worktime
     },{responseType: 'text'});
   }
 

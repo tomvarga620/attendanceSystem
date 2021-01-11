@@ -18,8 +18,9 @@ export class AttendanceListComponent implements OnInit, AfterViewInit {
 
   TABLE_HEADERS_DATA = [
     { key: "id", displayName: "Record Id" },
-    { key: "worktime", displayName: "Worktime" },
     { key: "task", displayName: "Task"},
+    { key: "period", displayName: "Date" },
+    { key: "worktime", displayName: "Worktime" },
     { key: "creationTime", displayName: "Created at"}
   ];
 
