@@ -2,7 +2,6 @@ import { AttendanceRecord } from './../entity/AttendanceRecord';
 import { NextFunction, Request, Response } from "express";
 import { getConnection, Repository, UpdateResult } from "typeorm";
 import { User } from "../entity/User";
-import { type } from 'os';
 
 const moment = require('moment');
 const getEntityRepository = (entity:any): Repository<any> => {
@@ -24,8 +23,9 @@ export const insertAttendanceRecord = async (req: Request, res: Response, next: 
 
     try {
         const attendanceToSave = new AttendanceRecord();
-        attendanceToSave.worktime = req.body.worktime;
         attendanceToSave.task = req.body.task;
+        attendanceToSave.period = req.body.period;
+        attendanceToSave.worktime = req.body.worktime;
         attendanceToSave.creationTime = moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
         await getConnection().manager.save(attendanceToSave);
 
@@ -95,8 +95,9 @@ export const deleteAttendanceRecord = async (req: Request, res: Response, next: 
 export const updateAttendanceRecord = async (req: Request, res: Response, next: NextFunction) => { 
     const attendanceRecord = {
         id: req.body.id,
+        task: req.body.task,
         worktime: req.body.worktime,
-        task: req.body.task
+        period: req.body.period
     }
 
     try {

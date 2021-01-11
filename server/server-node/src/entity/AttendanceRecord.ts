@@ -13,6 +13,9 @@ export class AttendanceRecord {
     @Column()
     task!: string;
 
+    @Column()
+    period!: string;
+
     @ManyToOne(() => User, user => user.attendanceRecords)
     user!: User;
 

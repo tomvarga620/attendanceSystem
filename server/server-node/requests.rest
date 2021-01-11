@@ -97,9 +97,10 @@ POST http://localhost:3000/saveAttendance
 Content-Type: application/json
 
 {
-    "id":"1",
+    "id":"2",
+    "task":"daddd",
     "worktime":"8",
-    "task":"daddd"
+    "period":"2"
 }
 
 ###
