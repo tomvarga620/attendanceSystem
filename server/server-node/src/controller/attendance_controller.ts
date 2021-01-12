@@ -13,11 +13,12 @@ export const insertAttendanceRecord = async (req: Request, res: Response, next: 
     if(Object.keys(req.body).length === 0) return res.status(400).send();
 
     const user = await getEntityRepository(User).findOne({
-        relations: ["role"],
         where :[
             {id : req.body.id}
         ]
     });
+
+    console.log(user);
 
     if (user === null || typeof user === "undefined") return res.status(404).send("User not found")
 
@@ -29,7 +30,7 @@ export const insertAttendanceRecord = async (req: Request, res: Response, next: 
         attendanceToSave.creationTime = moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
         await getConnection().manager.save(attendanceToSave);
 
-        user.attendanceRecords = [ attendanceToSave ];
+        user.attendanceRecords = [...user.attendanceRecords,attendanceToSave]
         await getConnection().manager.save(user);
         res.status(200).send("Record was saved");
     } catch(e) {

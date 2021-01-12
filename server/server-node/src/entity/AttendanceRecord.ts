@@ -16,7 +16,8 @@ export class AttendanceRecord {
     @Column()
     period!: string;
 
-    @ManyToOne(() => User, user => user.attendanceRecords)
+    @ManyToOne(() => User, { nullable: true })
+    @JoinColumn({ name: 'user_id' })
     user!: User;
 
     @Column("timestamp")

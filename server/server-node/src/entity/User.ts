@@ -15,11 +15,11 @@ export class User {
     @Column()
     password!: string;
 
-    @OneToOne((type) => Role,{ cascade: true, onDelete: 'CASCADE' },)
+    @OneToOne((type) => Role,{ cascade: true, onDelete: 'CASCADE' })
     @JoinColumn()
     role!: Role;
 
-    @OneToMany(() => AttendanceRecord, record => record.user)
+    @OneToMany(() => AttendanceRecord, record => record.user, { eager: true })
     attendanceRecords!: AttendanceRecord[]
 
     @OneToOne(() => SupervisorToUserRelation)

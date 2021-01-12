@@ -98,7 +98,7 @@ Content-Type: application/json
 
 {
     "id":"2",
-    "task":"daddd",
+    "task":"test",
     "worktime":"8",
     "period":"2"
 }
