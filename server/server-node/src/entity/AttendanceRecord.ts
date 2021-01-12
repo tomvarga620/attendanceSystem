@@ -13,7 +13,11 @@ export class AttendanceRecord {
     @Column()
     task!: string;
 
-    @ManyToOne(() => User, user => user.attendanceRecords)
+    @Column()
+    period!: string;
+
+    @ManyToOne(() => User, { nullable: true })
+    @JoinColumn({ name: 'user_id' })
     user!: User;
 
     @Column("timestamp")

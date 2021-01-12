@@ -76,7 +76,7 @@ POST http://localhost:3000/createUser
 Content-Type: application/json
 
 {
-    "username":"test3",
+    "username":"test",
     "supervisorId":"1",
     "role":"USER",
     "password":"test"
@@ -97,14 +97,15 @@ POST http://localhost:3000/saveAttendance
 Content-Type: application/json
 
 {
-    "id":"1",
+    "id":"3",
+    "task":"test",
     "worktime":"8",
-    "task":"daddd"
+    "period":"2"
 }
 
 ###
 
-GET http://localhost:3000/getAttendanceRecords/1
+GET http://localhost:3000/getAllAttendanceRecords/2
 
 
 ###
@@ -113,7 +114,7 @@ GET http://localhost:3000/getAttendanceRecordById/8
 
 ###
 
-DELETE  http://localhost:3000/deleteAttendanceRecord/6
+DELETE http://localhost:3000/deleteAttendanceRecord/6
 
 ###
 POST http://localhost:3000/updateAttendanceRecord

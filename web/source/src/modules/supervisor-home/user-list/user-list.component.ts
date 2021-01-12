@@ -14,7 +14,7 @@ export class UserListComponent implements OnInit {
   dataSource: User[];
   displayedColumns: string[] = ['username', 'role'];
   userId: number;
-  sampleHeading = "dadadada";
+  sampleHeading = "Users";
 
   TABLE_HEADERS_DATA = [
     { key: "id", displayName: "User Id" },

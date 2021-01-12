@@ -17,7 +17,6 @@ import { Roles } from 'src/app/entity/Roles';
 export class RegistrationComponent implements OnInit {
 
   httpFormStatusError: HttpErrorResponse;
-  roles: string[] = Roles.roleArray();
 
   constructor(
     private store: Store,
@@ -33,9 +32,7 @@ export class RegistrationComponent implements OnInit {
 
   get f() { return this.registerForm.controls; }
 
-  ngOnInit(): void {
-    this.roles.forEach((role) => console.log(role));
-  }
+  ngOnInit(): void {}
 
   registerUser(){
     console.log(`registerUser function works`);
@@ -47,7 +44,7 @@ export class RegistrationComponent implements OnInit {
         (Roles.USER).toUpperCase(),
         this.store.selectSnapshot(AuthState.userId),
       ).pipe(
-        tap(() => this.userService.handleHttpSuccess(`User ${this.f.regName.value} was registered`)),
+        tap(() => this.userService.handleHttpSuccess(`User ${this.f.regName.value} has been registered`)),
         catchError((error: HttpErrorResponse) => {
           console.log(error.message);
           this.httpFormStatusError = error;

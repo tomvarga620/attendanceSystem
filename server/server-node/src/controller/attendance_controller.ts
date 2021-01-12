@@ -13,20 +13,24 @@ export const insertAttendanceRecord = async (req: Request, res: Response, next: 
     if(Object.keys(req.body).length === 0) return res.status(400).send();
 
     const user = await getEntityRepository(User).findOne({
-        relations: ["role"],
         where :[
             {id : req.body.id}
         ]
     });
 
+    console.log(user);
+
+    if (user === null || typeof user === "undefined") return res.status(404).send("User not found")
+
     try {
         const attendanceToSave = new AttendanceRecord();
-        attendanceToSave.worktime = req.body.worktime;
         attendanceToSave.task = req.body.task;
+        attendanceToSave.period = req.body.period;
+        attendanceToSave.worktime = req.body.worktime;
         attendanceToSave.creationTime = moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
         await getConnection().manager.save(attendanceToSave);
 
-        user.attendanceRecords = [ attendanceToSave ];
+        user.attendanceRecords = [...user.attendanceRecords,attendanceToSave]
         await getConnection().manager.save(user);
         res.status(200).send("Record was saved");
     } catch(e) {
@@ -41,18 +45,21 @@ export const getAllAttendanceRecordsByUserId = async (req: Request, res: Respons
     if(userId === null) return res.status(400).send();
 
     try {
-        await getEntityRepository(AttendanceRecord).find({})
-            .then((attendanceRecords => {
-                res.status(200).send(JSON.stringify(attendanceRecords));
-            }))
-            .catch((err) => res.status(500).send(err))
+        await getConnection().createQueryBuilder()
+        .select("attendance_record")
+        .from("AttendanceRecord","attendance_record")
+        .where("attendance_record.user_id = :id",{ id: userId}).getMany()
+        .then((attendanceRecords => {
+            res.status(200).send(JSON.stringify(attendanceRecords));
+        }))
+        .catch((err) => res.status(500).send(err))
             
     } catch(e) {
         res.status(500).send("Server error")
     }
 }
 
-export const getAllAttendanceRecordsById = async (req: Request, res: Response, next: NextFunction) => {
+export const getAttendanceRecordById = async (req: Request, res: Response, next: NextFunction) => {
 
     const attendanceRecordId = req.params.id
     if(attendanceRecordId === null) return res.status(400).send();
@@ -92,8 +99,9 @@ export const deleteAttendanceRecord = async (req: Request, res: Response, next: 
 export const updateAttendanceRecord = async (req: Request, res: Response, next: NextFunction) => { 
     const attendanceRecord = {
         id: req.body.id,
+        task: req.body.task,
         worktime: req.body.worktime,
-        task: req.body.task
+        period: req.body.period
     }
 
     try {

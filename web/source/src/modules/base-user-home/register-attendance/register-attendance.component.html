@@ -1,1 +1,22 @@
-<p>register-attendance works!</p>
+<section class="wrap">
+    <form class="registerAttendance" [formGroup] = "registerAttendance" (ngSubmit) = "submitAttendance()">
+            <h1>Send Attendance</h1>
+            <app-form-http-error *ngIf = "httpFormStatusError?.error" [httpError] = "httpFormStatusError"></app-form-http-error>
+
+            <section class="inputField">
+                <input type="text" placeholder="Enter task" formControlName = "task">
+                <app-form-error *ngIf = "f.task.dirty " class="error" [errors] = "f.task?.errors"></app-form-error>
+            </section>
+
+            <section class="inputField">
+                <input matInput placeholder="Enter date of attendance" formControlName = "period" type="date">
+            </section>
+    
+            <section class="inputField">
+                <input type="number" placeholder="Enter worktime" formControlName = "worktime">
+                <app-form-error *ngIf = "f.worktime.dirty " class="error" [errors] = "f.worktime?.errors"></app-form-error>
+            </section>
+
+            <input type="submit" value="Submit">
+    </form>
+</section>
