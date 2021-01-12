@@ -20,7 +20,8 @@ export class UserListComponent implements OnInit {
     { key: "id", displayName: "User Id" },
     { key: "username", displayName: "Username" },
     { key: "creationTime", displayName: "Created at"},
-    { key: "role", displayName: "Role"}
+    { key: "role", displayName: "Role"},
+    { key: "actionMenu", displayName: "Action"}
   ];
 
   constructor(
