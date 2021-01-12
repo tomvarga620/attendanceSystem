@@ -45,11 +45,14 @@ export const getAllAttendanceRecordsByUserId = async (req: Request, res: Respons
     if(userId === null) return res.status(400).send();
 
     try {
-        await getEntityRepository(AttendanceRecord).find({})
-            .then((attendanceRecords => {
-                res.status(200).send(JSON.stringify(attendanceRecords));
-            }))
-            .catch((err) => res.status(500).send(err))
+        await getConnection().createQueryBuilder()
+        .select("attendance_record")
+        .from("AttendanceRecord","attendance_record")
+        .where("attendance_record.user_id = :id",{ id: userId}).getMany()
+        .then((attendanceRecords => {
+            res.status(200).send(JSON.stringify(attendanceRecords));
+        }))
+        .catch((err) => res.status(500).send(err))
             
     } catch(e) {
         res.status(500).send("Server error")

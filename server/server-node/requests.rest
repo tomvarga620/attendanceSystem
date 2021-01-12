@@ -76,7 +76,7 @@ POST http://localhost:3000/createUser
 Content-Type: application/json
 
 {
-    "username":"test3",
+    "username":"test",
     "supervisorId":"1",
     "role":"USER",
     "password":"test"
@@ -97,7 +97,7 @@ POST http://localhost:3000/saveAttendance
 Content-Type: application/json
 
 {
-    "id":"2",
+    "id":"3",
     "task":"test",
     "worktime":"8",
     "period":"2"
