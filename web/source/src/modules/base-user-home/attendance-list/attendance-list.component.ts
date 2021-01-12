@@ -21,7 +21,8 @@ export class AttendanceListComponent implements OnInit, AfterViewInit {
     { key: "task", displayName: "Task"},
     { key: "period", displayName: "Date" },
     { key: "worktime", displayName: "Worktime" },
-    { key: "creationTime", displayName: "Created at"}
+    { key: "creationTime", displayName: "Created at"},
+    { key: "actionMenu", displayName: "Action"}
   ];
 
   constructor(
