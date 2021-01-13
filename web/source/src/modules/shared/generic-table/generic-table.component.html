@@ -2,17 +2,29 @@
   mat-table
   [dataSource]="dataSource"
   class="mat-elevation-z0"
+  matSort
 >
   <ng-container
     *ngFor="let col of tableHeaders; let i = index"
     [matColumnDef]="col.key">
     
-    <th mat-header-cell *matHeaderCellDef>{{ tableHeaders[i]["displayName"] }}</th>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ tableHeaders[i]["displayName"] }}</th>
     <td mat-cell *matCellDef="let element">
       {{ element[col.key] }}
+
+      <button *ngIf = "col.key === 'actionMenu'" mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click) = "deleteRow(element.id)">Delete</button>
+        <!--<button mat-menu-item></button>-->
+      </mat-menu>
+      
     </td>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="colsHeaders"></tr>
   <tr mat-row *matRowDef="let row; columns: colsHeaders"></tr>
+
 </table>

@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort, MatSortable } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { Store } from '@ngxs/store';
 import { User } from 'src/app/entity/User';
 import { DialogServiceService } from 'src/services/dialog-service.service';
@@ -47,23 +50,4 @@ export class UserListComponent implements OnInit {
       }
     )
   }
-
-  openDialog(){
-    console.log("test");
-    const options = {
-      cancelButtonText: 'CANCEL',
-      confirmButtonText: 'YES, LEAVE PAGE',
-      messageText: 'By leaving this page you will permanently lose your form changes.',
-      titleText:'Leave page?'
-    };
-    
-    this.dialogService.open(options);
-        
-    this.dialogService.confirmed().subscribe(confirmed => {
-       if (confirmed) {
-            console.log("confirmed");
-          }
-    });
-  }
-
 }
