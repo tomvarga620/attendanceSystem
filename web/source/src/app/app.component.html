@@ -3,8 +3,11 @@
         <mat-icon class="closeIcon" (click) = "sideNav.close()">close</mat-icon>
         <br>
         <ul>
-            <a routerLink = '/' routerLinkActive = 'active' *ngIf = "isAdmin"><li>Users</li></a>
-            <a routerLink = '/registration' routerLinkActive = 'active' *ngIf = "isAdmin"><li>Register</li></a>
+            <a routerLink = '/' routerLinkActive = 'active' *ngIf = "isSupervisor"><li>Dashboard</li></a>
+            <a routerLink = 'user/myAttendance' routerLinkActive = 'active' *ngIf = "isBaseUser"><li>My Attendance</li></a>
+            <a routerLink = 'user/registerAttendance' routerLinkActive = 'active' *ngIf = "isBaseUser"><li>Add Attendance</li></a>
+            <a routerLink = 'supervisor/usersList' routerLinkActive = 'active' *ngIf = "isSupervisor"><li>My users</li></a>
+            <a routerLink = 'supervisor/registration' routerLinkActive = 'active' *ngIf = "isSupervisor"><li>Register user</li></a>
         </ul>
     </mat-sidenav>
     <mat-sidenav-content>

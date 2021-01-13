@@ -1,0 +1,77 @@
+.wrap {
+    width:100%;
+    height:89%;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.registerAttendance {
+    border-radius:5px;
+    background:black;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width:250px;
+    padding: 40px;
+}
+
+.registerAttendance .inputField {
+    width:100%;
+    margin:20px;
+}
+
+.registerAttendance h1 {
+    color:white;
+}
+
+.registerAttendance input,select {
+    outline: none;
+    width: 100%;
+    padding: 12px;
+    box-sizing: border-box;
+    transition: all 0.3s ease-in-out;
+    border: 1px solid transparent; 
+    border-radius: 2px;
+}
+
+.registerAttendance input:hover {
+    border:1px solid red;
+}
+
+
+.registerAttendance input[type="submit"]{
+    cursor: pointer;
+    outline: none;
+    border: none;
+    margin:20px;
+    background-color: white;
+    transition: all .1s ease-in-out;
+}
+
+.registerAttendance input[type="submit"]:hover { 
+    background-color:crimson;
+    color:white;
+    transform: scale(1.05); 
+}
+
+.registerAttendance p{
+    color:white;
+}
+
+.registerAttendance p a {
+    color:crimson !important;
+    border-bottom:1px solid transparent;
+    transition: all 0.3s ease-in-out;
+}
+
+.registerAttendance p a:hover {
+    border-bottom:1px solid crimson;
+}
+
+.error {
+    color:red;
+    margin-right:auto;
+}

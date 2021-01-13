@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { EMPTY, Observable, of, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
-import { User } from 'src/app/entity/User';
 import { SnackbarService } from './snackbar.service';
 
 const API_URL = `http://localhost:3000`;
@@ -22,9 +21,9 @@ export class UserService {
   constructor(
     private httpClient: HttpClient,
     private snackbarService: SnackbarService,
-    private store: Store) { }
+    private store: Store) {}
 
-  get apiUrL(){
+  get apiUrl(){
     return API_URL;
   }
 
@@ -35,12 +34,13 @@ export class UserService {
     });
   }
 
-  register(_username: string, _password: string , _role): Observable<void> {
-    return this.httpClient.post<void>(`${API_URL}/createUser`, {
+  register(_username: string, _password: string , _role: string, _id: number): Observable<any> {
+    return this.httpClient.post(`${API_URL}/createUser`, {
+      supervisorId: _id,
       username: _username,
       password: _password,
       role: _role
-    });
+    },{responseType: 'text'});
   }
 
   logout( _token: string ): Observable<void> {
@@ -54,9 +54,9 @@ export class UserService {
     );
   }
 
-  getUsers(_id: number): Observable<User[]> {
+  getUsers(_id: number): Observable<any> {
     return this.httpClient.post(`${API_URL}/allUsers`, {
-      id: _id
+      supervisorId: _id
     })
     .pipe(
       catchError(error => {
@@ -77,9 +77,7 @@ export class UserService {
     )
   }
 
-  updateUser(){
-    
-  }
+  updateUser(){}
 
   handleHttpError(error) {
     console.log(JSON.stringify(error));

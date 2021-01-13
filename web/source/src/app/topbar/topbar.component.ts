@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
 import { Actions, ofActionSuccessful, Select, Store } from '@ngxs/store';
-import { Logout } from 'src/store/auth/auth.actions';
+import { Logout, UserAuth } from 'src/store/auth/auth.actions';
 import { AuthState } from 'src/store/auth/auth.state';
 import { Observable } from 'rxjs';
 
@@ -15,8 +15,9 @@ export class TopbarComponent implements OnInit {
   @Input() inputSideNav: MatSidenav;
 
   isLogged: boolean;
+  username: string;
 
-  @Select(AuthState.isAdmin) isAdmin$: Observable<boolean>;
+  @Select(AuthState.username) username$: Observable<string>;
 
   constructor(private store: Store, private router: Router, private actions$: Actions) {
     this.actions$.pipe(ofActionSuccessful(Logout)).subscribe(() => {
@@ -28,6 +29,10 @@ export class TopbarComponent implements OnInit {
     this.store.select(state => !!state.userAuth.token).subscribe((value) => {
       this.isLogged = value;
     });
+
+    this.username$.subscribe((value) => {
+      this.username = value;
+    })
   }
 
   logoutUser(){

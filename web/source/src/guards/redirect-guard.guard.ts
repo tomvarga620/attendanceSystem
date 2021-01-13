@@ -26,15 +26,15 @@ export class RedirectGuard implements CanActivate {
   redirectByRole(userRole: string){
     switch (userRole){
       case 'ADMIN': {
-        this.router.navigate([`/adminboard`]);
+        this.router.navigate([`/admin`]);
         break;
       }
       case 'USER': {
-        this.router.navigate([`/userboard`]);
+        this.router.navigate([`/user/myAttendance`]);
         break;
       }
       case 'SUPERVISOR': {
-        this.router.navigate([`/superboard`]);
+        this.router.navigate([`/supervisor`]);
       }
     }
   }

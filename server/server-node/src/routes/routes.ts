@@ -1,29 +1,38 @@
+import { getAllAttendanceRecordsByUserId, getAttendanceRecordById, deleteAttendanceRecord, updateAttendanceRecord } from './../controller/attendance_controller';
 import express from 'express'
-import { authentication } from "./adminAuthentication";
 import { login, logoutUser } from '../controller/account_controller';
-import { createUser, deleteUser, getAdmin, getAllUsers, getUserInfo, insertAdmin, updateUser } from '../controller/user_controller';
+import { createUser, deleteUser, getAllUsersBySupervisorId, getSupervisor, getUserInfo, insertSupervisor, updateUser } from '../controller/user_controller';
 import { insertAttendanceRecord } from '../controller/attendance_controller';
+import { authentication } from './authentication';
 
 const router = express.Router();
 
 router.post('/login',login);
 
-router.post('/createUser', authentication, createUser);
+router.post('/createUser', createUser);
 
 router.post('/userInfo',getUserInfo);
 
-router.post('/allUsers',getAllUsers);
+router.post('/allUsers', authentication ,getAllUsersBySupervisorId);
 
-router.get('/logout', logoutUser);
+router.get('/logout',logoutUser);
 
-router.post('/saveAdmin',insertAdmin);
+router.post('/saveSupervisor',insertSupervisor);
 
-router.get('/getAdmin', getAdmin);
+router.get('/getSupervisor', getSupervisor);
 
-router.post('/saveAttendance',insertAttendanceRecord);
+router.post('/saveAttendance' ,insertAttendanceRecord);
 
 router.delete('/deleteUser/:id',deleteUser)
 
 router.post('/updateUser',updateUser)
+
+router.get('/getAllAttendanceRecords/:id',getAllAttendanceRecordsByUserId)
+
+router.get('/getAttendanceRecordById/:id',getAttendanceRecordById)
+
+router.delete('/deleteAttendanceRecord/:id',deleteAttendanceRecord)
+
+router.post('/updateAttendanceRecord',updateAttendanceRecord);
 
 export = router;

@@ -1,12 +1,9 @@
-
-
-
-POST http://localhost:3000/saveAdmin
+POST http://localhost:3000/saveSupervisor
 Content-Type: application/json
 
 ###
 
-GET http://localhost:3000/getAdmin
+GET http://localhost:3000/getSupervisor
 
 ###
 
@@ -15,7 +12,7 @@ Content-Type: application/json
 
 {
     "username":"tomik",
-    "password":""
+    "password":"admin"
 }
 
 ###
@@ -55,7 +52,7 @@ POST http://localhost:3000/allUsers
 Content-Type: application/json
 
 {
-    "id":"1"
+    "id":"5"
 }
 
 ###
@@ -73,3 +70,58 @@ Content-Type: application/json
    "role":"USER"
 }
 
+###
+
+POST http://localhost:3000/createUser
+Content-Type: application/json
+
+{
+    "username":"test",
+    "supervisorId":"1",
+    "role":"USER",
+    "password":"test"
+}
+
+###
+
+POST http://localhost:3000/allUsers
+Content-Type: application/json
+
+{
+    "supervisorId":1
+}
+
+###
+
+POST http://localhost:3000/saveAttendance
+Content-Type: application/json
+
+{
+    "id":"3",
+    "task":"test",
+    "worktime":"8",
+    "period":"2"
+}
+
+###
+
+GET http://localhost:3000/getAllAttendanceRecords/2
+
+
+###
+
+GET http://localhost:3000/getAttendanceRecordById/8
+
+###
+
+DELETE http://localhost:3000/deleteAttendanceRecord/6
+
+###
+POST http://localhost:3000/updateAttendanceRecord
+Content-Type: application/json
+
+{
+   "id":8,
+   "worktime":2,
+   "task":"test"
+}

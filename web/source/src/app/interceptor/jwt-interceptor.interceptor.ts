@@ -22,7 +22,7 @@ export class JwtInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const token = this.store.selectSnapshot(state => state.userAuth.token);
     const isLogged = !!token;
-    const isApiUrl = request.url.startsWith(this.service.apiUrL);
+    const isApiUrl = request.url.startsWith(this.service.apiUrl);
 
     if (isLogged && isApiUrl){
       request = request.clone({

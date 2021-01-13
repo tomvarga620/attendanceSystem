@@ -1,3 +1,4 @@
+import { AuthState } from './../../../store/auth/auth.state';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Store } from '@ngxs/store';
@@ -16,7 +17,6 @@ import { Roles } from 'src/app/entity/Roles';
 export class RegistrationComponent implements OnInit {
 
   httpFormStatusError: HttpErrorResponse;
-  roles: string[] = Roles.roleArray();
 
   constructor(
     private store: Store,
@@ -26,16 +26,13 @@ export class RegistrationComponent implements OnInit {
 
   registerForm = new FormGroup({
     regName: new FormControl('', [Validators.required]),
-    regSelect: new FormControl('', [Validators.required]),
     regPassword: new FormControl('', [Validators.required]),
     regPasswordRepeat: new FormControl('', Validators.required)
   }, this.validatePasswordMatch);
 
   get f() { return this.registerForm.controls; }
 
-  ngOnInit(): void {
-    this.roles.forEach((role) => console.log(role));
-  }
+  ngOnInit(): void {}
 
   registerUser(){
     console.log(`registerUser function works`);
@@ -44,10 +41,12 @@ export class RegistrationComponent implements OnInit {
       this.userService.register(
         this.f.regName.value,
         this.f.regPassword.value,
-        (this.f.regSelect.value as string).toUpperCase()
+        (Roles.USER).toUpperCase(),
+        this.store.selectSnapshot(AuthState.userId),
       ).pipe(
-        tap(() => this.userService.handleHttpSuccess(`User ${this.f.regName.value} was registered`)),
+        tap(() => this.userService.handleHttpSuccess(`User ${this.f.regName.value} has been registered`)),
         catchError((error: HttpErrorResponse) => {
+          console.log(error.message);
           this.httpFormStatusError = error;
           return EMPTY;
         })

@@ -9,6 +9,7 @@
         <section class="rightMenuItemsHolder">
             <a routerLink = '/' routerLinkActive = 'active' *ngIf="!isLogged"><li>Home</li></a>
             <a routerLink = '/login' routerLinkActive = 'active' *ngIf = "!isLogged"><li>Login</li></a>
+            <li *ngIf = "isLogged">{{ username }}</li>
             <a (click) = "logoutUser()" *ngIf = "isLogged"><li>Logout</li></a>
         </section>
     </ul>
