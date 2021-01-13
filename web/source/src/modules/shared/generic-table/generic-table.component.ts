@@ -48,10 +48,10 @@ export class GenericTableComponent implements OnInit,AfterViewInit {
   openDialog(){
     console.log("test");
     const options = {
-      cancelButtonText: 'CANCEL',
-      confirmButtonText: 'YES, DELETE',
+      cancelButtonText: 'Cancel',
+      confirmButtonText: 'Yes, delete',
       messageText: 'Are you sure you want to delete this row?',
-      titleText:'Delete'
+      titleText:''
     };
     
     this.dialogService.open(options);

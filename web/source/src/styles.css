@@ -25,9 +25,18 @@ a {
 }
 
 .successSnackBarStyle {
-
+    color:#3365FF;
+    font-weight: bold;
+    background-color: white;
+    box-shadow: -4px -4px 16px #FFFFFF, 4px 4px 16px rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
 }
 
 .errorSnackBarStyle {
-    
+    color:#BB2A22;
+    font-weight:bold;
+    background-color: #FF5D53;
+    border-radius: 6px;
+    box-shadow: -4px -4px 16px #FFFFFF, 4px 4px 16px rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
 }
