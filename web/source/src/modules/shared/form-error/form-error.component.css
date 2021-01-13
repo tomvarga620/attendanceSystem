@@ -1,3 +1,6 @@
-ng-container {
-    color:red;
+.error {
+    color:#BB2A22;
+    font-weight:bold;
+    border-radius: 6px;
+    margin-top: 5px;
 }

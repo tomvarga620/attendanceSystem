@@ -1,10 +1,36 @@
 .header, .dialog-message {
     text-transform: lowercase;
+    text-align: center;
 }
 .header::first-letter, .dialog-message::first-letter {
     text-transform: uppercase;
 }
+
+.dialog-message {
+    color:#3365FF;
+    font-weight: bold;
+    font-size: 18px;
+    width: 250px;
+}
+
+.btn {
+    width: 250px;
+    height: 40px;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    margin-top:40px;
+    margin-bottom:none;
+    transition: all .1s ease-in-out;
+    background: #1BB99D;
+    color:white;
+    box-shadow: -4px -4px 16px #FFFFFF, 4px 4px 16px rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
+    font-weight: bold;
+    display: block;
+}
+
 .btn-cancel {
-    background-color: red;
+    background-color: #FF5D53;
     color: #fff;
 }
