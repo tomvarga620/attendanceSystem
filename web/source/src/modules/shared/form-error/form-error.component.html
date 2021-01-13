@@ -1,4 +1,4 @@
-<ng-container *ngIf="errors && errors['required']"> *Required</ng-container>
-<ng-container *ngIf="errors && errors['notUnique']">Already exists</ng-container>
-<ng-container *ngIf="errors && errors['email']">Please enter a valid email</ng-container>
-<ng-container *ngIf="errors && errors['passwordsMatchFail']">Passwords don't match</ng-container>
+<ng-container *ngIf="errors && errors['required']"><span class="error">This field is required</span></ng-container>
+<ng-container *ngIf="errors && errors['notUnique']"><span class="error">Already exists</span></ng-container>
+<ng-container *ngIf="errors && errors['email']"><span class="error">Please enter a valid email</span></ng-container>
+<ng-container *ngIf="errors && errors['passwordsMatchFail']"><span class="error">Passwords don't match</span></ng-container>

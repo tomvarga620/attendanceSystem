@@ -1,6 +1,6 @@
 <section class="wrap">
     <form class="registerForm" [formGroup] = "registerForm" (ngSubmit) = "registerUser()">
-            <h1>Register User</h1>
+            <h1>Register user</h1>
             <app-form-http-error *ngIf = "httpFormStatusError?.error" [httpError] = "httpFormStatusError"></app-form-http-error>
 
             <section class="inputField">

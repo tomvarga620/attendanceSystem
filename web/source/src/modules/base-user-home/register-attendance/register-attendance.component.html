@@ -10,6 +10,7 @@
 
             <section class="inputField">
                 <input matInput placeholder="Enter date of attendance" formControlName = "period" type="date">
+                <app-form-error *ngIf = "f.period.dirty " class="error" [errors] = "f.period?.errors"></app-form-error>
             </section>
     
             <section class="inputField">
