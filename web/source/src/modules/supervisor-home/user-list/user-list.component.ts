@@ -36,7 +36,6 @@ export class UserListComponent implements OnInit {
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
-
     this.userService.getUsers(this.userId).subscribe(users => {
         users = users.map(user => {
           const newUser = {
