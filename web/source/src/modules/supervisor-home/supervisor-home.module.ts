@@ -7,7 +7,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { SharedModule } from '../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserDetailComponent } from './user-detail/user-detail.component';
-
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 @NgModule({
   declarations: [RegistrationComponent, UserListComponent, DashboardComponent, UserDetailComponent],
@@ -15,6 +15,7 @@ import { UserDetailComponent } from './user-detail/user-detail.component';
     CommonModule,
     SharedModule,
     FormsModule,
+    NgxChartsModule,
     ReactiveFormsModule,
     SupervisorHomeRoutingModule
   ]
