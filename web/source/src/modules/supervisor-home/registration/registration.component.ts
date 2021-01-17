@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { tap, catchError } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 import { EMPTY } from 'rxjs';
-import { Roles } from 'src/app/entity/Roles';
+import { Roles } from 'src/app/helpers/Roles';
 
 @Component({
   selector: 'app-registration',

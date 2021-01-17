@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthUserGuard } from 'src/guards/auth-user.guard';
 import { RedirectGuard } from 'src/guards/redirect-guard.guard';
 import { DefaultHomeComponent } from './default-home/default-home.component';
-import { Roles } from './entity/Roles';
+import { Roles } from './helpers/Roles';
 import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [

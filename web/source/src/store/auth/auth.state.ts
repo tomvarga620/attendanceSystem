@@ -1,10 +1,10 @@
-import { Roles } from './../../app/entity/Roles';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Action, Select, Selector, State, StateContext } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { map, mapTo, tap } from 'rxjs/operators';
 import { User } from 'src/app/entity/User';
+import { Roles } from 'src/app/helpers/Roles';
 import { LoginResult, UserService } from '../../services/user.service';
 import { Login, Logout, UserAuth } from './auth.actions';
 

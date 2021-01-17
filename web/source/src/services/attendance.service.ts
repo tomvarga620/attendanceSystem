@@ -53,7 +53,7 @@ export class AttendanceService {
   }
   
   deleteAttendanceRecord(_attendanceRecordId: number){
-    return this.httpClient.delete(`${API_URL}/deleteAttendanceRecord/${_attendanceRecordId}`)
+    return this.httpClient.delete(`${API_URL}/deleteAttendanceRecord/${_attendanceRecordId}`,{responseType: 'text'})
     .pipe(
       tap(() => this.handleHttpSuccess(`Attendance record was deleted`)),
       catchError(error => {
