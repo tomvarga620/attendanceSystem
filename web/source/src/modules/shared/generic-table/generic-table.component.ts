@@ -44,6 +44,10 @@ export class GenericTableComponent implements OnInit,AfterViewInit {
 
   ngAfterViewInit(): void {}
 
+  clickOnlyOnMenu(e: any){
+    e.stopPropagation();
+  }
+
   deleteRow(id: number){
     this.deleteDialog(id);
   }
