@@ -4,6 +4,7 @@ import { MatSort, MatSortable } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Store } from '@ngxs/store';
 import { User } from 'src/app/entity/User';
+import { RecordTypes } from 'src/app/helpers/RecordTypes';
 import { DialogServiceService } from 'src/services/dialog-service.service';
 import { UserService } from 'src/services/user.service';
 
@@ -18,6 +19,7 @@ export class UserListComponent implements OnInit {
   displayedColumns: string[] = ['username', 'role'];
   userId: number;
   sampleHeading = "Users";
+  type = RecordTypes.User;
 
   TABLE_HEADERS_DATA = [
     { key: "id", displayName: "User Id" },

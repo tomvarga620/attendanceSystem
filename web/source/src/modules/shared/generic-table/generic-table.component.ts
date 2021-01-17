@@ -44,10 +44,6 @@ export class GenericTableComponent implements OnInit,AfterViewInit {
 
   ngAfterViewInit(): void {}
 
-  clickOnlyOnMenu(e: any){
-    e.stopPropagation();
-  }
-
   deleteRow(id: number){
     this.deleteDialog(id);
   }
@@ -78,7 +74,7 @@ export class GenericTableComponent implements OnInit,AfterViewInit {
   navigateByDataType(type: RecordTypes, id: number){
     switch(type){
       case RecordTypes.User : {
-        this.router.navigate[''];
+        this.router.navigate([`/supervisor/usersList/user/${id}`]);
         break;
       }
       case RecordTypes.Attendance : {

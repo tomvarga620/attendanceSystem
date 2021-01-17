@@ -25,5 +25,5 @@
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="colsHeaders"></tr>
-  <tr mat-row *matRowDef="let row; columns: colsHeaders" (click) = "detailRow(row.id)"></tr>
+  <tr mat-row *matRowDef="let row; columns: colsHeaders" (click) = "detailRow(row.id)" class="baseRow"></tr>
 </table>
