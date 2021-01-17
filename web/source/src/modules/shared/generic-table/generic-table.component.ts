@@ -2,7 +2,7 @@ import { Router } from '@angular/router';
 import { UserService } from 'src/services/user.service';
 import { AttendanceService } from './../../../services/attendance.service';
 import { RecordTypes } from './../../../app/helpers/RecordTypes';
-import { DialogServiceService } from 'src/services/dialog-service.service';
+import { ConfirmDialogServiceService } from 'src/services/confirm-dialog-service.service';
 import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, MatSortable } from '@angular/material/sort';
@@ -31,7 +31,7 @@ export class GenericTableComponent implements OnInit,AfterViewInit {
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   constructor(
-    private dialogService: DialogServiceService, 
+    private dialogService: ConfirmDialogServiceService, 
     private attendanceService: AttendanceService,
     private userService: UserService,
     private router: Router) {}
