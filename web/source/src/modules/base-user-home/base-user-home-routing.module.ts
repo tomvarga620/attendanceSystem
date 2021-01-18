@@ -3,11 +3,12 @@ import { RegisterAttendanceComponent } from './register-attendance/register-atte
 import { AttendanceListComponent } from './attendance-list/attendance-list.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { DeactivateGuard } from 'src/guards/deactivate.guard';
 
 const routes: Routes = [
   {path: 'myAttendance', component: AttendanceListComponent},
   {path: '', redirectTo: 'myAttendance', pathMatch: 'full' },
-  {path: 'registerAttendance', component: RegisterAttendanceComponent},
+  {path: 'registerAttendance', component: RegisterAttendanceComponent, canDeactivate: [DeactivateGuard]},
   {path: 'myAttendance/attendance/:id', component: AttendanceDetailComponent}
 ];
 

@@ -5,15 +5,17 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { HttpErrorResponse } from '@angular/common/http';
-import { EMPTY } from 'rxjs';
+import { EMPTY, Observable, of } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
+import { CanDeactivateComponent } from 'src/guards/deactivate.guard';
+import { ConfirmDialogServiceService } from 'src/services/confirm-dialog-service.service';
 
 @Component({
   selector: 'app-register-attendance',
   templateUrl: './register-attendance.component.html',
   styleUrls: ['./register-attendance.component.css']
 })
-export class RegisterAttendanceComponent implements OnInit {
+export class RegisterAttendanceComponent implements OnInit, CanDeactivateComponent {
 
   httpFormStatusError: HttpErrorResponse;
   userId: number;
@@ -22,8 +24,9 @@ export class RegisterAttendanceComponent implements OnInit {
     private store: Store,
     private formBuilder: FormBuilder,
     private attendanceService: AttendanceService,
-    private router: Router) {}
-  
+    private router: Router,
+    private dialogService: ConfirmDialogServiceService) {}
+
   registerAttendance = new FormGroup({
     task: new FormControl('', [Validators.required]),
     period: new FormControl('',[Validators.required]),
@@ -62,5 +65,30 @@ export class RegisterAttendanceComponent implements OnInit {
     });
   }
 
+  canDeactivate(): boolean | Observable<boolean> {
+    if (this.f.task.value && this.f.period.value && this.f.worktime.value) {
+      return true;
+    }
+
+    if (!this.f.task.value && !this.f.period.value && !this.f.worktime.value) {
+      return true;
+    }
+
+    return window.confirm('Form was not completed, wanna leave?');
+  }
+
+  openDialog() {
+    const options = {
+      cancelButtonText: 'Cancel',
+      confirmButtonText: 'Yes, Leave',
+      messageText: 'Are you sure you want leave?',
+      titleText:'Leave action'
+    };
+    this.dialogService.open(options);
+    this.dialogService.confirmed().subscribe(confirmed => {
+      return of(true);
+   });
+   return of(false);
+  }
 
 }

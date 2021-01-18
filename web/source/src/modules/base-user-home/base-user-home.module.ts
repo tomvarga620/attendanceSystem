@@ -7,6 +7,7 @@ import { AttendanceListComponent } from './attendance-list/attendance-list.compo
 import { RegisterAttendanceComponent } from './register-attendance/register-attendance.component';
 import { SharedModule } from '../shared/shared.module';
 import { AttendanceDetailComponent } from './attendance-detail/attendance-detail.component';
+import { DeactivateGuard } from 'src/guards/deactivate.guard';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { AttendanceDetailComponent } from './attendance-detail/attendance-detail
     MaterialModule,
     ReactiveFormsModule,
     BaseUserHomeRoutingModule
-  ]
+  ],
+  providers: [DeactivateGuard],
 })
 export class BaseUserHomeModule { }
