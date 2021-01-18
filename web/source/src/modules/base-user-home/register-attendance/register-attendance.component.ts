@@ -74,7 +74,7 @@ export class RegisterAttendanceComponent implements OnInit, CanDeactivateCompone
       return true;
     }
 
-    return window.confirm('Form was not completed, wanna leave?');
+    return this.openDialog();
   }
 
   openDialog() {
@@ -85,10 +85,7 @@ export class RegisterAttendanceComponent implements OnInit, CanDeactivateCompone
       titleText:'Leave action'
     };
     this.dialogService.open(options);
-    this.dialogService.confirmed().subscribe(confirmed => {
-      return of(true);
-   });
-   return of(false);
+    return this.dialogService.dialogRef.afterClosed();
   }
 
 }
