@@ -25,8 +25,19 @@ table {
   .mat-table {
     background-color: #FFFFFF !important;
   }
+
   table tr:last-child td /*To remove the last border*/
-   {
+  {
     border-bottom: 0 solid;
   }
   
+
+  .baseRow {
+    transition: all .1s ease-in-out;
+  }
+
+  .baseRow:hover {
+    background-color: #E3E4E6;
+    cursor: pointer;
+    transform: scale(1.02); 
+  }

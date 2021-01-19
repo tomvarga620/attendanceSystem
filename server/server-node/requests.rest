@@ -114,7 +114,7 @@ GET http://localhost:3000/getAttendanceRecordById/8
 
 ###
 
-DELETE http://localhost:3000/deleteAttendanceRecord/6
+DELETE http://localhost:3000/deleteAttendanceRecord/1
 
 ###
 POST http://localhost:3000/updateAttendanceRecord
