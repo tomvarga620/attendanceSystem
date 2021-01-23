@@ -20,7 +20,6 @@ export class RegistrationComponent implements OnInit {
 
   constructor(
     private store: Store,
-    private formBuilder: FormBuilder,
     private userService: UserService,
     private router: Router) {}
 
@@ -50,7 +49,7 @@ export class RegistrationComponent implements OnInit {
           this.httpFormStatusError = error;
           return EMPTY;
         })
-      ).subscribe(() => this.router.navigate(['/adminboard']));
+      ).subscribe(() => this.router.navigate(['/supervisor/usersList']));
     }
   }
 

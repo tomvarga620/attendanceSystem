@@ -1,3 +1,4 @@
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GenericTableComponent } from './generic-table/generic-table.component';
@@ -11,17 +12,18 @@ import { PageHeadingComponent } from './page-heading/page-heading.component';
     GenericTableComponent,
     FormErrorComponent,
     FormHttpErrorComponent, 
-    PageHeadingComponent
+    PageHeadingComponent, 
   ],
   imports: [
     CommonModule,
-    MaterialModule
+    MaterialModule,
+    NgxChartsModule
   ],
   exports: [
     GenericTableComponent,
     FormErrorComponent,
     FormHttpErrorComponent,
-    PageHeadingComponent
+    PageHeadingComponent,
   ]
 })
 export class SharedModule { }

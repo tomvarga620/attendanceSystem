@@ -9,6 +9,29 @@ export class DashboardComponent implements OnInit {
 
   dashboardHeading = "Dashboard";
 
+  TABLE_HEADERS_DATA = [
+    { key: "recentUpdates", displayName: "Recent Updates" }
+  ];
+
+  single = [
+    {
+      "name": "Germany",
+      "value": 8940000
+    },
+    {
+      "name": "USA",
+      "value": 5000000
+    },
+    {
+      "name": "France",
+      "value": 7200000
+    },
+      {
+      "name": "UK",
+      "value": 6200000
+    }
+  ];
+
   multi = [
     {
       "name": "Germany",
@@ -77,20 +100,18 @@ export class DashboardComponent implements OnInit {
       ]
     }
   ];
-  
-  view: any[] = [700, 300];
 
   // options
-  legend: boolean = true;
   showLabels: boolean = true;
   animations: boolean = true;
   xAxis: boolean = true;
   yAxis: boolean = true;
-  showYAxisLabel: boolean = true;
   showXAxisLabel: boolean = true;
   xAxisLabel: string = 'Year';
   yAxisLabel: string = 'Population';
   timeline: boolean = true;
+  chartWidth: number = 530;
+  chartHeight: number = 203;
 
   colorScheme = {
     domain: ['#5AA454', '#E44D25', '#CFC0BB', '#7aa3e5', '#a8385d', '#aae3f5']
