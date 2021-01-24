@@ -66,10 +66,10 @@ export class UserService {
     );
   }
 
-  deleteUser(_userId: number, _username: string): Observable<void> {
+  deleteUser(_userId: number): Observable<void> {
     return this.httpClient.delete(`${API_URL}/deleteUser/${_userId}`)
     .pipe(
-      tap(() => this.handleHttpSuccess(`User ${_username} was deleted`)),
+      tap(() => this.handleHttpSuccess(`User has been deleted`)),
       catchError(error => {
         this.handleHttpError(error);
         return of(null);

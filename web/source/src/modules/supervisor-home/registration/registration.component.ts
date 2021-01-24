@@ -1,3 +1,4 @@
+import { ConfirmDialogServiceService } from 'src/services/confirm-dialog-service.service';
 import { AuthState } from './../../../store/auth/auth.state';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
@@ -6,15 +7,16 @@ import { UserService } from 'src/services/user.service';
 import { Router } from '@angular/router';
 import { tap, catchError } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
-import { EMPTY } from 'rxjs';
-import { Roles } from 'src/app/entity/Roles';
+import { EMPTY, Observable } from 'rxjs';
+import { Roles } from 'src/app/helpers/Roles';
+import { CanDeactivateComponent } from 'src/guards/deactivate.guard';
 
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.css']
 })
-export class RegistrationComponent implements OnInit {
+export class RegistrationComponent implements OnInit, CanDeactivateComponent {
 
   httpFormStatusError: HttpErrorResponse;
 
@@ -22,7 +24,8 @@ export class RegistrationComponent implements OnInit {
     private store: Store,
     private formBuilder: FormBuilder,
     private userService: UserService,
-    private router: Router) {}
+    private router: Router,
+    private dialogService: ConfirmDialogServiceService) {}
 
   registerForm = new FormGroup({
     regName: new FormControl('', [Validators.required]),
@@ -72,4 +75,28 @@ export class RegistrationComponent implements OnInit {
       return ({ passwordsMatchFail: `Passwords does not match`});
     }
   }
+
+  canDeactivate(): boolean | Observable<boolean> {
+    if (this.f.regName.value && this.f.regPassword.value) {
+      return true;
+    }
+
+    if (!this.f.regName.value && !this.f.regPassword.value) {
+      return true;
+    }
+
+    return this.openDialog();
+  }
+
+  openDialog() {
+    const options = {
+      cancelButtonText: 'Cancel',
+      confirmButtonText: 'Yes, Leave',
+      messageText: 'Are you sure you want leave?',
+      titleText:'Leave action'
+    };
+    this.dialogService.open(options);
+    return this.dialogService.dialogRef.afterClosed();
+  }
+
 }

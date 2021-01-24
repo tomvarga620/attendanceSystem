@@ -6,10 +6,12 @@ import { BaseUserHomeRoutingModule } from './base-user-home-routing.module';
 import { AttendanceListComponent } from './attendance-list/attendance-list.component';
 import { RegisterAttendanceComponent } from './register-attendance/register-attendance.component';
 import { SharedModule } from '../shared/shared.module';
+import { AttendanceDetailComponent } from './attendance-detail/attendance-detail.component';
+import { DeactivateGuard } from 'src/guards/deactivate.guard';
 
 
 @NgModule({
-  declarations: [AttendanceListComponent, RegisterAttendanceComponent],
+  declarations: [AttendanceListComponent, RegisterAttendanceComponent, AttendanceDetailComponent],
   imports: [
     SharedModule,
     CommonModule,
@@ -17,6 +19,7 @@ import { SharedModule } from '../shared/shared.module';
     MaterialModule,
     ReactiveFormsModule,
     BaseUserHomeRoutingModule
-  ]
+  ],
+  providers: [DeactivateGuard],
 })
 export class BaseUserHomeModule { }

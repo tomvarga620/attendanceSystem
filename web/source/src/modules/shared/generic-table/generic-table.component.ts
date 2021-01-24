@@ -1,4 +1,8 @@
-import { DialogServiceService } from 'src/services/dialog-service.service';
+import { Router } from '@angular/router';
+import { UserService } from 'src/services/user.service';
+import { AttendanceService } from './../../../services/attendance.service';
+import { RecordTypes } from './../../../app/helpers/RecordTypes';
+import { ConfirmDialogServiceService } from 'src/services/confirm-dialog-service.service';
 import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, MatSortable } from '@angular/material/sort';
@@ -21,10 +25,16 @@ export class GenericTableComponent implements OnInit,AfterViewInit {
     return this.tableHeaders.map(({key}) => key)
   }
 
+  @Input() dataType: any;
+
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
-  constructor(private dialogService: DialogServiceService) { }
+  constructor(
+    private dialogService: ConfirmDialogServiceService, 
+    private attendanceService: AttendanceService,
+    private userService: UserService,
+    private router: Router) {}
 
   ngOnInit(): void {
     this.dataSource.paginator = this.paginator;
@@ -32,35 +42,58 @@ export class GenericTableComponent implements OnInit,AfterViewInit {
     this.dataSource.sort = this.sort;
   }
 
-
   ngAfterViewInit(): void {}
 
-
-  getDataFromRow(data){
-    console.log(`data = ${data}`);
+  deleteRow(id: number){
+    this.deleteDialog(id);
   }
 
-  deleteRow(rowId: number){
-    this.openDialog();
+  detailRow(id: number){
+    this.navigateByDataType(this.dataType,id);
+  }
+  
+  deleteByDataType(type: RecordTypes, id: number){
+    switch(type){
+      case RecordTypes.User : {
+        const index = this.dataSource.data.indexOf(id);
+        this.userService.deleteUser(id).subscribe();
+        this.dataSource.data.splice(index,1);
+        this.dataSource._updateChangeSubscription();
+        break;
+      }
+      case RecordTypes.Attendance : {
+        const index = this.dataSource.data.indexOf(id);
+        this.attendanceService.deleteAttendanceRecord(id).subscribe();
+        this.dataSource.data.splice(index,1);
+        this.dataSource._updateChangeSubscription();
+        break;
+      }
+    }
   }
 
+  navigateByDataType(type: RecordTypes, id: number){
+    switch(type){
+      case RecordTypes.User : {
+        this.router.navigate([`/supervisor/usersList/user/${id}`]);
+        break;
+      }
+      case RecordTypes.Attendance : {
+        this.router.navigate([`/user/myAttendance/attendance/${id}`]);
+        break;
+      }
+    }
+  }
 
-  openDialog(){
-    console.log("test");
+  deleteDialog(id: number){
     const options = {
-      cancelButtonText: 'Cancel',
-      confirmButtonText: 'Yes, delete',
+      cancelButtonText: 'CANCEL',
+      confirmButtonText: 'YES, DELETE',
       messageText: 'Are you sure you want to delete this row?',
-      titleText:''
+      titleText:'Delete'
     };
-    
     this.dialogService.open(options);
-        
     this.dialogService.confirmed().subscribe(confirmed => {
-       if (confirmed) {
-            console.log("confirmed");
-          }
+       if (confirmed) this.deleteByDataType(this.dataType,id);
     });
   }
-
 }

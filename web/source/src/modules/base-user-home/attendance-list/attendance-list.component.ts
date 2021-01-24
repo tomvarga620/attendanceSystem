@@ -1,3 +1,4 @@
+import { RecordTypes } from './../../../app/helpers/RecordTypes';
 import { Store } from '@ngxs/store';
 import { AttendanceService } from './../../../services/attendance.service';
 import { AfterViewInit, Component, OnInit } from '@angular/core';
@@ -15,6 +16,7 @@ export class AttendanceListComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['username', 'role'];
   userId: number;
   sampleHeading = "Attendance Records";
+  type = RecordTypes.Attendance;
 
   TABLE_HEADERS_DATA = [
     { key: "id", displayName: "Record Id" },

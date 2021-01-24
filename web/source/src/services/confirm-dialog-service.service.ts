@@ -7,7 +7,7 @@ import { GenericDialogComponent } from 'src/modules/shared/generic-dialog/generi
 @Injectable({
   providedIn: 'root'
 })
-export class DialogServiceService {
+export class ConfirmDialogServiceService {
 
   constructor(private dialog: MatDialog) { }
 

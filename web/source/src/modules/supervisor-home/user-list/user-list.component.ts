@@ -4,7 +4,8 @@ import { MatSort, MatSortable } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Store } from '@ngxs/store';
 import { User } from 'src/app/entity/User';
-import { DialogServiceService } from 'src/services/dialog-service.service';
+import { RecordTypes } from 'src/app/helpers/RecordTypes';
+import { ConfirmDialogServiceService } from 'src/services/confirm-dialog-service.service';
 import { UserService } from 'src/services/user.service';
 
 @Component({
@@ -18,6 +19,7 @@ export class UserListComponent implements OnInit {
   displayedColumns: string[] = ['username', 'role'];
   userId: number;
   sampleHeading = "Users";
+  type = RecordTypes.User;
 
   TABLE_HEADERS_DATA = [
     { key: "id", displayName: "User Id" },
@@ -29,7 +31,7 @@ export class UserListComponent implements OnInit {
   constructor(
     private userService: UserService, 
     private store: Store,
-    private dialogService: DialogServiceService) {
+    private dialogService: ConfirmDialogServiceService) {
     this.userId = this.store.selectSnapshot<number>(state => state.userAuth.id);
   }
 
