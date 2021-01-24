@@ -14,11 +14,9 @@ export const insertAttendanceRecord = async (req: Request, res: Response, next: 
 
     const user = await getEntityRepository(User).findOne({
         where :[
-            {id : req.body.id}
+            {id : req.body.userId}
         ]
     });
-
-    console.log(user);
 
     if (user === null || typeof user === "undefined") return res.status(404).send("User not found")
 

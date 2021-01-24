@@ -25,7 +25,7 @@ export class AttendanceService {
 
   saveAttendance(_id: number, _task: string, _period: string,_worktime: number): Observable<any>{
     return this.httpClient.post(`${API_URL}/saveAttendance`, {
-      id: _id,
+      userId: _id,
       task: _task,
       period: _period,
       worktime: _worktime
