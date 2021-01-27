@@ -3,6 +3,7 @@
   [dataSource]="dataSource"
   class="mat-elevation-z0"
   matSort
+  (matSortChange) = "sortData($event)"
 >
   <ng-container
     *ngFor="let col of tableHeaders; let i = index"

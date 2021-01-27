@@ -22,7 +22,7 @@ export class UserListComponent implements OnInit {
   type = RecordTypes.User;
 
   TABLE_HEADERS_DATA = [
-    { key: "id", displayName: "User Id" },
+    { key: "id", displayName: "User id" },
     { key: "username", displayName: "Username" },
     { key: "creationTime", displayName: "Created at"},
     { key: "role", displayName: "Role"}
@@ -49,6 +49,7 @@ export class UserListComponent implements OnInit {
           return newUser;
         })
         this.dataSource = users;
+        console.log(users);
       }
     )
   }

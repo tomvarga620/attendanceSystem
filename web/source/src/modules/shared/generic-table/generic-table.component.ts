@@ -5,7 +5,7 @@ import { RecordTypes } from './../../../app/helpers/RecordTypes';
 import { ConfirmDialogServiceService } from 'src/services/confirm-dialog-service.service';
 import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort, MatSortable } from '@angular/material/sort';
+import { MatSort, MatSortable, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
@@ -27,8 +27,8 @@ export class GenericTableComponent implements OnInit,AfterViewInit {
 
   @Input() dataType: any;
 
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(
     private dialogService: ConfirmDialogServiceService, 
@@ -38,11 +38,29 @@ export class GenericTableComponent implements OnInit,AfterViewInit {
 
   ngOnInit(): void {
     this.dataSource.paginator = this.paginator;
-    this.sort.sort(({ id: 'name', start: 'asc'}) as MatSortable);
     this.dataSource.sort = this.sort;
+
+    /*const sortState: Sort = {active: 'name', direction: 'desc'};
+    this.sort.active = sortState.active;
+    this.sort.direction = sortState.direction;
+    this.sort.sortChange.emit(sortState);*/
+
   }
 
-  ngAfterViewInit(): void {}
+  ngAfterViewInit() {}
+
+  sortData(sort: Sort){
+    if (!this.sort.active || this.sort.direction === '') {}
+    else {
+      let arrayOfColumnNames = Object.keys(this.dataSource.data[0]);
+      let sortBy = "";
+      arrayOfColumnNames.forEach((value => {
+        if(value == sort.active){
+          sortBy = value;
+        }
+      }))
+    }
+  }
 
   deleteRow(id: number){
     this.deleteDialog(id);
