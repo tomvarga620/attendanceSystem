@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
     loginPassword: new FormControl('', [Validators.required])
   });
 
-  get f() { return this.loginForm.controls; }
+  get formProperties() { return this.loginForm.controls; }
 
   ngOnInit(): void {
 
@@ -39,11 +39,11 @@ export class LoginComponent implements OnInit {
     this.invalidateFormFields(this.loginForm);
     if (!this.loginForm.invalid){
         this.store.dispatch(new Login(
-          this.f.loginName.value,
-          this.f.loginPassword.value
+          this.formProperties.loginName.value,
+          this.formProperties.loginPassword.value
         ))
         .pipe(
-          tap(() => this.userService.handleHttpSuccess(`User ${this.f.loginName.value} was logged`)),
+          tap(() => this.userService.handleHttpSuccess(`User ${this.formProperties.loginName.value} was logged`)),
           catchError((error: HttpErrorResponse) => {
             // this.httpFormStatus = error.status;
             this.httpFormStatusError = error;

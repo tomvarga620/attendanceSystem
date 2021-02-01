@@ -8,7 +8,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { EMPTY, Observable, of } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { CanDeactivateComponent } from 'src/guards/deactivate.guard';
-import { ConfirmDialogServiceService } from 'src/services/confirm-dialog-service.service';
+import { DialogService } from 'src/services/dialog-service';
 
 @Component({
   selector: 'app-register-attendance',
@@ -25,7 +25,7 @@ export class RegisterAttendanceComponent implements OnInit, CanDeactivateCompone
     private formBuilder: FormBuilder,
     private attendanceService: AttendanceService,
     private router: Router,
-    private dialogService: ConfirmDialogServiceService) {}
+    private dialogService: DialogService) {}
 
   registerAttendance = new FormGroup({
     task: new FormControl('', [Validators.required]),
@@ -84,8 +84,8 @@ export class RegisterAttendanceComponent implements OnInit, CanDeactivateCompone
       messageText: 'Are you sure you want leave?',
       titleText:'Leave action'
     };
-    this.dialogService.open(options);
-    return this.dialogService.dialogRef.afterClosed();
+    this.dialogService.openConfirmDialog(options);
+    return this.dialogService.confirmDialogRef.afterClosed();
   }
 
 }

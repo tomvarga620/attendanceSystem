@@ -1,4 +1,3 @@
-import { ConfirmDialogServiceService } from 'src/services/confirm-dialog-service.service';
 import { AuthState } from './../../../store/auth/auth.state';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
@@ -10,6 +9,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { EMPTY, Observable } from 'rxjs';
 import { Roles } from 'src/app/helpers/Roles';
 import { CanDeactivateComponent } from 'src/guards/deactivate.guard';
+import { DialogService } from 'src/services/dialog-service';
 
 @Component({
   selector: 'app-registration',
@@ -25,7 +25,7 @@ export class RegistrationComponent implements OnInit, CanDeactivateComponent {
     private formBuilder: FormBuilder,
     private userService: UserService,
     private router: Router,
-    private dialogService: ConfirmDialogServiceService) {}
+    private dialogService: DialogService) {}
 
   registerForm = new FormGroup({
     regName: new FormControl('', [Validators.required]),
@@ -95,8 +95,8 @@ export class RegistrationComponent implements OnInit, CanDeactivateComponent {
       messageText: 'Are you sure you want leave?',
       titleText:'Leave action'
     };
-    this.dialogService.open(options);
-    return this.dialogService.dialogRef.afterClosed();
+    this.dialogService.openConfirmDialog(options);
+    return this.dialogService.confirmDialogRef.afterClosed();
   }
 
 }
