@@ -63,12 +63,13 @@ export class AttendanceService {
     )
   }
 
-  updateAttendanceRecord(_id: number, _worktime: number, _task: string): Observable<void>{
+  updateAttendanceRecord(_id: number, _worktime: number, _task: string, _period: string): Observable<void>{
     return this.httpClient.post(`${API_URL}/updateAttendanceRecord`, {
       id: _id,
       worktime: _worktime,
-      task: _task
-    })
+      task: _task,
+      period: _period
+    },{responseType: 'text'})
     .pipe(
       tap(() => this.handleHttpSuccess(`Attendance record was updated`)),
       catchError(error => {

@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GenericInputsDialogComponent } from './generic-inputs-dialog.component';
+import { EditAttendanceDialogComponent } from './edit-attendance-dialog.component';
 
 describe('GenericInputsDialogComponent', () => {
-  let component: GenericInputsDialogComponent;
-  let fixture: ComponentFixture<GenericInputsDialogComponent>;
+  let component: EditAttendanceDialogComponent;
+  let fixture: ComponentFixture<EditAttendanceDialogComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GenericInputsDialogComponent ]
+      declarations: [ EditAttendanceDialogComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(GenericInputsDialogComponent);
+    fixture = TestBed.createComponent(EditAttendanceDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

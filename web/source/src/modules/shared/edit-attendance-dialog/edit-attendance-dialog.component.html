@@ -1,0 +1,28 @@
+<div class="header">
+    <h1 mat-dialog-title>{{ data.titleText }}</h1>
+</div>
+<div mat-dialog-content>
+    <form class="editAttendanceForm" [formGroup] = "editAttendanceForm">
+        <app-form-http-error *ngIf = "httpFormStatusError?.error" [httpError] = "httpFormStatusError"></app-form-http-error>
+        <div *ngFor="let form_element of formValues">
+            <div [ngSwitch]="form_element.type">
+              <div *ngSwitchCase="'textBox'">
+                <input type="text" formControlName="{{form_element.label}}"/>
+              </div>
+              <div *ngSwitchCase="'number'">
+                <input type="number" *ngIf="form_element.label != 'id'" formControlName="{{form_element.label}}"/>
+              </div>
+              <div *ngSwitchCase="'string'">
+                <input type="text" formControlName="{{form_element.label}}"/>
+              </div>
+              <div *ngSwitchCase="'date'">
+                <input type="date" formControlName="{{form_element.label}}"/>
+              </div>
+            </div>  
+            </div>
+    </form>
+</div>
+<div>
+    <button class="btn" (click)="confirm()">{{ data.confirmButtonText }}</button>
+    <button class="btn btn-cancel" style="margin-right:10px;" (click)="cancel()">{{ data.cancelButtonText }}</button>
+</div>

@@ -5,7 +5,7 @@ import { FormErrorComponent } from './form-error/form-error.component';
 import { FormHttpErrorComponent } from './form-http-error/form-http-error.component';
 import { MaterialModule } from '../material/material.module';
 import { PageHeadingComponent } from './page-heading/page-heading.component';
-import { GenericInputsDialogComponent } from './generic-inputs-dialog/generic-inputs-dialog.component';
+import { EditAttendanceDialogComponent } from './edit-attendance-dialog/edit-attendance-dialog.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
@@ -13,7 +13,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     GenericTableComponent,
     FormErrorComponent,
     FormHttpErrorComponent, 
-    PageHeadingComponent, GenericInputsDialogComponent
+    PageHeadingComponent, EditAttendanceDialogComponent
   ],
   imports: [
     CommonModule,

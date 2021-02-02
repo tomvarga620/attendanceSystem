@@ -93,8 +93,16 @@ export class GenericTableComponent implements OnInit,AfterViewInit {
     }
   }
 
-  updateAttendance(){
-    //this.attendanceService.updateAttendanceRecord()
+  updateAttendance(value){
+    this.attendanceService.updateAttendanceRecord(value.id,value.worktime,value.task,value.period).subscribe();
+    const index = this.dataSource.data.indexOf(value.id);
+    this.dataSource.data[index] = {
+      id: value.id,
+      worktime: value.worktime,
+      task: value.task,
+      period: value.period
+    }
+    this.dataSource._updateChangeSubscription();
   }
 
   navigateByDataType(type: RecordTypes, id: number){
@@ -124,38 +132,40 @@ export class GenericTableComponent implements OnInit,AfterViewInit {
   }
 
   updateAttendanceDialog(rowdata: any){
-    //const rowDataWithTypes =  Object.keys(rowdata).map((key) => [key, rowdata[key], rowdata[key] instanceof Number ? 'number' : 'string']);
     const rowDataWithTypes =  Object.keys(rowdata).map((key) => {
       let properties = {
         label: key,
         value: rowdata[key],
-        type: this.determineTypeOfInput(rowdata[key])
+        type: this.checkIfValueIsDate(rowdata[key]) ? "date" : typeof rowdata[key]
       }
       return properties;
     });
-    console.log(rowDataWithTypes instanceof Array);
-    console.log(rowDataWithTypes);
+
     const options = {
       cancelButtonText: 'CANCEL',
       confirmButtonText: 'UPDATE',
-      titleText:'Update',
-      inputData: rowdata
+      titleText:'Attendance Update',
+      inputData: rowDataWithTypes.slice(0,4)
     };
-    this.dialogService.openInputsDialog(options);
-    this.dialogService.confirmInputsConfirmed().subscribe(console.log);
+
+    this.dialogService.openAttendanceEdit(options);
+    this.dialogService.confirmInputsConfirmed().subscribe(value => {
+      if(value != false){
+        this.updateAttendance(value)
+      }
+    });
   }
 
-
-  determineTypeOfInput(dateString){
-    if(isNaN(dateString)){ //Checked for numeric
+  checkIfValueIsDate(dateString){
+    if(isNaN(dateString)){ 
       var dt=new Date(dateString);
-      if(isNaN(dt.getTime())){ //Checked for date
-        return dateString; //Return string if not date.
+      if(isNaN(dt.getTime())){ 
+        return false; 
       }else{
-        return dt; //Return date **Can do further operations here.
+        return true; 
       }
-    } else{
-      return dateString; //Return string as it is number
+    } else {
+      return false;
     }
   }
 
