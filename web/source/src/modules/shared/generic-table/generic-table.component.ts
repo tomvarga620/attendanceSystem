@@ -1,7 +1,7 @@
 import { Router } from '@angular/router';
 import { UserService } from 'src/services/user.service';
-import { AttendanceService } from './../../../services/attendance.service';
-import { RecordTypes } from './../../../app/helpers/RecordTypes';
+import { AttendanceService } from '../../../services/attendance.service';
+import { RecordTypes } from '../../../app/helpers/RecordTypes';
 import { DialogService } from 'src/services/dialog-service';
 import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
@@ -84,6 +84,7 @@ export class GenericTableComponent implements OnInit,AfterViewInit {
         break;
       }
       case RecordTypes.Attendance : {
+        console.log(id);
         const index = this.dataSource.data.indexOf(id);
         this.attendanceService.deleteAttendanceRecord(id).subscribe();
         this.dataSource.data.splice(index,1);
@@ -96,12 +97,12 @@ export class GenericTableComponent implements OnInit,AfterViewInit {
   updateAttendance(value){
     this.attendanceService.updateAttendanceRecord(value.id,value.worktime,value.task,value.period).subscribe();
     const index = this.dataSource.data.indexOf(value.id);
-    this.dataSource.data[index] = {
+    /*this.dataSource.data[index] = {
       id: value.id,
       worktime: value.worktime,
       task: value.task,
       period: value.period
-    }
+    }*/
     this.dataSource._updateChangeSubscription();
   }
 
@@ -150,9 +151,7 @@ export class GenericTableComponent implements OnInit,AfterViewInit {
 
     this.dialogService.openAttendanceEdit(options);
     this.dialogService.confirmInputsConfirmed().subscribe(value => {
-      if(value != false){
-        this.updateAttendance(value)
-      }
+      if(value) this.updateAttendance(value) 
     });
   }
 

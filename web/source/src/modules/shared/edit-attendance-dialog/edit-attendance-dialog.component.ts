@@ -1,4 +1,3 @@
-import { AttendanceService } from './../../../services/attendance.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, Inject, HostListener } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -36,7 +35,7 @@ export class EditAttendanceDialogComponent implements OnInit {
   get formProperties() { return this.editAttendanceForm.value; }
 
   public cancel() {
-    this.close(false);
+    this.close([]);
   }
 
   public close(value) {
@@ -49,7 +48,7 @@ export class EditAttendanceDialogComponent implements OnInit {
 
   @HostListener("keydown.esc") 
   public onEsc() {
-    this.close(false);
+    this.close([]);
   }
 
 }

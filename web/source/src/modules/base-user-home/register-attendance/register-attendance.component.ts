@@ -22,7 +22,6 @@ export class RegisterAttendanceComponent implements OnInit, CanDeactivateCompone
 
   constructor(
     private store: Store,
-    private formBuilder: FormBuilder,
     private attendanceService: AttendanceService,
     private router: Router,
     private dialogService: DialogService) {}

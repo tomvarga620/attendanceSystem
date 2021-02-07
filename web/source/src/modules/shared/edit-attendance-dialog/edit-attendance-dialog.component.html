@@ -1,27 +1,33 @@
-<div class="header">
+<section class="header">
     <h1 mat-dialog-title>{{ data.titleText }}</h1>
-</div>
-<div mat-dialog-content>
+</section>
+<section mat-dialog-content>
     <form class="editAttendanceForm" [formGroup] = "editAttendanceForm">
         <app-form-http-error *ngIf = "httpFormStatusError?.error" [httpError] = "httpFormStatusError"></app-form-http-error>
-        <div *ngFor="let form_element of formValues">
-            <div [ngSwitch]="form_element.type">
-              <div *ngSwitchCase="'textBox'">
-                <input type="text" formControlName="{{form_element.label}}"/>
-              </div>
-              <div *ngSwitchCase="'number'">
+        <section *ngFor="let form_element of formValues" class="mainInputWrap">
+
+            <section [ngSwitch]="form_element.type">
+              
+              <section *ngSwitchCase="'number'" class="inputNumberWrap">
+                <span *ngIf="form_element.label != 'id'">{{form_element.label}}</span>
                 <input type="number" *ngIf="form_element.label != 'id'" formControlName="{{form_element.label}}"/>
-              </div>
-              <div *ngSwitchCase="'string'">
+              </section>
+
+              <section *ngSwitchCase="'string'" class="inputTextWrap">
+                <span>{{form_element.label}}</span>
                 <input type="text" formControlName="{{form_element.label}}"/>
-              </div>
-              <div *ngSwitchCase="'date'">
+              </section>
+
+              <section *ngSwitchCase="'date'" class="inputDateWrap">
+                <span>{{form_element.label}}</span>
                 <input type="date" formControlName="{{form_element.label}}"/>
-              </div>
-            </div>  
-            </div>
+              </section>
+
+            </section>  
+
+          </section>
     </form>
-</div>
+  </section>
 <div>
     <button class="btn" (click)="confirm()">{{ data.confirmButtonText }}</button>
     <button class="btn btn-cancel" style="margin-right:10px;" (click)="cancel()">{{ data.cancelButtonText }}</button>
