@@ -3,7 +3,7 @@ import { UserService } from 'src/services/user.service';
 import { AttendanceService } from '../../../services/attendance.service';
 import { RecordTypes } from '../../../app/helpers/RecordTypes';
 import { DialogService } from 'src/services/dialog-service';
-import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -95,15 +95,11 @@ export class GenericTableComponent implements OnInit,AfterViewInit {
   }
 
   updateAttendance(value){
-    this.attendanceService.updateAttendanceRecord(value.id,value.worktime,value.task,value.period).subscribe();
-    const index = this.dataSource.data.indexOf(value.id);
-    /*this.dataSource.data[index] = {
-      id: value.id,
-      worktime: value.worktime,
-      task: value.task,
-      period: value.period
-    }*/
-    this.dataSource._updateChangeSubscription();
+    this.attendanceService.updateAttendanceRecord(value.id,value.worktime,value.task,value.period)
+    .subscribe(() => {
+      this.attendanceService.attendanceUpdated.next(true);
+      this.dataSource._updateChangeSubscription();
+    });
   }
 
   navigateByDataType(type: RecordTypes, id: number){
@@ -151,7 +147,7 @@ export class GenericTableComponent implements OnInit,AfterViewInit {
 
     this.dialogService.openAttendanceEdit(options);
     this.dialogService.confirmInputsConfirmed().subscribe(value => {
-      if(value) this.updateAttendance(value) 
+      if(Object.keys(value).length !== 0) this.updateAttendance(value);
     });
   }
 

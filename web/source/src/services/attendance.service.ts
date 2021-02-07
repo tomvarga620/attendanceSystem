@@ -2,7 +2,7 @@ import { AttendanceRecord } from './../app/entity/AttendanceRecord';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { of, throwError, Observable, EMPTY } from 'rxjs';
+import { of, throwError, Observable, EMPTY, BehaviorSubject, Subject } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { SnackbarService } from './snackbar.service';
 
@@ -22,6 +22,8 @@ export class AttendanceService {
   get apiUrl(){
     return API_URL;
   }
+
+  attendanceUpdated = new Subject();
 
   saveAttendance(_id: number, _task: string, _period: string,_worktime: number): Observable<any>{
     return this.httpClient.post(`${API_URL}/saveAttendance`, {
