@@ -1,3 +1,5 @@
+import { AttendanceRecord } from 'src/app/entity/AttendanceRecord';
+import { AttendanceService } from './../../../services/attendance.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
@@ -8,11 +10,20 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class AttendanceDetailComponent implements OnInit {
 
-  id: any;
-  constructor(private route: ActivatedRoute) { }
+  attendanceRecordId: any;
+  attendanceRecordHeading: string;
+
+  constructor(
+    private route: ActivatedRoute,
+    private attendanceService: AttendanceService
+  ) { }
 
   ngOnInit(): void {
-    this.id = this.route.snapshot.paramMap.get('id');
+    this.attendanceRecordId = this.route.snapshot.paramMap.get('id');
+    this.attendanceService.getAttendanceRecordById(this.attendanceRecordId).subscribe((value: AttendanceRecord) => {
+      console.log(value);
+      this.attendanceRecordHeading = `Attendance from ${value.period}`;
+    });
   }
 
 }

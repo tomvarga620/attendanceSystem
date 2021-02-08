@@ -3,6 +3,7 @@
   [dataSource]="dataSource"
   class="mat-elevation-z0"
   matSort
+  (matSortChange) = "sortData($event)"
 >
   <ng-container
     *ngFor="let col of tableHeaders; let i = index"
@@ -17,7 +18,7 @@
       </button>
 
       <mat-menu #menu="matMenu">
-        <button mat-menu-item >Edit</button>
+        <button mat-menu-item (click) = "editRow(element)">Edit</button>
         <button mat-menu-item (click) = "deleteRow(element.id)">Delete</button>
       </mat-menu>
       

@@ -1,0 +1,83 @@
+.header, .dialog-message {
+    text-transform: lowercase;
+    text-align: center;
+}
+.header::first-letter, .dialog-message::first-letter {
+    text-transform: uppercase;
+}
+
+.dialog-message {
+    color:#3365FF;
+    font-weight: bold;
+    font-size: 18px;
+    width: 250px;
+}
+
+.editAttendanceForm input {
+    outline: none;
+    width: 250px;
+    height: 40px;
+    text-indent: 15px;
+    box-sizing: border-box;
+    transition: all 0.3s ease-in-out;
+    border: 1px solid transparent; 
+    border-radius: 2px;
+    background: #F5F5F5;
+    box-shadow: inset -4px -4px 11px #FFFFFF, inset 4px 4px 11px rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
+    color:#3365FF;
+    font-weight:bold;
+}
+
+.editAttendanceForm input:hover {
+    transform: scale(1.02); 
+}
+
+.editAttendanceForm input[type="date"]{
+    text-indent: 8px;
+}
+
+.btn {
+    width: 250px;
+    height: 40px;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    margin-top:40px;
+    margin-bottom:none;
+    transition: all .1s ease-in-out;
+    background: #1BB99D;
+    color:white;
+    box-shadow: -4px -4px 16px #FFFFFF, 4px 4px 16px rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
+    font-weight: bold;
+    display: block;
+}
+
+.btn-cancel {
+    background-color: #FF5D53;
+    color: #fff;
+}
+
+.inputNumberWrap, .inputTextWrap, .inputDateWrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items:flex-start;
+    width: 100%;
+}
+
+.inputNumberWrap {
+    margin-top: 15px;
+}
+
+.inputTextWrap, .inputDateWrap {
+    margin-top: 35px;
+}
+
+span {
+    font-weight: bold;
+    color:#3365FF;
+    margin-bottom: 10px;
+    font-size: 17px;
+}

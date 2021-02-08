@@ -1,11 +1,11 @@
 import { Router } from '@angular/router';
 import { UserService } from 'src/services/user.service';
-import { AttendanceService } from './../../../services/attendance.service';
-import { RecordTypes } from './../../../app/helpers/RecordTypes';
-import { ConfirmDialogServiceService } from 'src/services/confirm-dialog-service.service';
-import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { AttendanceService } from '../../../services/attendance.service';
+import { RecordTypes } from '../../../app/helpers/RecordTypes';
+import { DialogService } from 'src/services/dialog-service';
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort, MatSortable } from '@angular/material/sort';
+import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
@@ -27,22 +27,44 @@ export class GenericTableComponent implements OnInit,AfterViewInit {
 
   @Input() dataType: any;
 
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(
-    private dialogService: ConfirmDialogServiceService, 
+    private dialogService: DialogService, 
     private attendanceService: AttendanceService,
     private userService: UserService,
     private router: Router) {}
 
   ngOnInit(): void {
     this.dataSource.paginator = this.paginator;
-    this.sort.sort(({ id: 'name', start: 'asc'}) as MatSortable);
     this.dataSource.sort = this.sort;
+
+    /*const sortState: Sort = {active: 'name', direction: 'desc'};
+    this.sort.active = sortState.active;
+    this.sort.direction = sortState.direction;
+    this.sort.sortChange.emit(sortState);*/
+
   }
 
-  ngAfterViewInit(): void {}
+  ngAfterViewInit() {}
+
+  sortData(sort: Sort){
+    if (!this.sort.active || this.sort.direction === '') {}
+    else {
+      let arrayOfColumnNames = Object.keys(this.dataSource.data[0]);
+      let sortBy = "";
+      arrayOfColumnNames.forEach((value => {
+        if(value == sort.active){
+          sortBy = value;
+        }
+      }))
+    }
+  }
+
+  editRow(rowData: any){
+    this.updateAttendanceDialog(rowData);
+  }
 
   deleteRow(id: number){
     this.deleteDialog(id);
@@ -62,6 +84,7 @@ export class GenericTableComponent implements OnInit,AfterViewInit {
         break;
       }
       case RecordTypes.Attendance : {
+        console.log(id);
         const index = this.dataSource.data.indexOf(id);
         this.attendanceService.deleteAttendanceRecord(id).subscribe();
         this.dataSource.data.splice(index,1);
@@ -69,6 +92,14 @@ export class GenericTableComponent implements OnInit,AfterViewInit {
         break;
       }
     }
+  }
+
+  updateAttendance(value){
+    this.attendanceService.updateAttendanceRecord(value.id,value.worktime,value.task,value.period)
+    .subscribe(() => {
+      this.attendanceService.attendanceUpdated.next(true);
+      this.dataSource._updateChangeSubscription();
+    });
   }
 
   navigateByDataType(type: RecordTypes, id: number){
@@ -91,9 +122,46 @@ export class GenericTableComponent implements OnInit,AfterViewInit {
       messageText: 'Are you sure you want to delete this row?',
       titleText:'Delete'
     };
-    this.dialogService.open(options);
-    this.dialogService.confirmed().subscribe(confirmed => {
+    this.dialogService.openConfirmDialog(options);
+    this.dialogService.confirmDialogConfirmed().subscribe(confirmed => {
        if (confirmed) this.deleteByDataType(this.dataType,id);
     });
   }
+
+  updateAttendanceDialog(rowdata: any){
+    const rowDataWithTypes =  Object.keys(rowdata).map((key) => {
+      let properties = {
+        label: key,
+        value: rowdata[key],
+        type: this.checkIfValueIsDate(rowdata[key]) ? "date" : typeof rowdata[key]
+      }
+      return properties;
+    });
+
+    const options = {
+      cancelButtonText: 'CANCEL',
+      confirmButtonText: 'UPDATE',
+      titleText:'Attendance Update',
+      inputData: rowDataWithTypes.slice(0,4)
+    };
+
+    this.dialogService.openAttendanceEdit(options);
+    this.dialogService.confirmInputsConfirmed().subscribe(value => {
+      if(value != null && Object.keys(value).length !== 0) this.updateAttendance(value);
+    });
+  }
+
+  checkIfValueIsDate(dateString){
+    if(isNaN(dateString)){ 
+      var dt=new Date(dateString);
+      if(isNaN(dt.getTime())){ 
+        return false; 
+      }else{
+        return true; 
+      }
+    } else {
+      return false;
+    }
+  }
+
 }

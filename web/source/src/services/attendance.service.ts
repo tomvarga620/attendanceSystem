@@ -2,7 +2,7 @@ import { AttendanceRecord } from './../app/entity/AttendanceRecord';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { of, throwError, Observable, EMPTY } from 'rxjs';
+import { of, throwError, Observable, EMPTY, BehaviorSubject, Subject } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { SnackbarService } from './snackbar.service';
 
@@ -22,6 +22,8 @@ export class AttendanceService {
   get apiUrl(){
     return API_URL;
   }
+
+  attendanceUpdated = new Subject();
 
   saveAttendance(_id: number, _task: string, _period: string,_worktime: number): Observable<any>{
     return this.httpClient.post(`${API_URL}/saveAttendance`, {
@@ -63,12 +65,13 @@ export class AttendanceService {
     )
   }
 
-  updateAttendanceRecord(_id: number, _worktime: number, _task: string): Observable<void>{
+  updateAttendanceRecord(_id: number, _worktime: number, _task: string, _period: string): Observable<void>{
     return this.httpClient.post(`${API_URL}/updateAttendanceRecord`, {
       id: _id,
       worktime: _worktime,
-      task: _task
-    })
+      task: _task,
+      period: _period
+    },{responseType: 'text'})
     .pipe(
       tap(() => this.handleHttpSuccess(`Attendance record was updated`)),
       catchError(error => {

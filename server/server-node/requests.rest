@@ -121,7 +121,8 @@ POST http://localhost:3000/updateAttendanceRecord
 Content-Type: application/json
 
 {
-   "id":8,
+   "id":15,
    "worktime":2,
-   "task":"test"
+   "task":"test",
+   "period":"21-2-2021"
 }

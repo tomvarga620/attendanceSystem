@@ -67,7 +67,7 @@ export const getAttendanceRecordById = async (req: Request, res: Response, next:
             where : [{ id: attendanceRecordId }]
         })
             .then((attendanceRecords => {
-                res.status(200).send(JSON.stringify(attendanceRecords));
+                res.status(200).send(JSON.stringify(attendanceRecords[0]));
             }))
             .catch((err) => res.status(500).send(err))
             

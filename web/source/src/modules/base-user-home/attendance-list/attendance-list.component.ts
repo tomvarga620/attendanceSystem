@@ -37,10 +37,16 @@ export class AttendanceListComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
+    this.refreshData();
+    this.attendanceService.attendanceUpdated.subscribe((value) => {
+      this.refreshData();
+    })
+  }
+
+  refreshData(){
     this.attendanceService.getAllAttendanceRecords(this.userId).subscribe((attendanceRecords: AttendanceRecord[]) => {
       this.dataSource = attendanceRecords;
     });
   }
-
 
 }
