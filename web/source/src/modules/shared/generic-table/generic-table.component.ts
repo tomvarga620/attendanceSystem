@@ -147,7 +147,7 @@ export class GenericTableComponent implements OnInit,AfterViewInit {
 
     this.dialogService.openAttendanceEdit(options);
     this.dialogService.confirmInputsConfirmed().subscribe(value => {
-      if(Object.keys(value).length !== 0) this.updateAttendance(value);
+      if(value != null && Object.keys(value).length !== 0) this.updateAttendance(value);
     });
   }
 
