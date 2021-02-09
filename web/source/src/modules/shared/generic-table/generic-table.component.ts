@@ -7,6 +7,7 @@ import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/cor
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, MatSortable, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-generic-table',
@@ -50,15 +51,30 @@ export class GenericTableComponent implements OnInit,AfterViewInit {
   ngAfterViewInit() {}
 
   sortData(sort: Sort){
-    if (!this.sort.active || this.sort.direction === '') {}
-    else {
-      let arrayOfColumnNames = Object.keys(this.dataSource.data[0]);
-      let sortBy = "";
-      arrayOfColumnNames.forEach((value => {
-        if(value == sort.active){
-          sortBy = value;
+    console.log(sort);
+    let arrayOfColumnNames = Object.keys(this.dataSource.data[0]);
+    let valueSortBy = "";
+    arrayOfColumnNames.forEach((value => {
+      if(value == sort.active){
+        valueSortBy = value;
+      }
+    }))
+
+    switch(sort.direction){
+        case "asc": {
+          this.dataSource.data = _.sortBy(this.dataSource.data,valueSortBy)
+          this.dataSource._updateChangeSubscription();
+          break;
         }
-      }))
+        case "desc": {
+          this.dataSource.data = _.sortBy(this.dataSource.data,valueSortBy).reverse();
+          this.dataSource._updateChangeSubscription();
+          break;
+        }
+        default: {
+          this.dataSource.data = _.sortBy(this.dataSource.data,"id")
+          this.dataSource._updateChangeSubscription();
+        }
     }
   }
 
