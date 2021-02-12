@@ -42,3 +42,31 @@
 .userDetailWrap .chart2 {
     margin-top: 21px;
 }
+
+.userDetailWrap .userDetailBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.userDetailWrap div {
+    margin-top: auto;
+}
+
+.userDetailWrap div:nth-child(1){
+    height: 100px;
+    width: 100px;
+    background-color: red;
+}
+
+.userDetailWrap div .role, .id {
+    display: block;
+    color:#526B98;
+}
+
+.userDetailWrap .createdAt {
+    margin-top: auto;
+    margin-bottom: 10px;
+    color: #CECECE;
+}
