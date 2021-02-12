@@ -14,11 +14,9 @@ export const insertAttendanceRecord = async (req: Request, res: Response, next: 
 
     const user = await getEntityRepository(User).findOne({
         where :[
-            {id : req.body.id}
+            {id : req.body.userId}
         ]
     });
-
-    console.log(user);
 
     if (user === null || typeof user === "undefined") return res.status(404).send("User not found")
 
@@ -69,7 +67,7 @@ export const getAttendanceRecordById = async (req: Request, res: Response, next:
             where : [{ id: attendanceRecordId }]
         })
             .then((attendanceRecords => {
-                res.status(200).send(JSON.stringify(attendanceRecords));
+                res.status(200).send(JSON.stringify(attendanceRecords[0]));
             }))
             .catch((err) => res.status(500).send(err))
             
