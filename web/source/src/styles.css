@@ -40,3 +40,24 @@ a {
     box-shadow: -4px -4px 16px #FFFFFF, 4px 4px 16px rgba(0, 0, 0, 0.3);
     border-radius: 6px;
 }
+
+.advanced-pie-legend .legend-items-container .legend-items .legend-item .item-value {
+    margin-top:0px !important;
+}
+
+.advanced-pie-legend .total-value {
+    margin-bottom: 10px !important;
+}
+
+.advanced-pie-legend .legend-items-container .legend-items .legend-item .item-value {
+    margin-bottom: 6px !important;
+}
+
+.dvanced-pie-legend .legend-items-container .legend-items .legend-item .item-label {
+    margin-top:-3px !important;
+}
+
+.advanced-pie-legend .legend-items-container .legend-items .legend-item .item-percent {
+    margin-left: 14px !important;
+    margin-top:5px !important;
+}

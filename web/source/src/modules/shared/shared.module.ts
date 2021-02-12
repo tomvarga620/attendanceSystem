@@ -1,3 +1,4 @@
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GenericTableComponent } from './generic-table/generic-table.component';
@@ -19,6 +20,7 @@ import { EditAttendanceDialogComponent } from './edit-attendance-dialog/edit-att
   imports: [
     CommonModule,
     MaterialModule,
+    NgxChartsModule
     FormsModule,
     ReactiveFormsModule
   ],
@@ -26,7 +28,7 @@ import { EditAttendanceDialogComponent } from './edit-attendance-dialog/edit-att
     GenericTableComponent,
     FormErrorComponent,
     FormHttpErrorComponent,
-    PageHeadingComponent
+    PageHeadingComponent,
   ]
 })
 export class SharedModule { }

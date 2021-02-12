@@ -22,7 +22,6 @@ export class RegistrationComponent implements OnInit, CanDeactivateComponent {
 
   constructor(
     private store: Store,
-    private formBuilder: FormBuilder,
     private userService: UserService,
     private router: Router,
     private dialogService: DialogService) {}
@@ -53,7 +52,7 @@ export class RegistrationComponent implements OnInit, CanDeactivateComponent {
           this.httpFormStatusError = error;
           return EMPTY;
         })
-      ).subscribe(() => this.router.navigate(['/adminboard']));
+      ).subscribe(() => this.router.navigate(['/supervisor/usersList']));
     }
   }
 
